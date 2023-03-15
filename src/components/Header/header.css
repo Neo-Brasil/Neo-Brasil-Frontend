@@ -1,0 +1,82 @@
+/* 
+-manter o hover
+-trocar a cor do icone pra verde
+-add folha no fundo
+-inverter uma borda
+ */
+
+.sidebar{
+    background-color: #44A754;
+    position: fixed;
+    height: 100vh;
+    width: 200px;
+    overflow: auto;
+    border-top-right-radius: 70px;
+    border-bottom-right-radius: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar .nav img{
+    height: 200px;
+    width: 200px;
+    padding: 30px 0px;
+    display: block;
+    filter: drop-shadow(2px 3px 6px #1c722a);
+}
+
+.nav a{
+    display: flex;
+    text-decoration: none;
+    padding: 15px 0px;
+    width: 80%;
+    margin-left: 20%;
+}
+
+.nav a svg{
+    color: #FFF;
+    margin-left: 30%;
+}
+
+.nav a:hover{
+    /* background: rgb(68,167,84);
+    background: linear-gradient(90deg, rgba(68,167,84,1) 0%, rgba(68,167,84,1) 20%, rgba(255,255,255,1) 10%); */
+    background-color: #FFF;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.signout{
+    display: flex;
+    justify-content: center;
+}
+
+.signout svg{
+    color: #FFF;
+    margin-bottom: 50px;
+}
+
+/* .sidebar li.active a:hover::after{
+  content: '';
+  position: absolute;
+  bottom: 709px;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border-radius: 50%;
+  box-shadow: 15px 15px 0 #FFF;
+}
+
+.sidebar li.active a:hover::before{
+    content: '';
+    position: absolute;
+    bottom: 614px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 15px -15px 0 #FFF;
+  } */
