@@ -6,7 +6,6 @@ import Modal from '../../components/Modal';
 
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
-//import { IMaskInput } from "react-imask";
 
 export default function CrudCliente() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -36,7 +35,7 @@ export default function CrudCliente() {
 
                         <tbody>
                             <tr>
-                                <td data-label="Nome"></td>
+                                <td data-label="Nome">Teste de nome</td>
 
                                 <td data-label="Visualizar">
                                     <Link><MdContactPage color='#2F44FF' size={25} /></Link>

@@ -1,8 +1,7 @@
 import './Modal.css';
-
 import { FiArrowLeft } from 'react-icons/fi';
 
-export default function ModalDetalhes({close}){
+export default function Modal({close}){
     return(
         <div className="modal">
             <div className="container">

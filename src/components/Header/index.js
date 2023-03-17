@@ -12,23 +12,23 @@ export default function Header() {
 
             <div className='nav'>
 
-            <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
+                <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
 
-            <Link to={'/'}>
-                    <FiUserPlus size={35} />
-                </Link>
+                <Link to={'/'}>
+                        <FiUserPlus size={35} />
+                    </Link>
 
-                <Link to={'/clientes_cadastrados'}>
-                    <FiUser size={35} />
-                </Link>
+                    <Link to={'/clientes_cadastrados'}>
+                        <FiUser size={35} />
+                    </Link>
 
-                <Link>
-                    <MdAddCard size={35} />
-                </Link>
+                    <Link to={'/registrar_pagamento'}>
+                        <MdAddCard size={35} />
+                    </Link>
 
-                <Link>
-                    <FiFileText size={35} />
-                </Link>
+                    <Link>
+                        <FiFileText size={35} />
+                    </Link>
 
                 {/* <li className='list'><Link><FiFileText size={35} /></Link></li> */}
             </div>
