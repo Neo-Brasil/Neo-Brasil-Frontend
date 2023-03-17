@@ -28,8 +28,8 @@ export default function CadastrarCliente() {
                         <span>Email</span>
                     </div>
 
-                    <div className='button-green'>
-                        <button>PRÓXIMO</button>
+                    <div className='button-color'>
+                        <button className='button-green'>PRÓXIMO</button>
                     </div>
 
                 </div>
