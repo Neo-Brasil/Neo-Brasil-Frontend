@@ -22,3 +22,18 @@ h1{
   font-size: 35px;
   padding: 100px 0px 50px 0px;
 }
+
+h2, h3{
+  color: #44A754;
+  font-size: 20px;
+  position: fixed;
+  top: 160px;
+}
+
+h2{
+  margin-left: 30px;
+}
+
+h3{
+  margin-left: 100px;
+}

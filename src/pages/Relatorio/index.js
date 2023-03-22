@@ -1,8 +1,6 @@
 import './Relatorio.css';
 import Header from "../../components/Header";
 
-import { Link } from 'react-router-dom';
-import { MdRule } from "react-icons/md";
 
 export default function Relatorio() {
     return (
@@ -126,6 +124,8 @@ export default function Relatorio() {
                         </div>
                         
                     </details>
+
+                    
 
 
                 </div>

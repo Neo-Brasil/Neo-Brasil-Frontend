@@ -1,40 +1,53 @@
 import './CadastrarCliente.css';
 import Header from "../../components/Header";
-import { IMaskInput } from "react-imask";
+
+import Pessoal from './Pessoal';
+import Endereco from './Endereco';
+import Titulo from './Titulo';
+
+import React, { useState } from "react";
+import tachyons from "tachyons";
+import MultiStepProgressBar from "../../components/MultiStepProgressBar";
+
 
 export default function CadastrarCliente() {
-    return (
-        <div>
-            <Header />
-            <div className="content">
+  const [page, setPage] = useState("pageone");
 
-                <h1>Cadastro de cliente</h1>
+  const nextPage = (page) => {
+    setPage(page);
+  };
 
-                <div className='progress-bar'>
+  const nextPageNumber = (pageNumber) => {
+    switch (pageNumber) {
+      case "1":
+        setPage("pageone");
+        break;
+      case "2":
+        setPage("pagetwo");
 
-                </div>
+        break;
+      case "3":
+        setPage("pagethree");
+        break;
+      default:
+        setPage("1");
+    }
+  };
 
-                <div className='inputs'>
-                    <div class="campo">
-                        <input type="nome" required />
-                        <span>Nome completo</span>
-                    </div>
-                    <div class="campo">
-                        <IMaskInput mask="000.000.000-00"/>
-                        <span>CPF</span>
-                    </div>
-                    <div class="campo">
-                        <input type="nome" required />
-                        <span>Email</span>
-                    </div>
-
-                    <div className='button-color'>
-                        <button className='button-green'>PRÓXIMO</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-    )
+  return (
+    <div>
+      <Header />
+      <div className="content">
+        <h1>Cadastro de cliente</h1>
+        <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
+        {
+          {
+            pageone: <Pessoal onButtonClick={nextPage} />,
+            pagetwo: <Endereco onButtonClick={nextPage} />,
+            pagethree: <Titulo />
+          }[page]
+        }
+      </div>
+    </div>
+  );
 }
