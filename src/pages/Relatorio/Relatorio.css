@@ -1,8 +1,3 @@
-.button-color .button-green{
-    width: 15vw;
-    height: 7vh;
-}
-
 details summary{
     background-color: #FFF;
     list-style: none;
@@ -13,9 +8,22 @@ details{
     width: 100%;
 }
 
-.detalhes-registro{
+.detalhes-relatorio{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     padding: 20px;
+}
+
+.dados-titulo{
+    display: flex;
+    flex-direction: column;
+}
+
+.pago{
+    color: #44A754;
+}
+
+.inadimplente{
+    color: #DB0E0E;
 }

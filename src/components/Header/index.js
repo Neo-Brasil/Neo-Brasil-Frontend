@@ -26,7 +26,7 @@ export default function Header() {
                         <MdAddCard size={35} />
                     </Link>
 
-                    <Link>
+                    <Link to={'/relatorio'}>
                         <FiFileText size={35} />
                     </Link>
 
@@ -38,7 +38,7 @@ export default function Header() {
                     <GiLindenLeaf size={200} />
                 </Link> */}
 
-                <Link>
+                <Link to={'/login'}>
                     <FiLogOut size={35} />
                 </Link>
             </div>
