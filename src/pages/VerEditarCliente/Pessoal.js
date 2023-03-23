@@ -5,15 +5,15 @@ export default function Pessoal({ onButtonClick}) {
 
             <div className='inputs'>
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>Nome completo</span>
                 </div>
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>CPF</span>
                 </div>
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>Email</span>
                 </div>
 

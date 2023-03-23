@@ -7,31 +7,31 @@ export default function Endereco({ onButtonClick }) {
             <div className="inputs">
 
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>CEP</span>
                 </div>
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>Logradouro</span>
                 </div>
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>Bairro</span>
                 </div>
                 <div class="campo row">
                     <div className="cidade">
-                        <input type="nome" required />
+                        <input class="fixo" type="nome" required />
                         <span>Localidade</span>
                     </div>
 
                     <div className="uf">
-                        <input type="nome" required />
+                        <input class="fixo" type="nome" required />
                         <span>UF</span>
                     </div>
                 </div>
 
                 <div class="campo">
-                    <input type="nome" required />
+                    <input class="fixo" type="nome" required />
                     <span>Complemento</span>
                 </div>
 

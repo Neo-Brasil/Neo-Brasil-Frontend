@@ -38,7 +38,8 @@ export default function CrudCliente() {
                                 <td data-label="Nome">Teste de nome</td>
 
                                 <td data-label="Visualizar">
-                                    <Link><MdContactPage color='#2F44FF' size={25} /></Link>
+                                    <Link to={'/clientes_cadastrados/visualizar_editar'}>
+                                    <MdContactPage color='#2F44FF' size={25} /></Link>
                                 </td>
 
                                 <td data-label="Deletar">
