@@ -28,7 +28,8 @@ span{
 
 .campo input:focus{
     border: none;
-    outline: 2px solid black;
+    border: 2px solid #000;
+    transition: .4s ease-in-out;
 }
 
 .campo input:focus + span,
@@ -58,6 +59,19 @@ span{
     background: #FFF;
     border-radius: 5px;
     top: -10px;
+    color: #44A754;
+}
+
+#cpf::-webkit-outer-spin-button,
+#cpf::-webkit-inner-spin-button, 
+#preco::-webkit-outer-spin-button,
+#preco::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#cpf, #preco {
+    -moz-appearance: textfield;
 }
 
 .row{
@@ -102,15 +116,14 @@ span{
     background-color: #44A754;
 }
 
+.button-green:hover{
+    background-color: #398a47;
+}
+
 .button-red-light{
     background-color: #fe3030;
 }
 
 .add{
     text-align: end;
-}
-
-#prazo{
-    height: 5vh;
-    width: 383px;
 }

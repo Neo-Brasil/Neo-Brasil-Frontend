@@ -6,7 +6,6 @@ import Endereco from './Endereco';
 import Titulo from './Titulo';
 
 import React, { useState } from "react";
-import tachyons from "tachyons";
 import MultiStepProgressBar from "../../components/MultiStepProgressBar";
 
 
