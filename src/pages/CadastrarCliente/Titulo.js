@@ -4,7 +4,6 @@ import Axios from "axios";
 import { toast } from 'react-toastify';
 
 export default function Titulo() {
-    const [titulos, setTitulos] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
@@ -30,6 +29,30 @@ export default function Titulo() {
     function handleSubmit(e) {
         e.preventDefault()
         if (0 == "") {
+            var titulo =  {
+                titulo: formValue,
+                preco: preco,
+                vencimento: dataVenc,
+                credito: prazo
+            }
+            localStorage.setItem("titulo", JSON.stringify(titulo));
+
+            var cliente = localStorage.getItem("cliente");
+            var endereco = localStorage.getItem("endereco");
+            var titulo = localStorage.getItem("titulo");
+            cliente = JSON.parse(cliente);
+            endereco = JSON.parse(endereco);
+            titulo = JSON.parse(titulo);
+            console.log(cliente,endereco,titulo);
+
+            Axios.post("http://localhost:9080/cadastro/cliente" , {
+                cliente: cliente,
+                endereco: endereco,
+                titulo: titulo
+            } ).then((res) => {
+                console.log(res)
+            })
+
             toast.warning("Selecione o tipo de título")
         } else {
             toast.sucess('Cadastrado com sucesso!')

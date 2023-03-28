@@ -14,13 +14,20 @@ export default function Endereco({ onButtonClick }) {
     function handleSubmit(e) {
         e.preventDefault()
         if (rua !== '') {
+            var endereco =  {
+                cep: cep,
+                rua: rua,
+                bairro: bairro,
+                cidade: city,
+                estado: estado,
+                complemento: comp
+            }
+            localStorage.setItem("endereco", JSON.stringify(endereco));
             return  onButtonClick("pagethree")
         } else {
             toast.error('Preencha os campos corretamente')
         }
-
     }
-
     return (
         <div>
 

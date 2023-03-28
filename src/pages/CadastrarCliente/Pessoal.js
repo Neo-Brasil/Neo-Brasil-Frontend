@@ -19,16 +19,14 @@ export default function Pessoal({ onButtonClick }) {
         e.preventDefault()
 
         if (cpf.isValid(cpfe) === true) {
-            Axios.post("http://localhost:9080/cadastro/cliente" , {
+            var cliente =  {
                 nome: nome,
                 cpf: cpfe,
-                email: email
-            } ).then((res) => {
-                console.log(res)
-            })
+                email:email
+            }
+            localStorage.setItem("cliente", JSON.stringify(cliente));
             onButtonClick("pagetwo")
-            console.log("sai")
-            
+            console.log("sai")   
         } else {
             toast.error('Preencha os campos corretamente')
         }
