@@ -4,33 +4,16 @@ import Axios from "axios";
 import { toast } from 'react-toastify';
 
 export default function Titulo() {
+    const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
 
-    const [formValue, setFormValue] = useState([{ tituloNovo: "" }])
-
-    let handleChange = (i, e) => {
-        let newFormValue = [...formValue];
-        newFormValue[i][e.target.name] = e.target.value;
-        setFormValue(newFormValue);
-    }
-
-    let addFormField = () => {
-        setFormValue([...formValue, { tituloNovo: "" }])
-    }
-
-    let removeFormField = (i) => {
-        let newFormValue = [...formValue];
-        newFormValue.splice(i, 1);
-        setFormValue(newFormValue)
-    }
-
     function handleSubmit(e) {
         e.preventDefault()
-        if (0 == "") {
+        if (0 == true) {
             var titulo =  {
-                titulo: formValue,
+                titulo: titulo,
                 preco: preco,
                 vencimento: dataVenc,
                 credito: prazo
@@ -68,18 +51,12 @@ export default function Titulo() {
 
                 <div className="inputs">
 
-                    {formValue.map((e, index) => (
-                        <>
+                            <div className='plano'>
 
-                            <div className='plano' key={index}>
-
-                                <div class="opcoes">
-                                    <select required>
-                                        <option value="0">Tipos de títulos</option>
-                                        <option value="1">Cliente Bronze</option>
-                                        <option value="1">Cliente Silver</option>
-                                        <option value="1">Cliente Gold</option>
-                                    </select>
+                                <div class="campo">
+                                    <input class="fixo" type="text" required 
+                                    value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                                    <span>Título</span>
                                 </div>
 
                                 <div class="campo">
@@ -101,27 +78,12 @@ export default function Titulo() {
                                     <span>Prazo de crédito (em dias)</span>
                                 </div>
 
-                                {index ?
-                                    <div className='button-color'>
-                                        <button className='button-red-light' onClick={() => removeFormField(index)}>REMOVER</button>
-                                    </div>
-                                    : null}
-                            </div>
-
-                        </>
-                    ))}
-
-                    <div className='add'>
-                        <a onClick={() => addFormField()} >
-                            <FiPlusCircle size={25} />
-                        </a>
-                    </div>
-
                     <div className='button-color'>
                         <button className='button-green' 
                             onClick={() => handleSubmit()}>
                             ENVIAR</button>
                     </div>
+                </div>
                 </div>
             </form>
         </div>

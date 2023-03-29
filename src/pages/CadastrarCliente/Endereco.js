@@ -38,31 +38,31 @@ export default function Endereco({ onButtonClick }) {
             <div className="inputs">
 
                 <div class="campo">
-                    <input type="text" value={cep} onChange={(e) => setCep(e.target.value)} required />
+                    <input type="text" className="fixo" value={cep} onChange={(e) => setCep(e.target.value)} required />
                     <span>CEP</span>
                 </div>
                 <div class="campo">
-                    <input type="text" value={rua} onChange={(e) => setRua(e.target.value)} required />
+                    <input type="text" className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
                     <span>Logradouro</span>
                 </div>
                 <div class="campo">
-                    <input type="text" value={bairro} onChange={(e) => setBairro(e.target.value)} required />
+                    <input type="text" className="fixo" value={bairro} onChange={(e) => setBairro(e.target.value)} required />
                     <span>Bairro</span>
                 </div>
                 <div class="campo row">
                     <div className="cidade">
-                        <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
+                        <input type="text" className="fixo" value={city} onChange={(e) => setCity(e.target.value)} required />
                         <span>Localidade</span>
                     </div>
 
                     <div className="uf">
-                        <input type="text" maxLength='2' value={estado} onChange={(e) => setEstado(e.target.value)} required />
+                        <input type="text" className="fixo" maxLength='2' value={estado} onChange={(e) => setEstado(e.target.value)} required />
                         <span>UF</span>
                     </div>
                 </div>
 
                 <div class="campo">
-                    <input type="text" value={comp} onChange={(e) => setComp(e.target.value)} required />
+                    <input type="text" className="fixo" value={comp} onChange={(e) => setComp(e.target.value)} required />
                     <span>Complemento</span>
                 </div>
 

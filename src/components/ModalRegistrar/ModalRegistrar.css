@@ -1,0 +1,46 @@
+#nome-registro{
+    color: #44A754;
+    font-size: 1.8em;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.detalhes-registro{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.detalhes-registro b{
+    font-size: 1.5em;
+}
+
+.detalhes-registro p{
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-modal{
+    font-size: 16px;
+    width: 200px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 0.4em;
+}
+
+.button-color .button-all{
+    background-color: #44A754;
+    width: 15vw;
+    height: 7vh;
+}
+
+.button-green-modal {
+    background-color: #44A754;
+    margin-top: 50px;
+}

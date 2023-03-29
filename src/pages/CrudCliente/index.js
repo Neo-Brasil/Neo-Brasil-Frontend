@@ -2,7 +2,7 @@ import './CrudCliente.css';
 import Header from "../../components/Header";
 
 import { useState } from 'react';
-import Modal from '../../components/Modal';
+import ModalDelete from '../../components/ModalDelete';
 
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
@@ -54,7 +54,7 @@ export default function CrudCliente() {
                 </div>
             </div>
             {showPostModal && (
-                <Modal conteudo={detail} close={togglePostModal} />
+                <ModalDelete conteudo={detail} close={togglePostModal} />
             )}
         </div>
 

@@ -1,10 +1,20 @@
-import './RegistrarPago.css';
 import Header from "../../components/Header";
+
+import { useState } from 'react';
+import ModalRegistrar from '../../components/ModalRegistrar';
 
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
 
 export default function RegistrarPago() {
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState();
+
+    function togglePostModal() {
+        setShowPostModal(!showPostModal);
+        setDetail();
+    }
+
     return (
         <div>
             <Header />
@@ -14,73 +24,34 @@ export default function RegistrarPago() {
 
                 <div className='container-table'>
 
-                <table>
+                    <table>
                         <thead>
                             <tr><th scope="col">Nome</th>
                                 <th scope="col">Enviar registro</th>
                             </tr>
                         </thead>
-                        </table>
+                        <tbody>
+                            <tr>
+                                <td data-label="Nome">Primeiro nome</td>
 
-                    <details>
-                        <summary>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Nome">Primeiro nome</td>
-
-                                        <td data-label="Registrar">
-                                            <Link>
-                                                <MdRule color="#FDC727" size={35} />
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </summary>
-                        
-                        <div className='detalhes-registro'>
-                            <p><b>Tipo de título: </b>Cliente Bronze</p>
-                            <p><b>Preço: </b>R$50,00</p>
-                        </div>
-                        
-                    </details>
-
-                    <details>
-                        <summary>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Nome">Segundo nome</td>
-
-                                        <td data-label="Registrar">
-                                            <Link>
-                                                <MdRule color="#FDC727" size={35} />
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </summary>
-
-                        <div className='detalhes-registro'>
-                            <p><b>Tipo de título: </b>Cliente Silver</p>
-                            <p><b>Preço: </b>R$150,00</p>
-                        </div>
-
-                        <div className='detalhes-registro'>
-                            <p><b>Tipo de título: </b>Cliente Gold</p>
-                            <p><b>Preço: </b>R$200,00</p>
-                        </div>
-
-                    </details>
+                                <td data-label="Registrar">
+                                    <Link className="action" onClick={() => togglePostModal()}>
+                                        <MdRule color="#FDC727" size={35} />
+                                    </Link>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
 
                 <div className='button-color'>
-                    <button className='button-green'>REGISTRAR TODOS</button>
+                    <button className='button-all'>REGISTRAR TODOS</button>
                 </div>
             </div>
+            {showPostModal && (
+                <ModalRegistrar conteudo={detail} close={togglePostModal} />
+            )}
         </div>
 
     )
