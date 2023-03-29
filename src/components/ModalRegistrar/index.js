@@ -28,7 +28,7 @@ export default function ModalRegistrar({ close }) {
         if (valorPago != '' && dataPagamento != '') {
 
             Axios.put("http://localhost:9080/atualizar/titulo" , {
-                id: id,
+                id: titulo.id,
                 data_pagamento: dataPagamento
             } ).then((res) => {
                 console.log(res)
