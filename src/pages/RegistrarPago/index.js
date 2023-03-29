@@ -11,7 +11,9 @@ export default function RegistrarPago() {
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
 
-    function togglePostModal() {
+    function togglePostModal(id) {
+        localStorage.clear();
+        localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();
     }
@@ -22,6 +24,7 @@ export default function RegistrarPago() {
         var novoDados = []
         for(var k in dados){
             var novoDado = []
+            novoDado.push(dados[k].id)
             novoDado.push(dados[k].nome);
             novoDado.push(dados[k].cpf);
             novoDado.push(dados[k].email);
@@ -30,7 +33,6 @@ export default function RegistrarPago() {
         setList(novoDados);
       });
     }, [])
-
 
 
     return (
@@ -58,10 +60,10 @@ export default function RegistrarPago() {
                             return !value.envio ?
                                     <tbody>
                                         <tr>
-                                            <td data-label="Nome">{value[0]}</td>
+                                            <td data-label="Nome">{value[1]}</td>
 
                                             <td data-label="Registrar">
-                                                <Link className="action" onClick={() => togglePostModal()}>
+                                                <Link className="action" onClick={() => togglePostModal(value[0])}>
                                                     <MdRule color="#FDC727" size={35} />
                                                 </Link>
                                             </td>
