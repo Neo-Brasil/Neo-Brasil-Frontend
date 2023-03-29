@@ -26,7 +26,6 @@ export default function Pessoal({ onButtonClick }) {
             }
             localStorage.setItem("cliente", JSON.stringify(cliente));
             onButtonClick("pagetwo")
-            console.log("sai")   
         } else {
             toast.error('Preencha os campos corretamente')
         }

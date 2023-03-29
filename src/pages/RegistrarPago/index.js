@@ -49,13 +49,14 @@ export default function RegistrarPago() {
                 <div className='container-table'>
 
                     <table>
+                    <thead>
+                        <tr><th scope="col">Nome</th>
+                            <th scope="col">Enviar registro</th>
+                        </tr>
+                    </thead>
                         {typeof list !== 'undefined' && list.map((value) => {
                             return !value.envio ?
-                                <><thead>
-                                    <tr><th scope="col">Nome</th>
-                                        <th scope="col">Enviar registro</th>
-                                    </tr>
-                                </thead><tbody>
+                                    <tbody>
                                         <tr>
                                             <td data-label="Nome">{value[0]}</td>
 
@@ -65,7 +66,7 @@ export default function RegistrarPago() {
                                                 </Link>
                                             </td>
                                         </tr>
-                                    </tbody></>
+                                    </tbody>
                             :null
                         })}
                     </table>

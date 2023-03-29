@@ -10,6 +10,24 @@ export default function Relatorio() {
 
                 <h1>Relatório de pagamento</h1>
 
+                <div className='cards'>
+                    <div className='card'>
+                        <p className='bold'>Expectativa de valor:</p>
+                        <p className='alignEnd'>R$ 1000,00</p>
+                    </div>
+
+                    <div className='card'>
+                        <p className='bold'>Valor recebido:</p>
+                        <p className='alignEnd'>R$ 500,00</p>
+                    </div>
+
+                    <div className='card'>
+                        <p className='bold'>Valor faltante:</p>
+                        <p className='alignEnd'>R$ 500,00</p>
+                    </div>
+
+                </div>
+
                 <div className='container-table'>
 
                 <table>
