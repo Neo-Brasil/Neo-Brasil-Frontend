@@ -16,10 +16,10 @@ export default function Endereco({ onButtonClick }) {
         if (rua !== '') {
             var endereco =  {
                 cep: cep,
-                rua: rua,
+                logradouro: rua,
                 bairro: bairro,
-                cidade: city,
-                estado: estado,
+                localidade: city,
+                uf: estado,
                 complemento: comp
             }
             localStorage.setItem("endereco", JSON.stringify(endereco));

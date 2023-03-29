@@ -19,12 +19,9 @@ export default function Pessoal({ onButtonClick }) {
         e.preventDefault()
 
         if (cpf.isValid(cpfe) === true) {
-            var cliente =  {
-                nome: nome,
-                cpf: cpfe,
-                email:email
-            }
-            localStorage.setItem("cliente", JSON.stringify(cliente));
+            localStorage.setItem("nome", nome);
+            localStorage.setItem("cpf", cpfe);
+            localStorage.setItem("email", email);
             onButtonClick("pagetwo")
         } else {
             toast.error('Preencha os campos corretamente')

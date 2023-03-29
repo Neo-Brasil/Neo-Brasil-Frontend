@@ -11,26 +11,18 @@ export default function Titulo() {
     function handleSubmit(e) {
         e.preventDefault()
         if (prazo != '') {
-            var titulo =  {
-                titulo: titulo,
-                preco: preco,
-                vencimento: dataVenc,
-                credito: prazo
-            }
-            localStorage.setItem("titulo", JSON.stringify(titulo));
-
-            var cliente = localStorage.getItem("cliente");
             var endereco = localStorage.getItem("endereco");
-            var titulo = localStorage.getItem("titulo");
-
-            cliente = JSON.parse(cliente);
             endereco = JSON.parse(endereco);
-            titulo = JSON.parse(titulo);
-            
-            console.log(cliente);
+
+            var nome = localStorage.getItem("nome");
+            var cpf = localStorage.getItem("cpf");
+            var email = localStorage.getItem("email");
 
             Axios.post("http://localhost:9080/cadastro/cliente" , {
-                cliente
+                nome: nome,
+                cpf: cpf,
+                email: email,
+                endereco: endereco
             } ).then((res) => {
                 console.log(res)
             })
