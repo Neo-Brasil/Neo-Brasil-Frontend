@@ -22,10 +22,19 @@ export default function Titulo() {
                 nome: nome,
                 cpf: cpf,
                 email: email,
-                endereco: endereco
+                endereco: endereco,
+                titulos: [
+                    {
+                        titulo:titulo,
+                        preco:preco,
+                        data_vencimento:dataVenc,
+                        tempo_credito:prazo
+                    }
+                ]
             } ).then((res) => {
                 console.log(res)
             })
+            localStorage.clear();
 
             toast.sucess('Cadastrado com sucesso!')
 
