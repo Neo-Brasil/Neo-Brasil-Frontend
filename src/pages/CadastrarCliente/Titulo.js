@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { toast } from 'react-toastify';
 
-export default function Titulo() {
+export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
@@ -35,6 +35,7 @@ export default function Titulo() {
                 console.log(res)
             })
             localStorage.clear();
+            onButtonClick("pageone")
 
             toast.sucess('Cadastrado com sucesso!')
 
