@@ -6,7 +6,6 @@ export default function Endereco({ onButtonClick }) {
     const [cep, setCep] = useState('');
     const [rua, setRua] = useState('');
     const [bairro, setBairro] = useState('');
-    //const [num, setNum] = useState('');
     const [city, setCity] = useState('');
     const [estado, setEstado] = useState('');
     const [comp, setComp] = useState('');

@@ -12,7 +12,7 @@ export default function RoutesApp(){
         <Routes>
             <Route path="/" element={ <CadastrarCliente/> } />
             <Route path="/clientes_cadastrados" element={ <CrudCliente/> } />
-            <Route path="/clientes_cadastrados/visualizar_editar" element={ <VerEditarCliente/> } />
+            <Route path="/clientes_cadastrados/visualizar_editar/:id" element={ <VerEditarCliente/> } />
 
             <Route path="/registrar_pagamento" element={ <RegistrarPago/> } />
             <Route path="/relatorio" element={ <Relatorio/> } />

@@ -1,29 +1,82 @@
-export default function Pessoal({ onButtonClick}) {
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+import { cpf } from 'cpf-cnpj-validator';
+import { toast } from 'react-toastify';
+import { useParams } from "react-router-dom";
+
+export default function Pessoal({ onButtonClick }) {
+    const [nome, setNome] = useState('');
+    const [cpfe, setCpf] = useState('');
+    const [email, setEmail] = useState('');
+
+    const [nomeP, setNomep] = useState('');
+    const [cpfP, setCpfp] = useState('');
+    const [emailP, setEmailp] = useState('');
+
+    const {id} = useParams();
+
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        let cliente = resp.data;
+        setNomep(cliente.nome);
+        setCpfp(cliente.cpf);
+        setEmailp(cliente.email);
+        });
+      }, [])
+
+    const checkCpf = (e) => {
+        const cpfe = e.target.value.replace(/\D/g, '');
+        if (cpf.isValid(cpfe) === false) {
+            toast.warning("CPF invalido")
+        }
+    }    
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        if(cpfe != ''){
+            if (cpf.isValid(cpfe) === true) {
+                localStorage.setItem("nome", nome);
+                localStorage.setItem("cpf", cpfe);
+                localStorage.setItem("email", email);
+                onButtonClick("pagetwo")
+            } else {
+                toast.error('Preencha os campos corretamente')
+            }
+        }else{
+            localStorage.setItem("nome", nome);
+            localStorage.setItem("email", email);
+            onButtonClick("pagetwo")
+        }
+    }
+
     return (
         <div>
             <h2>Dados da identificação do cliente</h2>
 
+            <form onSubmit={handleSubmit}>
+
             <div className='inputs'>
-                <div class="campo">
-                    <input class="fixo" type="nome" required />
+                <div className="campo">
+                    <input type="text" placeholder={nomeP} className="fixo" maxLength="60" value={nome} onChange={(e) => setNome(e.target.value)} />
                     <span>Nome completo</span>
                 </div>
-                <div class="campo">
-                    <input class="fixo" type="nome" required />
+                <div className="campo">
+                    <input type="number" placeholder={cpfP} id="cpf" className="fixo" maxLength="11" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} />
                     <span>CPF</span>
                 </div>
-                <div class="campo">
-                    <input class="fixo" type="nome" required />
+                <div className="campo">
+                    <input type="email" placeholder={emailP} className="fixo" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <span>Email</span>
                 </div>
 
                 <div className='button-color'>
-                    <button className='button-green' 
-                    onClick={() => onButtonClick("pagetwo")}>
-                        PRÓXIMO</button>
+                    <button className='button-green'
+                        onClick={() => handleSubmit()}
+                    >PRÓXIMO</button>
                 </div>
 
             </div>
+            </form>
         </div>
     )
 }

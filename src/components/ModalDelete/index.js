@@ -6,7 +6,6 @@ export default function ModalDelete({close}){
     const id_ = localStorage.getItem("id") ; 
     const id = parseInt(id_);
 
-    console.log(id);
     function handleSubmit() {
         Axios.delete(`http://localhost:9080/excluir/cliente/${id}`).then((res) => {
             console.log(res)

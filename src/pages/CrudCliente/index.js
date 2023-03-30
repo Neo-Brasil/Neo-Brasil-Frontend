@@ -63,7 +63,7 @@ export default function CrudCliente() {
                                     <td data-label="Nome">{value[1]}</td>
 
                                     <td data-label="Visualizar">
-                                        <Link to={'/clientes_cadastrados/visualizar_editar'}>
+                                        <Link to={`/clientes_cadastrados/visualizar_editar/${value[0]}`}>
                                         <MdContactPage color='#2F44FF' size={25} /></Link>
                                     </td>
 

@@ -1,82 +1,112 @@
-import React, { useState } from "react";
-import { FiPlusCircle } from "react-icons/fi"
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+import { toast } from 'react-toastify';
+import { useParams } from "react-router-dom";
 
 export default function Titulo({ onButtonClick }) {
-    const [formValue, setFormValue] = useState([{ escolas: "" }])
+    const [titulo, setTitulo] = useState('');
+    const [preco, setPreco] = useState('');
+    const [dataVenc, setDataVenc] = useState('');
+    const [prazo, setPrazo] = useState('');
 
+    const [tituloP, setTitulop] = useState('');
+    const [precoP, setPrecop] = useState('');
+    const [dataVencP, setDataVencp] = useState('');
+    const [prazoP, setPrazop] = useState('');
 
-    let handleChange = (i, e) => {
-        let newFormValue = [...formValue];
-        newFormValue[i][e.target.name] = e.target.value;
-        setFormValue(newFormValue);
+    const {id} = useParams();
+
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        let cliente = resp.data;
+        let titulo = cliente.titulos[0];
+        setTitulop(titulo.titulo);
+        setPrecop(titulo.preco);
+        setDataVencp(titulo.data_vencimento);
+        setPrazop(titulo.tempo_credito);
+        });
+      }, [])
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        if (prazo != '') {
+            var endereco = localStorage.getItem("endereco");
+            endereco = JSON.parse(endereco);
+
+            var nome = localStorage.getItem("nome");
+            var cpf = localStorage.getItem("cpf");
+            var email = localStorage.getItem("email");
+
+            Axios.post("http://localhost:9080/cadastro/cliente" , {
+                nome: nome,
+                cpf: cpf,
+                email: email,
+                endereco: endereco,
+                titulos: [
+                    {
+                        titulo:titulo,
+                        preco:preco,
+                        data_vencimento:dataVenc,
+                        tempo_credito:prazo
+                    }
+                ]
+            } ).then((res) => {
+                console.log(res)
+            })
+            localStorage.clear();
+            onButtonClick("pageone")
+
+            toast.sucess('Cadastrado com sucesso!')
+
+        } else {
+            toast.error('Preencha os campos corretamente')
+        }
     }
 
-    let addFormField = () => {
-        setFormValue([...formValue, { escolas: "" }])
-    }
-
-    let removeFormField = (i) => {
-        let newFormValue = [...formValue];
-        newFormValue.splice(i, 1);
-        setFormValue(newFormValue)
-    }
     return (
         <div>
 
             <h3>Dados do plano</h3>
 
-            <div className="inputs">
+            <form onSubmit={handleSubmit}>
 
-            {formValue.map((e, index) => (
-            <>
+                <div className="inputs">
 
-              <div className='plano' key={index}>
+                            <div className='plano'>
 
-                <div class="opcoes">
-                    <select required>
-                        <option value="0">Tipos de títulos</option>
-                        <option value="1">Cliente Bronze</option>
-                        <option value="1">Cliente Silver</option>
-                        <option value="1">Cliente Gold</option>
-                    </select>
+                                <div class="campo">
+                                    <input class="fixo" type="text" placeholder={tituloP} 
+                                    value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                                    <span>Título</span>
+                                </div>
+
+                                <div class="campo">
+                                    <input class="fixo" id="preco" type="number" placeholder={precoP} 
+                                    value={preco} onChange={(e) => setPreco(e.target.value)} />
+                                    <span>Preço</span>
+                                </div>
+
+                                <div class="campo">
+                                    <input class="fixo" type="date" placeholder={dataVencP} 
+                                    value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+                                    <span>Data de vencimento</span>
+                                </div>
+
+                                <div class="campo">
+                                    <input class="fixo" id="prazo"
+                                        type="number" min={0} max={5} placeholder={prazoP} 
+                                        value={prazo} onChange={(e) => setPrazo(e.target.value)} />
+                                    <span>Prazo de crédito (em dias)</span>
+                                </div>
+
+                    <div className='button-color'>
+                        <button className='button-green' 
+                            onClick={() => handleSubmit()}>
+                            ENVIAR</button>
+                    </div>
                 </div>
-
-                <div class="campo">
-                    <input class="fixo" type="nome" required />
-                    <span>Preço</span>
                 </div>
-
-                <div class="campo">
-                    <input class="fixo" type="date" required />
-                    <span>Data de vencimento</span>
-                </div>
-
-                <div class="campo">
-                    <input class="fixo" id="prazo"
-                    type="number" min= {0} max={5} required />
-                    <span>Prazo de crédito (em dias)</span>
-                </div>
-
-                {index ?
-                <div className='button-color'>
-                  <button className='button-red-light' onClick={() => removeFormField(index)}>REMOVER</button> 
-                </div>
-                  : null}
-              </div>
-
-            </>
-          ))}
-
-                <div className='add'>
-                    <a onClick={() => addFormField()} >
-                        <FiPlusCircle size={25} />
-                    </a>
-                </div>
-
-                <div className='button-color'>
-                    <button className='button-green'>ENVIAR</button>
-                </div>
-            </div>
+            </form>
         </div>
     )
 }
