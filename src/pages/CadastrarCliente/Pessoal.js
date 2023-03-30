@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import { IMaskInput } from "react-imask";
 import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ export default function Pessoal({ onButtonClick }) {
     const checkCpf = (e) => {
         const cpfe = e.target.value.replace(/\D/g, '');
         if (cpf.isValid(cpfe) === false) {
-            toast.warning("CPF invalido")
+            toast.warning("CPF inválido")
         }
     }    
 
@@ -40,7 +40,7 @@ export default function Pessoal({ onButtonClick }) {
                     <span>Nome completo</span>
                 </div>
                 <div className="campo">
-                    <input type="number" id="cpf" className="fixo" maxLength="11" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} required />
+                <IMaskInput mask="000.000.000-00" id="cpf" className="fixo" maxLength="14" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} required />
                     <span>CPF</span>
                 </div>
                 <div className="campo">

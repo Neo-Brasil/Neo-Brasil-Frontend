@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { IMaskInput } from "react-imask";
 import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
@@ -27,24 +28,27 @@ export default function Pessoal({ onButtonClick }) {
     const checkCpf = (e) => {
         const cpfe = e.target.value.replace(/\D/g, '');
         if (cpf.isValid(cpfe) === false) {
-            toast.warning("CPF invalido")
+            toast.warning("CPF inválido ou clicado e não editado")
         }
     }    
 
     function handleSubmit(e) {
         e.preventDefault()
-        if(cpfe != ''){
+        if(nome !== '' && cpfe !== '' && email !== ''){
             if (cpf.isValid(cpfe) === true) {
                 localStorage.setItem("nome", nome);
                 localStorage.setItem("cpf", cpfe);
                 localStorage.setItem("email", email);
+
                 onButtonClick("pagetwo")
             } else {
-                toast.error('Preencha os campos corretamente')
+                toast.error('Campo foi clicado, mas não editado')
+                toast.info("Atualize a página ou digite os dados novamente")
             }
         }else{
             localStorage.setItem("nome", nome);
             localStorage.setItem("email", email);
+            //toast.info('Editado')
             onButtonClick("pagetwo")
         }
     }
@@ -61,7 +65,7 @@ export default function Pessoal({ onButtonClick }) {
                     <span>Nome completo</span>
                 </div>
                 <div className="campo">
-                    <input type="number" placeholder={cpfP} id="cpf" className="fixo" maxLength="11" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} />
+                    <IMaskInput mask="000.000.000-00" placeholder={cpfP} maxLength='14' id="cpf" className="fixo" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} />
                     <span>CPF</span>
                 </div>
                 <div className="campo">

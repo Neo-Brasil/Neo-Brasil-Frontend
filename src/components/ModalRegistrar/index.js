@@ -15,7 +15,7 @@ export default function ModalRegistrar({ close }) {
         Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
           var dados = resp.data
           for(var k in dados){
-            if(dados[k].id == id){
+            if(dados[k].id === id){
                 var dado = dados[k]
                 setCliente(dado)
                 setTitulo(dados[k].titulos[0]);
@@ -25,19 +25,22 @@ export default function ModalRegistrar({ close }) {
       }, [])
 
     function handleSubmit() {
-        if (valorPago != '' && dataPagamento != '') {
+        if (valorPago !== '' && dataPagamento !== '') {
 
             Axios.put("http://localhost:9080/atualizar/titulo" , {
                 id: titulo.id,
                 data_pagamento: dataPagamento,
-                ultimo_valor_pago: valorPago
+                ultimo_valor_pago: valorPago,
+                situacao: "Pago"
             } ).then((res) => {
                 console.log(res)
             })
             localStorage.clear();
+            toast.success('Registrado com sucesso!')
+            close()
 
         } else {
-            toast.error('Preencha os campos corretamente')
+            toast.error('Preencha todos os campos')
         }
     }
 

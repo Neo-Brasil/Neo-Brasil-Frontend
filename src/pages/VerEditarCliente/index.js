@@ -44,7 +44,7 @@ export default function VerEditarCliente() {
           {
             pageone: <Pessoal onButtonClick={nextPage} />,
             pagetwo: <Endereco onButtonClick={nextPage} />,
-            pagethree: <Titulo />
+            pagethree: <Titulo onButtonClick={nextPage} />
           }[page]
         }
       </div>

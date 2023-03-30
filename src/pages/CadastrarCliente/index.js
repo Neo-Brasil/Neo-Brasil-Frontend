@@ -43,7 +43,7 @@ export default function CadastrarCliente() {
           {
             pageone: <Pessoal onButtonClick={nextPage} />,
             pagetwo: <Endereco onButtonClick={nextPage} />,
-            pagethree: <Titulo />
+            pagethree: <Titulo onButtonClick={nextPage} />
           }[page]
         }
       </div>

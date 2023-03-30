@@ -39,7 +39,6 @@ export default function CrudCliente() {
             {list.lenght === 0 ? (
                 <div className='none'>
                 <p>Nenhum dado encontrado...</p>
-                <p>Não há relatório diário!</p>
                 </div>
             ) : (
             <div className="content">

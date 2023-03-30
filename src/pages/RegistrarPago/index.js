@@ -23,14 +23,18 @@ export default function RegistrarPago() {
         var dados = resp.data
         var novoDados = []
         for(var k in dados){
-            var novoDado = []
-            novoDado.push(dados[k].id)
-            novoDado.push(dados[k].nome);
-            novoDado.push(dados[k].cpf);
-            novoDado.push(dados[k].email);
-            novoDados.push(novoDado)
+            var dado = dados[k]
+            var titulo = dado.titulos[0]
+            if(titulo.situacao != "Pago"){
+                var novoDado = []
+                novoDado.push(dado.id)
+                novoDado.push(dado.nome);
+                novoDado.push(dado.cpf);
+                novoDado.push(dado.email);
+                novoDados.push(novoDado)
+                setList(novoDados);
+            }
         }
-        setList(novoDados);
       });
     }, [])
 

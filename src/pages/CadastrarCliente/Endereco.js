@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import { IMaskInput } from "react-imask";
 import { toast } from 'react-toastify';
 
 export default function Endereco({ onButtonClick }) {
@@ -9,6 +9,20 @@ export default function Endereco({ onButtonClick }) {
     const [city, setCity] = useState('');
     const [estado, setEstado] = useState('');
     const [comp, setComp] = useState('');
+
+    const checkCEP = (e) => {
+        const cep = e.target.value.replace(/\D/g, '');
+        console.log(cep);
+        fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+          console.log(data);
+          // register({ name: 'address', value: data.logradouro });
+          setRua(data.logradouro);
+          setBairro(data.bairro);
+          setCity(data.localidade);
+          setEstado(data.uf);
+        }).catch((err) => console.log(err))
+        toast.warning("CEP inválido");
+      }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -36,19 +50,19 @@ export default function Endereco({ onButtonClick }) {
 
             <div className="inputs">
 
-                <div class="campo">
-                    <input type="text" className="fixo" value={cep} onChange={(e) => setCep(e.target.value)} required />
+                <div className="campo">
+                    <IMaskInput mask="00.000-000" className="fixo" maxLength="11" value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} required />
                     <span>CEP</span>
                 </div>
-                <div class="campo">
+                <div className="campo">
                     <input type="text" className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
                     <span>Logradouro</span>
                 </div>
-                <div class="campo">
+                <div className="campo">
                     <input type="text" className="fixo" value={bairro} onChange={(e) => setBairro(e.target.value)} required />
                     <span>Bairro</span>
                 </div>
-                <div class="campo row">
+                <div className="campo row">
                     <div className="cidade">
                         <input type="text" className="fixo" value={city} onChange={(e) => setCity(e.target.value)} required />
                         <span>Localidade</span>
@@ -60,7 +74,7 @@ export default function Endereco({ onButtonClick }) {
                     </div>
                 </div>
 
-                <div class="campo">
+                <div className="campo">
                     <input type="text" className="fixo" value={comp} onChange={(e) => setComp(e.target.value)} required />
                     <span>Complemento</span>
                 </div>

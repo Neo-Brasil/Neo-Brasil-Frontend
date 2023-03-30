@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { toast } from 'react-toastify';
+import { IMaskInput } from "react-imask";
 import { useParams } from "react-router-dom";
 
 export default function Endereco({ onButtonClick }) {
@@ -33,23 +34,34 @@ export default function Endereco({ onButtonClick }) {
         });
       }, [])
 
+      const checkCEP = (e) => {
+        const cep = e.target.value.replace(/\D/g, '');
+        console.log(cep);
+        fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+          console.log(data);
+          // register({ name: 'address', value: data.logradouro });
+          setRua(data.logradouro);
+          setBairro(data.bairro);
+          setCity(data.localidade);
+          setEstado(data.uf);
+        }).catch((err) => console.log(err)) 
+        toast.warning("CEP inválido ou clicado e não editado");
+      }
+
     function handleSubmit(e) {
         e.preventDefault()
-        if (rua !== '') {
-            var endereco =  {
-                cep: cep,
-                logradouro: rua,
-                bairro: bairro,
-                localidade: city,
-                uf: estado,
-                complemento: comp
-            }
-            localStorage.setItem("endereco", JSON.stringify(endereco));
-            return  onButtonClick("pagethree")
-        } else {
-            toast.error('Preencha os campos corretamente')
+        var endereco =  {
+            cep: cep,
+            logradouro: rua,
+            bairro: bairro,
+            localidade: city,
+            uf: estado,
+            complemento: comp
         }
+        localStorage.setItem("endereco", JSON.stringify(endereco));
+        return  onButtonClick("pagethree")
     }
+
     return (
         <div>
 
@@ -60,7 +72,7 @@ export default function Endereco({ onButtonClick }) {
             <div className="inputs">
 
                 <div class="campo">
-                    <input type="text" placeholder={cepP} className="fixo" value={cep} onChange={(e) => setCep(e.target.value)} />
+                    <IMaskInput mask="00.000-000" placeholder={cepP} maxLength='11' className="fixo" value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} />
                     <span>CEP</span>
                 </div>
                 <div class="campo">

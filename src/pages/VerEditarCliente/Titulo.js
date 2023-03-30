@@ -14,6 +14,7 @@ export default function Titulo({ onButtonClick }) {
     const [dataVencP, setDataVencp] = useState('');
     const [prazoP, setPrazop] = useState('');
 
+    const [id_titulo, setId] = useState('');
     const {id} = useParams();
 
     useEffect(() => {
@@ -24,43 +25,41 @@ export default function Titulo({ onButtonClick }) {
         setPrecop(titulo.preco);
         setDataVencp(titulo.data_vencimento);
         setPrazop(titulo.tempo_credito);
+        setId(titulo.id);
         });
       }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
-        if (prazo != '') {
-            var endereco = localStorage.getItem("endereco");
-            endereco = JSON.parse(endereco);
+        var endereco = localStorage.getItem("endereco");
+        endereco = JSON.parse(endereco);
 
-            var nome = localStorage.getItem("nome");
-            var cpf = localStorage.getItem("cpf");
-            var email = localStorage.getItem("email");
+        var nome = localStorage.getItem("nome");
+        var cpf = localStorage.getItem("cpf");
+        var email = localStorage.getItem("email");
 
-            Axios.post("http://localhost:9080/cadastro/cliente" , {
-                nome: nome,
-                cpf: cpf,
-                email: email,
-                endereco: endereco,
-                titulos: [
-                    {
-                        titulo:titulo,
-                        preco:preco,
-                        data_vencimento:dataVenc,
-                        tempo_credito:prazo
-                    }
-                ]
-            } ).then((res) => {
-                console.log(res)
-            })
-            localStorage.clear();
-            onButtonClick("pageone")
-
-            toast.sucess('Cadastrado com sucesso!')
-
-        } else {
-            toast.error('Preencha os campos corretamente')
-        }
+        Axios.put("http://localhost:9080/atualizar" , {
+            id: id,
+            nome: nome,
+            cpf: cpf,
+            email: email,
+            endereco: endereco,
+            titulos: [
+                {
+                    id: id_titulo,
+                    titulo:titulo,
+                    preco:preco,
+                    data_vencimento:dataVenc,
+                    tempo_credito:prazo
+                }
+            ]
+        } ).then((res) => {
+            console.log(res)
+        })
+        localStorage.clear();
+        
+        toast.success('Editado com sucesso!')
+        onButtonClick("pageone")
     }
 
     return (
