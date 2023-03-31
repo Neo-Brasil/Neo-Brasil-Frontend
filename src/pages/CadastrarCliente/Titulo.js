@@ -28,7 +28,8 @@ export default function Titulo({ onButtonClick }) {
                         titulo: titulo,
                         preco: preco,
                         data_vencimento: dataVenc,
-                        tempo_credito: prazo
+                        tempo_credito: prazo,
+                        situacao: "Em aberto"
                     }
                 ]
             }).then((res) => {
