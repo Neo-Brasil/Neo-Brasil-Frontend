@@ -60,6 +60,7 @@ export default function Titulo({ onButtonClick }) {
         
         toast.success('Editado com sucesso!')
         onButtonClick("pageone")
+        window.location.reload(true);
     }
 
     return (

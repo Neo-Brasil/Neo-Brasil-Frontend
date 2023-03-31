@@ -25,7 +25,8 @@ export default function ModalDelete({close}){
             console.log(res)
         })
         localStorage.clear();
-        close()
+        close();
+        window.location.reload(true);
     }
 
     return(
