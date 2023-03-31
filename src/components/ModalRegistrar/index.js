@@ -21,19 +21,21 @@ export default function ModalRegistrar({ close }) {
 
     function handleSubmit() {
         if (valorPago !== '' && dataPagamento !== '') {
-
-            Axios.put("http://localhost:9080/atualizar/titulo" , {
-                id: titulo.id,
-                data_pagamento: dataPagamento,
-                ultimo_valor_pago: valorPago,
-                situacao: "Pago"
-            } ).then((res) => {
-                console.log(res)
-            })
-            localStorage.clear();
-            toast.success('Registrado com sucesso!')
-            close()
-
+            if(valorPago >= titulo.preco){
+                Axios.put("http://localhost:9080/atualizar/titulo" , {
+                    id: titulo.id,
+                    data_pagamento: dataPagamento,
+                    ultimo_valor_pago: valorPago,
+                    situacao: "Pago"
+                } ).then((res) => {
+                    console.log(res)
+                })
+                localStorage.clear();
+                toast.success('Registrado com sucesso!')
+                close()
+            }else {
+                toast.error('Valor incorreto')
+            }
         } else {
             toast.error('Preencha todos os campos')
         }
