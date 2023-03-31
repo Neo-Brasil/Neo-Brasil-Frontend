@@ -40,7 +40,7 @@ export default function Pessoal({ onButtonClick }) {
                     <span>Nome completo</span>
                 </div>
                 <div className="campo">
-                <IMaskInput mask="000.000.000-00" id="cpf" className="fixo" maxLength="14" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} required />
+                <IMaskInput id="cpf" className="fixo" maxLength="14" value={cpfe} onBlur={checkCpf} onChange={(e) => setCpf(e.target.value)} required />
                     <span>CPF</span>
                 </div>
                 <div className="campo">

@@ -78,10 +78,6 @@ export default function RegistrarPago() {
                     </table>
 
                 </div>
-
-                <div className='button-color'>
-                    <button className='button-all'>REGISTRAR TODOS</button>
-                </div>
             </div>
             )}
             {showPostModal && (

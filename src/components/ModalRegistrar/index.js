@@ -12,15 +12,10 @@ export default function ModalRegistrar({ close }) {
     const id = localStorage.getItem("id") ; 
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
-          var dados = resp.data
-          for(var k in dados){
-            if(dados[k].id === id){
-                var dado = dados[k]
-                setCliente(dado)
-                setTitulo(dados[k].titulos[0]);
-            } 
-          }
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+          var dado = resp.data
+          setCliente(dado)
+          setTitulo(dado.titulos[0])
         });
       }, [])
 
