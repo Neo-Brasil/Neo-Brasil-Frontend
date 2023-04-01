@@ -9,11 +9,17 @@ import { MdRule } from "react-icons/md";
 
 export default function Relatorio() {
     const [cliente, setCliente] = useState([]);
+    const [valorRecebido, setValorRecebido] = useState(0);
+    const [expectativaValor, setExpectativaValor] = useState(0);
+    const [valorCreditar, setValorCreditar] = useState(0);
 
     useEffect(() => {
         Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
           var dados = resp.data
           var novoDados = []
+          var credita = 0 
+          var recebe = 0
+          var expectativa = 0
           for(var k in dados){
             var dado = dados[k]
             var titulo = dado.titulos[0]
@@ -22,9 +28,20 @@ export default function Relatorio() {
             novoDado.push(dado.nome);
             novoDado.push(dado.cpf);
             novoDado.push(dado.email);
-            novoDado.push(dado.titulos[0])
+            novoDado.push(titulo)
             novoDados.push(novoDado)
+
+            if(titulo.situacao == "Creditado"){
+                recebe += titulo.ultimo_valor_pago
+            }
+            if(titulo.situacao == "Pago"){
+                credita += titulo.ultimo_valor_pago
+            }
+            expectativa += titulo.preco
           }
+          setValorRecebido(recebe)
+          setValorCreditar(credita)
+          setExpectativaValor(expectativa)
           setCliente(novoDados);
         });
       }, [])
@@ -45,17 +62,17 @@ export default function Relatorio() {
                 <div className='cards'>
                     <div className='card'>
                         <p className='bold'>Expectativa de valor:</p>
-                        <p className='alignEnd'>R$ 1000,00</p>
+                        <p className='alignEnd'>R$ {expectativaValor}</p>
                     </div>
 
                     <div className='card'>
                         <p className='bold'>Valor recebido:</p>
-                        <p className='alignEnd'>R$ 500,00</p>
+                        <p className='alignEnd'>R$ {valorRecebido}</p>
                     </div>
 
                     <div className='card'>
-                        <p className='bold'>Valor faltante:</p>
-                        <p className='alignEnd'>R$ 500,00</p>
+                        <p className='bold'>Valor a creditar:</p>
+                        <p className='alignEnd'>R$ {valorCreditar}</p>
                     </div>
 
                 </div>
@@ -81,7 +98,7 @@ export default function Relatorio() {
                                         <td data-label="Nome">{value[1]}</td>
 
                                         <td data-label="Status">
-                                            <p className='inadimplente'>{value[4].situacao}</p>
+                                            <p className={value[4].situacao}>{value[4].situacao}</p>
                                         </td>
                                     </tr>
                                 </tbody>

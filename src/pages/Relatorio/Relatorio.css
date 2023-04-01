@@ -31,7 +31,6 @@ details summary{
 }
 
 details{
-    background-color: #8de39b;
     width: 100%;
 }
 
@@ -47,10 +46,14 @@ details{
     flex-direction: column;
 }
 
-.pago{
-    color: #44A754;
+.Pago{
+    color: rgb(149, 149, 0);
 }
 
-.inadimplente{
-    color: #DB0E0E;
+.Inadimplente{
+    color: red;
+}
+
+.Creditado{
+    color: green;
 }
