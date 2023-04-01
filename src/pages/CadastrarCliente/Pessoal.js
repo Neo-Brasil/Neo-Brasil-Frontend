@@ -4,6 +4,11 @@ import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 
 export default function Pessoal({ onButtonClick }) {
+    if(localStorage.getItem("login")=="ok"){
+        toast.success('Logado com sucesso!')
+        localStorage.clear();
+    }
+
     const [nome, setNome] = useState('');
     const [cpfe, setCpf] = useState('');
     const [email, setEmail] = useState('');
