@@ -42,13 +42,13 @@
     margin-bottom: 30px;
     }
 
-.button-color .button-white{
+.button-color .button-orange{
     background-color: #F79736;
     color: #FFF;
     font-weight: bold;
     margin-top: 30px;
 }
 
-.button-white:hover{
+.button-orange:hover{
     background-color: #F27F0C;
 }

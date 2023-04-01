@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
+import React from 'react';
 
 import CadastrarCliente from '../pages/CadastrarCliente'
 import CrudCliente from '../pages/CrudCliente'
-import Login from '../pages/Login'
+import Login from '../pages/Login/index.tsx'
 import RegistrarPago from '../pages/RegistrarPago'
 import Relatorio from '../pages/Relatorio'
 import VerEditarCliente from '../pages/VerEditarCliente'
