@@ -20,8 +20,7 @@ export default function Endereco({ onButtonClick }) {
           setBairro(data.bairro);
           setCity(data.localidade);
           setEstado(data.uf);
-        }).catch((err) => console.log(err))
-        toast.warning("CEP inválido");
+        }).catch((err) => toast.warning("CEP inválido"))
       }
 
     function handleSubmit(e) {
