@@ -32,13 +32,13 @@ export default function CrudCliente() {
           setList(novoDados);
         });
       }, [])
-
+console.log(list)
     return (
         <div>
             <Header />
             {list.lenght === 0 ? (
-                <div className='none'>
-                <p>Nenhum dado encontrado...</p>
+                <div className='content'>
+                    <h1>Nenhum cliente foi cadastrado...</h1>
                 </div>
             ) : (
             <div className="content">

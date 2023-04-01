@@ -43,11 +43,11 @@ export default function RegistrarPago() {
         <div>
             <Header />
             {list.lenght === 0 ? (
-                <div className='none'>
-                <p>Nenhum dado encontrado...</p>
-                <p>Não há relatório diário!</p>
+                <div className='content'>
+                    <h1>Nenhum registro encontrado...</h1>
                 </div>
             ) : (
+            
             <div className="content">
 
                 <h1>Registro de pagamento</h1>

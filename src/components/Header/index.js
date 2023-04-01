@@ -14,7 +14,7 @@ export default function Header() {
 
                 <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
 
-                <Link to={'/'}>
+                <Link to={'/cadastro'}>
                         <FiUserPlus size={35} />
                     </Link>
 
@@ -38,7 +38,7 @@ export default function Header() {
                     <GiLindenLeaf size={200} />
                 </Link> */}
 
-                <Link to={'/login'}>
+                <Link to={'/'}>
                     <FiLogOut size={35} />
                 </Link>
             </div>

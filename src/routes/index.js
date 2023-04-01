@@ -10,13 +10,15 @@ import VerEditarCliente from '../pages/VerEditarCliente'
 export default function RoutesApp(){
     return(
         <Routes>
-            <Route path="/" element={ <CadastrarCliente/> } />
+            <Route path="/" element={ <Login/> } /> 
+
+            <Route path="/cadastro" element={ <CadastrarCliente/> } />
             <Route path="/clientes_cadastrados" element={ <CrudCliente/> } />
             <Route path="/clientes_cadastrados/visualizar_editar/:id" element={ <VerEditarCliente/> } />
 
             <Route path="/registrar_pagamento" element={ <RegistrarPago/> } />
             <Route path="/relatorio" element={ <Relatorio/> } />
-            <Route path="/login" element={ <Login/> } />            
+                       
         </Routes>
     )
 }
