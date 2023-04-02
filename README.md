@@ -18,9 +18,11 @@
 
  ## :scroll: Manual de instalação
 
-* após executar o [backend](https://github.com/Neo-Brasil/Neo-Brasil-Backend) e ter o NodeJs instalado, entre na pasta Neo-Brasil-Frontend e digite:
+* após executar o [backend](https://github.com/Neo-Brasil/Neo-Brasil-Backend) e ter o NodeJs instalado, crie uma nova pasta e execute os seguintes comandos no cmd:
 
   ```
+  git clone https://github.com/Neo-Brasil/Neo-Brasil-Frontend
+  cd Neo-Brasil-Frontend
   npm install
   npm start
   ```
