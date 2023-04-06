@@ -39,13 +39,24 @@
     text-shadow: 3px 3px 2px #a95704;
 }
 
-#sign input::placeholder {
-    color: #000;
+.opcoes select{
+    width: 382px;
+    height: 5vh;
+    padding: 8px 15px;
+    font-size: 15px;
+    border: 2px solid #44A754;
+    border-radius: 5px;
+    margin-bottom: 5%;
 }
 
-.button-orange a{
-    text-decoration: none;
-    color: #FFF;
+#termos{
+    margin: 6% 0% 4%;
+    text-align: center;
+}
+
+#termos a{
+    text-decoration: underline;
+    color: #000;
 }
 
 #or{
@@ -55,6 +66,11 @@
 
 #send button{
     width: 16vw;
+}
+
+button a{
+    text-decoration: none;
+    color: #FFF;
 }
 
 .button-color .button-orange{

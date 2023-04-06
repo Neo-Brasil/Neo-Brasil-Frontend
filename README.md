@@ -1,10 +1,8 @@
 <div align="center" id="menu">
 
-![NEOBRASIL](https://user-images.githubusercontent.com/101027809/229087527-1e67a742-2080-4678-af31-0483257c65ba.png)
-
+![logo-transparent](https://user-images.githubusercontent.com/101027809/230495996-eec0bb05-25eb-437a-9c29-243fe870e679.png)
 
 </div>
-<br>
 
 ## :file_folder: Configuração das pastas
 
