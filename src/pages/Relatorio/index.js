@@ -1,11 +1,7 @@
 import './Relatorio.css';
 import Header from "../../components/Header";
 import { useState, useEffect } from 'react';
-import ModalRegistrar from '../../components/ModalRegistrar';
 import Axios from "axios";
-import { Link } from 'react-router-dom';
-import { MdRule } from "react-icons/md";
-
 
 export default function Relatorio() {
     const [cliente, setCliente] = useState([]);
@@ -31,10 +27,10 @@ export default function Relatorio() {
             novoDado.push(titulo)
             novoDados.push(novoDado)
 
-            if(titulo.situacao == "Creditado"){
+            if(titulo.situacao === "Creditado"){
                 recebe += titulo.ultimo_valor_pago
             }
-            if(titulo.situacao == "Pago"){
+            if(titulo.situacao === "Pago"){
                 credita += titulo.ultimo_valor_pago
             }
             expectativa += titulo.preco
@@ -51,8 +47,7 @@ export default function Relatorio() {
             <Header />
             {cliente.lenght === 0 ? (
                 <div className='none'>
-                <p>Nenhum dado encontrado...</p>
-                <p>Não há relatório diário!</p>
+                <p>Nenhum relatório encontrado...</p>
                 </div>
             ) : (
             <div className="content">
@@ -107,11 +102,11 @@ export default function Relatorio() {
                         
                         <div className='detalhes-relatorio'>
                             <div className='dados-titulo'>
-                                <p><b>Tipo de título: </b>Cliente Bronze</p>
+                                <p><b>Título do plano: </b>Cliente Bronze</p>
                                 <p><b>Preço: </b>{value[4].preco}</p>
                                 <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
                                 <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
-                                <p><b>Tempo de crédito: </b>{value[4].tempo_credito}</p>
+                                <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
                             </div>
                         </div>
                         

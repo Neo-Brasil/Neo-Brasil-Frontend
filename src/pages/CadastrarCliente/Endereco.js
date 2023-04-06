@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 export default function Endereco({ onButtonClick }) {
     const [cep, setCep] = useState('');
     const [rua, setRua] = useState('');
+    const [numero, setNumero] = useState('');
     const [bairro, setBairro] = useState('');
     const [city, setCity] = useState('');
     const [estado, setEstado] = useState('');
@@ -53,21 +54,28 @@ export default function Endereco({ onButtonClick }) {
                     <IMaskInput mask="00.000-000" className="fixo" maxLength="11" value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} required />
                     <span>CEP</span>
                 </div>
-                <div className="campo">
-                    <input type="text" className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
-                    <span>Logradouro</span>
+                <div className="campo row">
+                    <div className="endereco1">
+                        <input type="text" className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
+                        <span>Logradouro</span>
+                    </div>
+
+                    <div className="endereco2">
+                        <input type="number" id="num" className="fixo" value={numero} onChange={(e) => setNumero(e.target.value)} required />
+                        <span>Número</span>
+                    </div>
                 </div>
                 <div className="campo">
                     <input type="text" className="fixo" value={bairro} onChange={(e) => setBairro(e.target.value)} required />
                     <span>Bairro</span>
                 </div>
                 <div className="campo row">
-                    <div className="cidade">
+                    <div className="endereco1">
                         <input type="text" className="fixo" value={city} onChange={(e) => setCity(e.target.value)} required />
                         <span>Localidade</span>
                     </div>
 
-                    <div className="uf">
+                    <div className="endereco2">
                         <input type="text" className="fixo" maxLength='2' value={estado} onChange={(e) => setEstado(e.target.value)} required />
                         <span>UF</span>
                     </div>

@@ -26,12 +26,8 @@
 }
 
 details summary{
-    background-color: #FFF;
-    list-style: none;
-}
-
-details{
-    width: 100%;
+    /* list-style: none; */
+    cursor: pointer;
 }
 
 .detalhes-relatorio{
@@ -39,6 +35,7 @@ details{
     flex-direction: row;
     justify-content: space-around;
     padding: 20px;
+    background-color: #f9fff9;
 }
 
 .dados-titulo{

@@ -62,16 +62,18 @@ span{
     color: #44A754;
 }
 
-#cpf::-webkit-outer-spin-button,
-#cpf::-webkit-inner-spin-button, 
-#preco::-webkit-outer-spin-button,
-#preco::-webkit-inner-spin-button {
+#num::-webkit-outer-spin-button,
+#num::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#cpf, #preco {
+#num {
     -moz-appearance: textfield;
+}
+
+#preco {
+    text-align: end;
 }
 
 .row{
@@ -79,20 +81,20 @@ span{
     flex-direction: row;
 }
 
-.cidade + .uf{
+.endereco1 + .endereco2{
     margin-left: 10px;
 }
 
-.cidade input{
-    width: 257px;
+.endereco1 input{
+    width: 237px;
 }
 
-.uf input{
-    width: 50px;
+.endereco2 input{
+    width: 70px;
 }
 
-.uf span{
-    left: 310px;
+.endereco2 span{
+    left: 290px;
 }
 
 .button-color{

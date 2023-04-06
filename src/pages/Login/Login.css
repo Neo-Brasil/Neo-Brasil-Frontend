@@ -4,17 +4,13 @@
     justify-content: space-between;
     align-items: center;
 
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, 
-    rgba(255,255,255,1) 20%, 
-    rgba(68,167,84,1) 85%);
+    background: linear-gradient(270.19deg,
+     #44A754 0.17%, 
+     rgba(255, 255, 255, 0.0364583) 86.06%, 
+     rgba(68, 167, 84, 0) 86.07%);
 
     height: 100vh;
     padding: 0px 200px;
-}
-
-.logo img{
-    width:70%;
 }
 
 .logo{

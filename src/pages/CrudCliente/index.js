@@ -32,7 +32,7 @@ export default function CrudCliente() {
           setList(novoDados);
         });
       }, [])
-console.log(list)
+
     return (
         <div>
             <Header />

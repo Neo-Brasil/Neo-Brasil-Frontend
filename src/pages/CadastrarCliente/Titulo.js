@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import { IMaskInput } from "react-imask";
 import { toast } from 'react-toastify';
 
 export default function Titulo({ onButtonClick }) {
@@ -63,7 +64,8 @@ export default function Titulo({ onButtonClick }) {
                         </div>
 
                         <div className="campo">
-                            <input className="fixo" id="preco" type="number" placeholder="R$" required
+                            
+                            <IMaskInput mask="0.000,00" id="preco" className="fixo" type="text" placeholder="R$" required
                                 value={preco} onChange={(e) => setPreco(e.target.value)} />
                             <span>Preço</span>
                         </div>
