@@ -12,7 +12,7 @@ export default function ModalDelete({close}){
         Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
           var dados = resp.data
           for(var k in dados){
-            if(dados[k].id == id){
+            if(dados[k].id === id){
                 var dado = dados[k]
                 setNome(dado.nome)
             } 

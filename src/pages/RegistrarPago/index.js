@@ -25,7 +25,7 @@ export default function RegistrarPago() {
         for(var k in dados){
             var dado = dados[k]
             var titulo = dado.titulos[0]
-            if(titulo.situacao != "Pago"){
+            if(titulo.situacao !== "Pago"){
                 var novoDado = []
                 novoDado.push(dado.id)
                 novoDado.push(dado.nome);
