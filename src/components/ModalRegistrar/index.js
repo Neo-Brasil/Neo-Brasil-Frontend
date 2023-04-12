@@ -16,6 +16,7 @@ export default function ModalRegistrar({ close }) {
           var dado = resp.data
           setCliente(dado)
           setTitulo(dado.titulos[0])
+          console.log(setTitulo)
         });
       }, [])
 
@@ -47,7 +48,6 @@ export default function ModalRegistrar({ close }) {
             {cliente.lenght === 0 ? (
                 <div className='none'>
                     <p>Nenhum dado encontrado...</p>
-                    <p>Não há relatório diário!</p>
                 </div>
             ) : (
             <div className="container">

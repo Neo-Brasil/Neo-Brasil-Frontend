@@ -184,7 +184,7 @@ export default function Relatorio() {
 
                                     <div className='detalhes-relatorio'>
                                         <div className='dados-titulo'>
-                                            <p><b>Título do plano: </b>Cliente Bronze</p>
+                                            <p><b>Título do plano: </b>{value[4].tipo}</p>
                                             <p><b>Preço: </b>{value[4].preco}</p>
                                             <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
                                             <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>

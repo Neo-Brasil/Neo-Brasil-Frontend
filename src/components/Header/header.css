@@ -56,6 +56,6 @@
 }
 
 .signout svg:hover{
-    color: #ffa347;
-    filter: drop-shadow(1px 1px 5px #793f05);
+    color: #F27F0C;
+    filter: drop-shadow(1px 1px 1.5px #fbfaf9);
 }

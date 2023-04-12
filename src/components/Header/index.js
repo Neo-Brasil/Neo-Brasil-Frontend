@@ -50,13 +50,9 @@ export default function Header() {
                     <FiFileText size={35} />
                 </Link>
 
-                {/* <li className='list'><Link><FiFileText size={35} /></Link></li> */}
             </div>
 
             <div className='signout'>
-                {/* <Link>
-                    <GiLindenLeaf size={200} />
-                </Link> */}
 
                 <Link to={'/'}>
                     <FiLogOut size={35} />

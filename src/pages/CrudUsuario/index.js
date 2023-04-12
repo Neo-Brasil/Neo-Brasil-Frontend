@@ -17,7 +17,7 @@ export default function CrudUsuario() {
 
     localStorage.clear()
     localStorage.setItem('crudUser', 'crudUser-white')
-    
+
     function togglePostModal(id) {
         localStorage.clear();
         localStorage.setItem("id", id);

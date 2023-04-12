@@ -1,44 +1,3 @@
-.login{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    background: linear-gradient(270.19deg,
-     #44A754 0.17%, 
-     rgba(255, 255, 255, 0.0364583) 86.06%, 
-     rgba(68, 167, 84, 0) 86.07%);
-
-    height: 100vh;
-    padding: 0px 200px;
-}
-
-.logo{
-    animation: animation-logo 1.7s ease-in-out;
-}
-
-@keyframes animation-logo {
-    0%{
-        transform: translateX(-550px);
-    }
-    100%{
-        transform: translateX(0px);
-    }
-}
-
-.logar{
-    margin-right: 100px;
-}
-
-.signIn{
-    text-align: center;
-    color: #F27F0C;
-    font-size: 35px;
-    font-weight: bolder;
-    margin-bottom: 30px;
-    text-shadow: 3px 3px 2px #a95704;
-}
-
 .opcoes select{
     width: 382px;
     height: 5vh;
@@ -50,36 +9,11 @@
 }
 
 #termos{
-    margin: 6% 0% 4%;
+    margin-bottom: 6%;
     text-align: center;
 }
 
 #termos a{
     text-decoration: underline;
     color: #000;
-}
-
-#or{
-    text-align: center;
-    margin-top: 8%;
-}
-
-#send button{
-    width: 16vw;
-}
-
-button a{
-    text-decoration: none;
-    color: #FFF;
-}
-
-.button-color .button-orange{
-    background-color: #F79736;
-    color: #FFF;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-.button-orange:hover{
-    background-color: #F27F0C;
 }

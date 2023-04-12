@@ -36,7 +36,7 @@ export default function Login() {
                 <form onSubmit={handleSubmit}>
                     <div className='logar'>
 
-                        <h2 className='signIn'>Faça login</h2>
+                        <h2 className='signIn'>Login</h2>
 
                         <div className="campo" id='sign'>
                             <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -47,15 +47,13 @@ export default function Login() {
                         </div>
 
                         <div className='button-color'>
-                            <button className='button-green' onClick={() => handleSubmit()}>ENVIAR</button>
+                            <button className='button-green' id='enviarLogin' 
+                            onClick={() => handleSubmit()}>ENVIAR</button>
                         </div>
 
-                        <p id='or'>------ OU ------</p>
-
-                        <div className='button-color' id='send'>
-                            <button className='button-orange'>
-                                <Link to={'/criar_conta'}>
-                                    CRIAR UMA CONTA</Link></button>
+                        <div className='button-color'>
+                                <Link to={'/criar_conta'} id='goTo'>
+                                    CRIAR CONTA</Link>
                         </div>
                     </div>
                 </form>
@@ -67,6 +65,6 @@ export default function Login() {
     )
 }
 
-function or(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
+// function or(arg0: boolean) {
+//     throw new Error('Function not implemented.');
+// }

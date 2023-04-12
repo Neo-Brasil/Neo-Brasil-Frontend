@@ -1,7 +1,7 @@
 .login{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
     background: linear-gradient(270.19deg,
@@ -26,17 +26,20 @@
     }
 }
 
-.logar{
-    margin-right: 100px;
-}
-
 .signIn{
     text-align: center;
     color: #F27F0C;
-    font-size: 35px;
+    font-size: 3em;
     font-weight: bolder;
     margin-bottom: 30px;
     text-shadow: 3px 3px 2px #a95704;
+}
+
+#enviarLogin{
+    width: 8vw;
+    margin-top: 5px;
+    height: 4.5vh;
+    border-radius: 5px;
 }
 
 #sign input::placeholder {
@@ -48,14 +51,11 @@
     color: #FFF;
 }
 
-#or{
+/* .logar p{
     text-align: center;
-    margin-top: 8%;
-}
-
-#send button{
-    width: 16vw;
-}
+    margin-top: 14%;
+    margin-bottom: 15%;
+} */
 
 .button-color .button-orange{
     background-color: #F79736;
@@ -66,4 +66,11 @@
 
 .button-orange:hover{
     background-color: #F27F0C;
+}
+
+.button-color #goTo{
+    color: #F27F0C;
+    text-decoration: none;
+    text-shadow: 0.5px 2px 0.5px #a95704;
+    font-weight: bold;
 }
