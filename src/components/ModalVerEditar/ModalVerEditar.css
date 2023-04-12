@@ -1,0 +1,21 @@
+#nome-ver-editar {
+    color: #44A754;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.detalhes-ver-editar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detalhes-ver-editar b{
+    font-size: 1.5em;
+}
+
+.detalhes-ver-editar p{
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+

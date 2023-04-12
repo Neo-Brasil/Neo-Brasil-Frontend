@@ -1,18 +1,19 @@
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalRegistrar from '../../components/ModalRegistrar';
+import ModalAprovar from '../../components/ModalAprovar';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
 
-export default function RegistrarPago() {
+export default function AprovarConta() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
 
     localStorage.clear()
-    localStorage.setItem('registra', 'registra-white')
+    localStorage.setItem('aprova', 'aprova-white')
+    
 
     function togglePostModal(id) {
         localStorage.clear();
@@ -47,20 +48,20 @@ export default function RegistrarPago() {
             <Header />
             {list.lenght === 0 ? (
                 <div className='content'>
-                    <h1>Nenhum registro encontrado...</h1>
+                    <h1>Nenhuma conta para aprovar...</h1>
                 </div>
             ) : (
             
             <div className="content">
 
-                <h1>Registro de pagamento</h1>
+                <h1>Aprovação de contas</h1>
 
                 <div className='container-table'>
 
                     <table>
                     <thead>
                         <tr><th scope="col">Nome</th>
-                            <th scope="col">Enviar registro</th>
+                            <th scope="col">Analisar</th>
                         </tr>
                     </thead>
                         {typeof list !== 'undefined' && list.map((value) => {
@@ -69,7 +70,7 @@ export default function RegistrarPago() {
                                         <tr>
                                             <td data-label="Nome">{value[1]}</td>
 
-                                            <td data-label="Registrar">
+                                            <td data-label="Analisar">
                                                 <Link className="action" onClick={() => togglePostModal(value[0])}>
                                                     <MdRule color="#FDC727" size={35} />
                                                 </Link>
@@ -84,7 +85,7 @@ export default function RegistrarPago() {
             </div>
             )}
             {showPostModal && (
-                <ModalRegistrar conteudo={detail} close={togglePostModal} />
+                <ModalAprovar conteudo={detail} close={togglePostModal} />
             )}
         </div>
 

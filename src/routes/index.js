@@ -5,9 +5,13 @@ import Login from '../pages/Login/index.tsx'
 import CriarConta from '../pages/CriarConta/index.tsx';
 import Termos from '../pages/Termos/index.js';
 
+import AprovarConta from '../pages/AprovarConta'
+import CrudUsuario from '../pages/CrudUsuario'
+
 import CadastrarCliente from '../pages/CadastrarCliente'
 import CrudCliente from '../pages/CrudCliente'
 import VerEditarCliente from '../pages/VerEditarCliente'
+
 import RegistrarPago from '../pages/RegistrarPago'
 import Relatorio from '../pages/Relatorio'
 
@@ -17,6 +21,9 @@ export default function RoutesApp(){
             <Route path="/" element={ <Login/> } /> 
             <Route path="/criar_conta" element={ <CriarConta/> } /> 
             <Route path="/termosDeUso" element={ <Termos/> } /> 
+            
+            <Route path="/aprovar_contas" element={ <AprovarConta/> } />
+            <Route path="/usuarios_cadastrados" element={ <CrudUsuario/> } />
             
             <Route path="/cadastro" element={ <CadastrarCliente/> } />
             <Route path="/clientes_cadastrados" element={ <CrudCliente/> } />

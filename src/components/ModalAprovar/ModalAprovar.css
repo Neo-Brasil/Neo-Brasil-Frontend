@@ -1,0 +1,38 @@
+.detalhes-aprovar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detalhes-aprovar b{
+    font-size: 1.5em;
+}
+
+.detalhes-aprovar p{
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.detalhes-aprovar select{
+    font-size: 1.2em;
+    width: 200px;
+    border: 0.1em solid #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.button-red-modal {
+    background-color: #FF0000;
+    margin-top: 50px;
+}
+
+.buttonsRow{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.buttonsRow .button-green-modal{
+    margin-right: 20px;
+}

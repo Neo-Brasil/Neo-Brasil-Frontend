@@ -55,7 +55,7 @@ export default function CriarConta() {
                             <select required>
                                 <option value="0">Setor</option>
                                 <option value="1">Comercial</option>
-                                <option value="1">Financeiro</option>
+                                <option value="2">Financeiro</option>
                             </select>
                         </div>
 

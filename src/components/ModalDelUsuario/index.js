@@ -1,28 +1,21 @@
-import './ModalDelete.css';
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 
-export default function ModalDelete({close}){
-    const [nome, setNome] = useState('');
-    const id_ = localStorage.getItem("id"); 
-    const id = parseInt(id_);
+export default function ModalDelUsuario({close}){
+    const [email, setEmail] = useState('');
+    const id = localStorage.getItem("id");
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
-          var dados = resp.data
-          for(var k in dados){
-            if(dados[k].id == id){
-                var dado = dados[k]
-                setNome(dado.nome)
-            } 
-          }
+        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`).then((resp) => {
+            var dado = resp.data
+            setEmail(dado.email)
         });
-      }, [])
+    }, [])
 
     function handleSubmit() {
-        Axios.delete(`http://localhost:9080/excluir/cliente/${id}`).then((res) => {
-            console.log(res)
+        Axios.delete('http://127.0.0.1:9080/excluir/usuario').then((resp) => {
+            console.log(resp)
         })
         localStorage.clear();
         close();
@@ -37,7 +30,7 @@ export default function ModalDelete({close}){
                 </button>
 
                 <div className='conteudoModal'>
-                    <p>Deseja deletar <b>{nome}?</b></p>
+                    <p>Deseja deletar a conta de <b>{email}?</b></p>
                     <p className='aviso'>Esta ação não poderá ser desfeita!</p>
 
                     <div className='button-color' onClick={() => handleSubmit()}>

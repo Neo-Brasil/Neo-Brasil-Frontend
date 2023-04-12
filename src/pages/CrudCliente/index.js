@@ -2,7 +2,7 @@ import './CrudCliente.css';
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalDelete from '../../components/ModalDelete';
+import ModalDelCliente from '../../components/ModalDelCliente';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
@@ -11,6 +11,11 @@ export default function CrudCliente() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
+    const [total, setTotal] = useState();
+
+    localStorage.clear()
+    localStorage.setItem('crudCli', 'crudCli-white')
+    
 
     function togglePostModal(id) {
         localStorage.clear();
@@ -23,13 +28,18 @@ export default function CrudCliente() {
         Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
           var dados = resp.data
           var novoDados = []
-          for(var k in dados){
+          
+          let total_count = 0;
+          for (var k in dados) {
+              total_count = total_count + 1;
+
               var novoDado = []
               novoDado.push(dados[k].id)
               novoDado.push(dados[k].nome);
               novoDados.push(novoDado)
           }
           setList(novoDados);
+          setTotal(total_count);
         });
       }, [])
 
@@ -46,6 +56,8 @@ export default function CrudCliente() {
                 <h1>Clientes cadastrados</h1>
 
                 <div className='container-table'>
+                    <i>Total: {total}</i>
+
                     <table>
                         <thead>
                             <tr>
@@ -81,7 +93,7 @@ export default function CrudCliente() {
             </div>
             )}
             {showPostModal && (
-                <ModalDelete conteudo={detail} close={togglePostModal} />
+                <ModalDelCliente conteudo={detail} close={togglePostModal} />
             )}
         </div>
 

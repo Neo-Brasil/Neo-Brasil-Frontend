@@ -3,22 +3,27 @@ import logo from '../../assets/logo-transparent.png';
 import React, { useState } from "react";
 import Axios from "axios";
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
     function handleSubmit() {
-        Axios.post("http://localhost:9080/checagem/usuario", {           
-            email: email,
-            senha: senha
-        }).then((resp) => {
-            var resposta = resp.data
-            if(resposta){
-                localStorage.setItem("login", "ok");
-                window.location.href='/cadastro'
-            }
-        })
+        if (email !== "" || senha !== "") {
+            Axios.post("http://localhost:9080/checagem/usuario", {
+                email: email,
+                senha: senha
+            }).then((resp) => {
+                var resposta = resp.data
+                if (resposta) {
+                    localStorage.setItem("login", "ok");
+                    window.location.href = '/cadastro'
+                }
+            });
+        } else {
+            toast.warning('Preencha todos os campos')
+        }
     }
 
     return (
@@ -34,11 +39,11 @@ export default function Login() {
                         <h2 className='signIn'>Faça login</h2>
 
                         <div className="campo" id='sign'>
-                            <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                            <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
                         <div className="campo" id='sign'>
-                            <input type="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} required />
+                            <input type="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
                         </div>
 
                         <div className='button-color'>
@@ -49,8 +54,8 @@ export default function Login() {
 
                         <div className='button-color' id='send'>
                             <button className='button-orange'>
-                               <Link to={'/criar_conta'}>
-                                CRIAR UMA CONTA</Link></button>
+                                <Link to={'/criar_conta'}>
+                                    CRIAR UMA CONTA</Link></button>
                         </div>
                     </div>
                 </form>
@@ -60,4 +65,8 @@ export default function Login() {
         </div>
 
     )
+}
+
+function or(arg0: boolean) {
+    throw new Error('Function not implemented.');
 }
