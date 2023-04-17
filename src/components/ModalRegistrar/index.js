@@ -48,6 +48,8 @@ export default function ModalRegistrar({ close }) {
             toast.error('Preencha todos os campos')
         }
     }
+    console.log(titulo);
+    console.log(prestacao);
 
     return (
         <div className="modal">
