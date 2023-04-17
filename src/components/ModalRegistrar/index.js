@@ -48,8 +48,6 @@ export default function ModalRegistrar({ close }) {
             toast.error('Preencha todos os campos')
         }
     }
-    console.log(titulo);
-    console.log(prestacao);
 
     return (
         <div className="modal">
@@ -62,9 +60,6 @@ export default function ModalRegistrar({ close }) {
                 <button className="close" onClick={close}>
                     <FiArrowLeft color="#000" size={25} />
                 </button>
-
-                <p id="nome-registro">{titulo.titulo}</p>
-
                 <div className='detalhes-registro'>
                     <div className="column">
                         <b>Tipo de título: </b>
