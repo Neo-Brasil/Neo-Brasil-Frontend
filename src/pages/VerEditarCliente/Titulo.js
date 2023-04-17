@@ -97,7 +97,7 @@ export default function Titulo({ onButtonClick }) {
                                 </div>
 
                                 <div class="campo">
-                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder="R$" required
+                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+precoP} required
                                         value={preco} onChange={(e) => setPreco(e.target.value)} />
                                     <span>Preço</span>
                                 </div>
