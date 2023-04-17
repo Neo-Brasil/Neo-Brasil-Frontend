@@ -25,7 +25,7 @@ export default function ModalRegistrar({ close }) {
                 Axios.put("http://localhost:9080/atualizar/titulo", {
                     id: titulo.id,
                     data_pagamento: dataPagamento,
-                    ultimo_valor_pago: valorPago,
+                    ultimo_valor_pago: parseFloat(valorPago.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
                     situacao: "Pago"
                 }).then((res) => {
                     console.log(res)

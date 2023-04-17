@@ -64,7 +64,7 @@ export default function Titulo({ onButtonClick }) {
                 {
                     id: id_titulo,
                     titulo:titulo,
-                    preco:preco,
+                    preco:parseFloat(preco.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
                     data_vencimento:dataVenc,
                     tempo_credito:prazo
                 }

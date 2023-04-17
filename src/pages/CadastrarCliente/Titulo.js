@@ -9,7 +9,7 @@ export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
-    const [prazo, setPrazo] = useState('');
+    const [prazo, setPrazo] = useState('');  
 
     const currencyMask = createNumberMask({ 
         prefix: 'R$ ',
@@ -35,6 +35,8 @@ export default function Titulo({ onButtonClick }) {
             var cpf = localStorage.getItem("cpf");
             var email = localStorage.getItem("email");
 
+            let valor = preco.replace('R$ ','').replace('.','')
+
             Axios.post("http://localhost:9080/cadastro/cliente", {
                 nome: nome,
                 cpf: cpf,
@@ -43,7 +45,7 @@ export default function Titulo({ onButtonClick }) {
                 titulos: [
                     {
                         titulo: titulo,
-                        preco: preco,
+                        preco: parseFloat(preco.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
                         data_vencimento: dataVenc,
                         tempo_credito: prazo,
                         situacao: "Em aberto"
@@ -61,8 +63,6 @@ export default function Titulo({ onButtonClick }) {
             toast.error('Preencha os campos corretamente')
         }
     }
-
-    console.log(preco);
 
     return (
         <div>
