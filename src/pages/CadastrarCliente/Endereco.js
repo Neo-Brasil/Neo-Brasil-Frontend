@@ -29,6 +29,7 @@ export default function Endereco({ onButtonClick }) {
         if (rua !== '') {
             var endereco =  {
                 cep: cep,
+                numero: numero,
                 logradouro: rua,
                 bairro: bairro,
                 localidade: city,
