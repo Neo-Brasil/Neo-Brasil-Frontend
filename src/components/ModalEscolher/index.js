@@ -3,44 +3,36 @@ import './ModalRegistrar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 import { toast } from 'react-toastify';
+import ModalRegistrar from '../ModalEscolher';
+import { Link } from 'react-router-dom';
+import { MdRule } from "react-icons/md";
 
-export default function ModalRegistrar({ close }) {
-    const [valorPago, setValorPago] = useState('');
-    const [dataPagamento, setDataPagamento] = useState('');
+export default function ModalEscolher({ close }) {
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState();
     const [cliente, setCliente] = useState({});
     const [titulo, setTitulo] = useState({});
-    const id = localStorage.getItem("id") ; 
+    const [prestacoes, setPrestacoes] = useState();
+    const id_cliente = localStorage.getItem("id_cliente") ; 
+    const id_titulo = localStorage.getItem("id_titulo") ; 
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`).then((resp) => {
           var dado = resp.data
           setCliente(dado)
-          setTitulo(dado.titulos[0])
-          console.log(setTitulo)
         });
+        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
+            var dado = resp.data
+            setPrestacoes(dado.prestacoes)
+            setTitulo(dado)
+          });
       }, [])
 
-    function handleSubmit() {
-        if (valorPago !== '' && dataPagamento !== '') {
-            if(valorPago >= titulo.preco){
-                Axios.put("http://localhost:9080/atualizar/titulo" , {
-                    id: titulo.id,
-                    data_pagamento: dataPagamento,
-                    ultimo_valor_pago: valorPago,
-                    situacao: "Pago"
-                } ).then((res) => {
-                    console.log(res)
-                })
-                localStorage.clear();
-                toast.success('Registrado com sucesso!')
-                close()
-                window.location.reload(true);
-            }else {
-                toast.error('Valor incorreto')
-            }
-        } else {
-            toast.error('Preencha todos os campos')
-        }
+    function togglePostModal(id_prestacao) {
+        localStorage.clear();
+        localStorage.setItem("id_prestacao", id_prestacao);
+        setShowPostModal(!showPostModal);
+        setDetail();
     }
 
     return (
@@ -57,32 +49,35 @@ export default function ModalRegistrar({ close }) {
 
                 <p id="nome-registro">{cliente.nome}</p>
 
-                <div className='detalhes-registro'>
-                    <div className="column">
-                        <b>Tipo de título: </b>
-                        <p>{titulo.titulo}</p>
-                        <b>Preço: </b>
-                        <p>{titulo.preco}</p>
+                <div className='container-table'>
 
-                    </div>
+                    <table>
+                        {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
+                            return !value.envio ?
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Nome">{value.data_vencimento}</td>
 
-                    <div className="column">
-                        <b>Valor pago: </b>
-                        <input className="input-modal" placeholder="R$" type="number" min={titulo.preco} required
-                            value={valorPago} onChange={(e) => setValorPago(e.target.value)} />
-                    
-                        <b>Data de pagamento: </b>
-                        <input className="input-modal" type="date" required
-                            value={dataPagamento} onChange={(e) => setDataPagamento(e.target.value)} />
-                    </div>
+                                            <td data-label="Nome">{value.situacao}</td>
+
+                                            <td data-label="Nome">{value.preco}</td>
+
+                                            <td data-label="Registrar">
+                                                <Link className="action" onClick={() => togglePostModal(value.id)}>
+                                                    <MdRule color="#FDC727" size={35} />
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                            :null
+                        })}
+                    </table>
 
                 </div>
-
-                <div className='button-color' onClick={() => handleSubmit()}>
-                    <button className='button-green-modal'>REGISTRAR</button>
-                </div>
-
             </div>
+            )}
+            {showPostModal && (
+                <ModalRegistrar conteudo={detail} close={togglePostModal} />
             )}
         </div>
     )

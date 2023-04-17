@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalRegistrar from '../../components/ModalRegistrar';
+import ModalEscolher from '../../components/ModalEscolher';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
@@ -18,9 +18,10 @@ export default function RegistrarPago() {
     localStorage.removeItem('aprova')
     localStorage.setItem('registra', 'registra-white')
 
-    function togglePostModal(id) {
+    function togglePostModal(id_cliente, id_titulo) {
         localStorage.clear();
-        localStorage.setItem("id", id);
+        localStorage.setItem("id_cliente", id_cliente);
+        localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);
         setDetail();
     }
@@ -38,7 +39,10 @@ export default function RegistrarPago() {
                 novoDado.push(dado.nome);
                 novoDado.push(dado.cpf);
                 novoDado.push(dado.email);
-                novoDados.push(novoDado)
+                let titulo = dado.titulos
+                titulo = titulo[0]
+                novoDado.push(titulo.id);
+                novoDados.push(novoDado);
                 setList(novoDados);
             }
         }
@@ -74,7 +78,7 @@ export default function RegistrarPago() {
                                             <td data-label="Nome">{value[1]}</td>
 
                                             <td data-label="Registrar">
-                                                <Link className="action" onClick={() => togglePostModal(value[0])}>
+                                                <Link className="action" onClick={() => togglePostModal(value[0],value[4])}>
                                                     <MdRule color="#FDC727" size={35} />
                                                 </Link>
                                             </td>
@@ -88,7 +92,7 @@ export default function RegistrarPago() {
             </div>
             )}
             {showPostModal && (
-                <ModalRegistrar conteudo={detail} close={togglePostModal} />
+                <ModalEscolher conteudo={detail} close={togglePostModal} />
             )}
         </div>
 

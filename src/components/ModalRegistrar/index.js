@@ -7,16 +7,22 @@ import { toast } from 'react-toastify';
 export default function ModalRegistrar({ close }) {
     const [valorPago, setValorPago] = useState('');
     const [dataPagamento, setDataPagamento] = useState('');
-    const [cliente, setCliente] = useState({});
+    const [prestacao, setPrestacao] = useState({});
     const [titulo, setTitulo] = useState({});
-    const id = localStorage.getItem("id") ; 
+    const id_prestacao = localStorage.getItem("id_prestacao"); 
+    const id_titulo = localStorage.getItem('id_titulo');
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        Axios.get(`/selecionar/titulos/${id_titulo}`).then((resp) => {
           var dado = resp.data
-          setCliente(dado)
-          setTitulo(dado.titulos[0])
-          console.log(setTitulo)
+          setTitulo(dado)
+          let prestacoes = dado.prestacoes;
+          for(k in prestacoes){
+            let prestacao = prestacoes[k]
+            if(prestacao.id == id_prestacao){
+                setPrestacao(prestacao)
+            }
+          }
         });
       }, [])
 
@@ -45,7 +51,7 @@ export default function ModalRegistrar({ close }) {
 
     return (
         <div className="modal">
-            {cliente.lenght === 0 ? (
+            {titulo.lenght === 0 ? (
                 <div className='none'>
                     <p>Nenhum dado encontrado...</p>
                 </div>
@@ -62,7 +68,7 @@ export default function ModalRegistrar({ close }) {
                         <b>Tipo de título: </b>
                         <p>{titulo.titulo}</p>
                         <b>Preço: </b>
-                        <p>{titulo.preco}</p>
+                        <p>{prestacao.preco}</p>
 
                     </div>
 
