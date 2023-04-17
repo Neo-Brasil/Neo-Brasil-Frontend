@@ -3,7 +3,7 @@ import './ModalRegistrar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 import { toast } from 'react-toastify';
-import ModalRegistrar from '../ModalEscolher';
+import ModalRegistrar from '../ModalRegistrar';
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
 

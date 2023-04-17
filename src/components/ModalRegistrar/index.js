@@ -17,7 +17,7 @@ export default function ModalRegistrar({ close }) {
           var dado = resp.data
           setTitulo(dado)
           let prestacoes = dado.prestacoes;
-          for(k in prestacoes){
+          for(let k in prestacoes){
             let prestacao = prestacoes[k]
             if(prestacao.id == id_prestacao){
                 setPrestacao(prestacao)
@@ -61,7 +61,7 @@ export default function ModalRegistrar({ close }) {
                     <FiArrowLeft color="#000" size={25} />
                 </button>
 
-                <p id="nome-registro">{cliente.nome}</p>
+                <p id="nome-registro">{titulo.titulo}</p>
 
                 <div className='detalhes-registro'>
                     <div className="column">
