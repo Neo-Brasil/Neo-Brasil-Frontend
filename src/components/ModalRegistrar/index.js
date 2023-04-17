@@ -3,6 +3,8 @@ import './ModalRegistrar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 import { toast } from 'react-toastify';
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from "text-mask-addons";
 
 export default function ModalRegistrar({ close }) {
     const [valorPago, setValorPago] = useState('');
@@ -11,6 +13,20 @@ export default function ModalRegistrar({ close }) {
     const [titulo, setTitulo] = useState({});
     const id_prestacao = localStorage.getItem("id_prestacao"); 
     const id_titulo = localStorage.getItem('id_titulo');
+
+    const currencyMask = createNumberMask({ 
+        prefix: 'R$ ',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: false,
+        decimalSymbol: ',',
+        decimalLimit: 2,
+        integerLimit: 13,
+        requireDecimal: true,
+        allowNegative: false,
+        allowLeadingZeroes: false
+    });
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
@@ -71,8 +87,8 @@ export default function ModalRegistrar({ close }) {
 
                     <div className="column">
                         <b>Valor pago: </b>
-                        <input className="input-modal" placeholder="R$" type="number" min={titulo.preco} required
-                            value={valorPago} onChange={(e) => setValorPago(e.target.value)} />
+                        <MaskedInput mask={currencyMask} className="input-modal" type="text" placeholder="R$" required
+                                value={valorPago} onChange={(e) => setValorPago(e.target.value)} />
                     
                         <b>Data de pagamento: </b>
                         <input className="input-modal" type="date" required

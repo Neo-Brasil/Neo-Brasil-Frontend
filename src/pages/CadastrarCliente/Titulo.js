@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { IMaskInput } from "react-imask";
 import { toast } from 'react-toastify';
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from "text-mask-addons";
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
@@ -9,9 +11,22 @@ export default function Titulo({ onButtonClick }) {
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
 
+    const currencyMask = createNumberMask({ 
+        prefix: 'R$ ',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: false,
+        decimalSymbol: ',',
+        decimalLimit: 2,
+        integerLimit: 13,
+        requireDecimal: true,
+        allowNegative: false,
+        allowLeadingZeroes: false
+    });
+
     function handleSubmit(e) {
         e.preventDefault()
-
         if (prazo !== '') {
             var endereco = localStorage.getItem("endereco");
             endereco = JSON.parse(endereco);
@@ -47,6 +62,8 @@ export default function Titulo({ onButtonClick }) {
         }
     }
 
+    console.log(preco);
+
     return (
         <div>
 
@@ -66,7 +83,7 @@ export default function Titulo({ onButtonClick }) {
 
                         <div className="campo">
                             
-                            <IMaskInput mask="0.000,00" id="preco" className="fixo" type="text" placeholder="R$" required
+                            <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder="R$" required
                                 value={preco} onChange={(e) => setPreco(e.target.value)} />
                             <span>Preço</span>
                         </div>

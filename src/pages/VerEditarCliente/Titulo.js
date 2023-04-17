@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from "text-mask-addons";
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
@@ -16,6 +18,20 @@ export default function Titulo({ onButtonClick }) {
 
     const [id_titulo, setId] = useState('');
     const {id} = useParams();
+
+    const currencyMask = createNumberMask({ 
+        prefix: 'R$ ',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: false,
+        decimalSymbol: ',',
+        decimalLimit: 2,
+        integerLimit: 13,
+        requireDecimal: true,
+        allowNegative: false,
+        allowLeadingZeroes: false
+    });
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
@@ -81,8 +97,8 @@ export default function Titulo({ onButtonClick }) {
                                 </div>
 
                                 <div class="campo">
-                                    <input class="fixo" id="preco" type="number" placeholder={precoP} 
-                                    value={preco} onChange={(e) => setPreco(e.target.value)} />
+                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder="R$" required
+                                        value={preco} onChange={(e) => setPreco(e.target.value)} />
                                     <span>Preço</span>
                                 </div>
 
