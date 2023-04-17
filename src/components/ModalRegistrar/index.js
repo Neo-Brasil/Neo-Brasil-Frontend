@@ -13,7 +13,7 @@ export default function ModalRegistrar({ close }) {
     const id_titulo = localStorage.getItem('id_titulo');
 
     useEffect(() => {
-        Axios.get(`/selecionar/titulos/${id_titulo}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
           var dado = resp.data
           setTitulo(dado)
           let prestacoes = dado.prestacoes;
