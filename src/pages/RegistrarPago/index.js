@@ -11,7 +11,11 @@ export default function RegistrarPago() {
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
 
-    localStorage.clear()
+    localStorage.removeItem('cadastro')
+    localStorage.removeItem('crudUser')
+    localStorage.removeItem('relatorio')
+    localStorage.removeItem('crudCli')
+    localStorage.removeItem('aprova')
     localStorage.setItem('registra', 'registra-white')
 
     function togglePostModal(id) {

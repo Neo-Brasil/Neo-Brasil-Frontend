@@ -16,7 +16,11 @@ export default function Relatorio() {
 
     const [total, setTotal] = useState();
 
-    localStorage.clear()
+    localStorage.removeItem('cadastro')
+    localStorage.removeItem('crudUser')
+    localStorage.removeItem('registra')
+    localStorage.removeItem('crudCli')
+    localStorage.removeItem('aprova')
     localStorage.setItem('relatorio', 'relatorio-white')
 
     useEffect(() => {

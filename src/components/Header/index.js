@@ -17,8 +17,6 @@ export default function Header() {
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
 
-    console.log(cadastro);
-
     return (
         <div className="sidebar">
 

@@ -13,12 +13,15 @@ export default function CrudCliente() {
     const [list, setList] = useState([]);
     const [total, setTotal] = useState();
 
-    localStorage.clear()
+    localStorage.removeItem('cadastro')
+    localStorage.removeItem('crudUser')
+    localStorage.removeItem('registra')
+    localStorage.removeItem('relatorio')
+    localStorage.removeItem('aprova')
     localStorage.setItem('crudCli', 'crudCli-white')
     
 
     function togglePostModal(id) {
-        localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();

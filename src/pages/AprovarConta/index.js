@@ -11,7 +11,11 @@ export default function AprovarConta() {
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
 
-    localStorage.clear()
+    localStorage.removeItem('cadastro')
+    localStorage.removeItem('crudUser')
+    localStorage.removeItem('registra')
+    localStorage.removeItem('relatorio')
+    localStorage.removeItem('crudCli')
     localStorage.setItem('aprova', 'aprova-white')
     
 

@@ -11,6 +11,7 @@ export default function Titulo({ onButtonClick }) {
 
     function handleSubmit(e) {
         e.preventDefault()
+
         if (prazo !== '') {
             var endereco = localStorage.getItem("endereco");
             endereco = JSON.parse(endereco);

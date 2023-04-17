@@ -13,9 +13,6 @@ export default function Pessoal({ onButtonClick }) {
     const [cpfe, setCpf] = useState('');
     const [email, setEmail] = useState('');
 
-    localStorage.clear()
-    localStorage.setItem('cadastro', 'cadastro-white')
-
     const checkCpf = (e) => {
         const cpfe = e.target.value.replace(/\D/g, '');
         if (cpf.isValid(cpfe) === false) {

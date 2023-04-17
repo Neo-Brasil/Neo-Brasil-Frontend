@@ -12,6 +12,13 @@ import MultiStepProgressBar from "../../components/MultiStepProgressBar";
 export default function CadastrarCliente() {
   const [page, setPage] = useState("pageone");
 
+  localStorage.removeItem('crudUser')
+  localStorage.removeItem('registra')
+  localStorage.removeItem('relatorio')
+  localStorage.removeItem('crudCli')
+  localStorage.removeItem('aprova')
+  localStorage.setItem('cadastro', 'cadastro-white')
+
   const nextPage = (page) => {
     setPage(page);
   };

@@ -15,7 +15,11 @@ export default function CrudUsuario() {
     const [showPostModal2, setShowPostModal2] = useState(false);
     const [detail2, setDetail2] = useState();
 
-    localStorage.clear()
+    localStorage.removeItem('cadastro')
+    localStorage.removeItem('registra')
+    localStorage.removeItem('relatorio')
+    localStorage.removeItem('crudCli')
+    localStorage.removeItem('aprova')
     localStorage.setItem('crudUser', 'crudUser-white')
 
     function togglePostModal(id) {
