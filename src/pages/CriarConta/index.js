@@ -18,6 +18,7 @@ export default function CriarConta() {
             if (nome !== "" || email !== "" || senha !== "" || id_setor !== "") {
                 Axios.get(`http://localhost:9080/listagem/usuarios`).then((resp) => {
                     let usuarios = resp.data
+                    var chave = true
                     for(let k in usuarios){
                         if(usuarios[k].email == email){
                             if(usuarios[k].autorizado == 1){
@@ -31,28 +32,30 @@ export default function CriarConta() {
                                 setSenha('')
                                 setConfirmaSenha('')
                             }
-                        }else{
-                            Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
-                                let setores = resp.data
-                                for(let k in setores){
-                                    if(setores[k].id == id_setor){
-                                        Axios.post("http://localhost:9080/cadastro/usuario", {
-                                                nome: nome,
-                                                email: email,
-                                                senha: senha,
-                                                setor: setores[k]
-                                        }).then((resp) => {
-                                        })
-                                    }
-                                }
-                            }) 
-                            toast.success('Aguarde seu cadastro ser autorizado!')  
-                            setNome('')
-                            setEmail('')
-                            setIdSetor('')
-                            setSenha('') 
-                            setConfirmaSenha('')
+                            chave = false
                         }
+                    }
+                    if(chave){
+                        Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
+                            let setores = resp.data
+                            for(let k in setores){
+                                if(setores[k].id == id_setor){
+                                    Axios.post("http://localhost:9080/cadastro/usuario", {
+                                            nome: nome,
+                                            email: email,
+                                            senha: senha,
+                                            setor: setores[k]
+                                    }).then((resp) => {
+                                    })
+                                }
+                            }
+                        }) 
+                        toast.success('Aguarde seu cadastro ser autorizado!')  
+                        setNome('')
+                        setEmail('')
+                        setIdSetor('')
+                        setSenha('') 
+                        setConfirmaSenha('')
                     }
                 });       
             } else {
