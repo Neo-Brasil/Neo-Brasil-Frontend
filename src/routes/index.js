@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import React from 'react';
 
 import Login from '../pages/Login/index.js'
-import CriarConta from '../pages/CriarConta/index.tsx';
+import CriarConta from '../pages/CriarConta/index.js';
 import Termos from '../pages/Termos/index.js';
 
 import AprovarConta from '../pages/AprovarConta'

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function Login() {
+    localStorage.clear()
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
