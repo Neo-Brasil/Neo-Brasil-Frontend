@@ -49,7 +49,8 @@ export default function ModalRegistrar({ close }) {
                     id: id_titulo,
                     prestacoes: [
                         {
-                            id: id_prestacao
+                            id: id_prestacao,
+                            data_pagamento: dataPagamento
                         }
                     ]
                 } ).then((res) => {
