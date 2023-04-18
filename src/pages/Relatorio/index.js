@@ -13,12 +13,10 @@ import ModalParcelas from '../../components/Modal/ModalParcelas';
 export default function Relatorio() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
-    
-    const [cliente, setCliente] = useState([]);
-    const [valorRecebido, setValorRecebido] = useState(0);
-    const [expectativaValor, setExpectativaValor] = useState(0);
-    const [valorCreditar, setValorCreditar] = useState(0);
-
+    const [valorCreditar, setValorCreditar] = useState();
+    const [valorRecebido, setValorRecebido] = useState();
+    const [expectativaValor, setExpectativaValor] = useState();
+    const [clientes, setClientes] = useState([]);
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
 
@@ -32,43 +30,11 @@ export default function Relatorio() {
     localStorage.setItem('relatorio', 'relatorio-white')
 
     useEffect(() => {
-        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
-            var dados = resp.data
-            var novoDados = []
-            var credita = 0
-            var recebe = 0
-            var expectativa = 0
-
-            let total_count = 0;
-            for (var k in dados) {
-                total_count = total_count + 1;
-
-                var dado = dados[k]
-                var titulo = dado.titulos[0]
-                var novoDado = []
-                novoDado.push(dado.id)
-                novoDado.push(dado.nome);
-                novoDado.push(dado.cpf);
-                novoDado.push(dado.email);
-                novoDado.push(titulo)
-                novoDados.push(novoDado)
-
-                if (titulo.situacao === "Creditado") {
-                    recebe += titulo.ultimo_valor_pago
-                }
-                if (titulo.situacao === "Pago") {
-                    credita += titulo.ultimo_valor_pago
-                }
-                expectativa += titulo.preco
-            }
-            setValorRecebido(recebe)
-            setValorCreditar(credita)
-            setExpectativaValor(expectativa)
-            setCliente(novoDados);
-
-            setTotal(total_count);
+        Axios.get(`http://localhost:9080/listagem/clientes`).then((resp) => {
+            setClientes(resp.data)
         });
     }, [])
+    console.log(clientes);
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -80,8 +46,9 @@ export default function Relatorio() {
         }
     }
 
-    function togglePostModal() {
+    function togglePostModal(id_titulo) {
         localStorage.clear();
+        localStorage.setItem("id_titulo", id_titulo)
         setShowPostModal(!showPostModal);
         setDetail();
     }
@@ -90,7 +57,7 @@ export default function Relatorio() {
             <div>
                 <Header />
 
-                {cliente.lenght === 0 ? (
+                {clientes.lenght === 0 ? (
 
                     <div className='none'>
                         <p>Nenhum relatório encontrado...</p>
@@ -151,25 +118,6 @@ export default function Relatorio() {
                             </details>
                         </div>
 
-                        {/* <div className='container-table' id='values'>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Expectativa de valor</td>
-                                    <td>R$ {expectativaValor}</td>
-                                </tr>
-                                <tr>
-                                    <td>Valor faltante</td>
-                                    <td>R$ {valorRecebido}</td>
-                                </tr>
-                                <tr>
-                                    <td>Valor recebido</td>
-                                    <td>R$ {valorCreditar}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> */}
-
                         <div className='container-table'>
 
                             <i>Total: {total}</i>
@@ -182,7 +130,7 @@ export default function Relatorio() {
                                 </thead>
                             </table>
 
-                            {typeof cliente !== 'undefined' && cliente.map((value) => {
+                            {typeof clientes !== 'undefined' && clientes.map((value) => {
                                 return !value.envio ?
 
                                     <details>
@@ -190,10 +138,10 @@ export default function Relatorio() {
                                             <table>
                                                 <tbody>
                                                     <tr>
-                                                        <td data-label="Nome">{value[1]}</td>
+                                                        <td data-label="Nome">{value.nome}</td>
 
                                                         <td data-label="Prestações">
-                                                            <Link className="action" onClick={() => togglePostModal()}>
+                                                            <Link className="action" onClick={() => togglePostModal(value.titulos[0].id)}>
                                                                 <FiLayers color="#FDC727" size={30} />
                                                             </Link>
                                                         </td>
@@ -204,30 +152,18 @@ export default function Relatorio() {
 
                                         <div className='detalhes-relatorio'>
                                             <div className='dados-titulo'>
-                                                <p><b>Nome do cliente: </b>{value[1]}</p>
-                                                <p><b>CPF: </b>{value[2]}</p>
-                                                <p><b>Email: </b>{value[3]}</p>
+                                                <p><b>Nome do cliente: </b>{value.nome}</p>
+                                                <p><b>CPF: </b>{value.cpf}</p>
+                                                <p><b>Email: </b>{value.email}</p>
                                             </div>
 
                                             <div className='dados-titulo'>
-                                                <p><b>Título do plano: </b>{value[4].tipo}</p>
-                                                <p><b>Preço: </b>{value[4].preco}</p>
-                                                <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
-                                                <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
-                                                <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
+                                                <p><b>Título do plano: </b>{value.titulos[0].titulo}</p>
+                                                <p><b>Preço: </b>{value.titulos[0].preco}</p>
+                                                <p><b>Data de vencimento: </b>{value.titulos[0].data_vencimento}</p>
+                                                <p><b>Data de pagamento: </b>{value.titulos[0].data_pagamento}</p>
+                                                <p><b>Dias para creditar: </b>{value.titulos[0].tempo_credito}</p>
                                             </div>
-
-                                            {/* <div className='dados-titulo'>
-                                                <p><b>Título do plano: </b>{value[4].tipo}</p>
-                                                <p><b>Preço: </b>{value[4].preco}</p>
-                                                <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
-                                            </div>
-
-                                            <div className='dados-titulo'>
-                                                <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
-                                                <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
-                                            </div> */}
-
                                         </div>
 
                                     </details>
