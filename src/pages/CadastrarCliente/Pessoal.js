@@ -3,12 +3,7 @@ import { IMaskInput } from "react-imask";
 import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 
-export default function Pessoal({ onButtonClick }) {
-    if(localStorage.getItem("login") === "ok"){
-        toast.success('Bem-vindo!')
-        localStorage.removeItem("login");
-    }
-    
+export default function Pessoal({ onButtonClick }) {   
     const [nome, setNome] = useState('');
     const [cpfe, setCpf] = useState('');
     const [email, setEmail] = useState('');

@@ -11,6 +11,11 @@ import { FiLayers } from "react-icons/fi";
 import ModalParcelas from '../../components/Modal/ModalParcelas';
 
 export default function Relatorio() {
+    if(localStorage.getItem("login") === "ok"){
+        toast.success('Bem-vindo!')
+        localStorage.removeItem("login");
+    }
+    
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [valorCreditar, setValorCreditar] = useState();
