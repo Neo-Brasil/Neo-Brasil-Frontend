@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
+import "./ModalParcelas.css"
 
 export default function ModalParcelas({ close }) {
    
@@ -51,7 +52,7 @@ export default function ModalParcelas({ close }) {
 
                                             <td data-label="MêsPago">{value.data_pagamento}</td>
 
-                                            <td data-label="Status">{value.situacao}</td>
+                                            <td id={value.situacao} data-label="Status">{value.situacao}</td>
 
                                             <td data-label="Preço">{value.preco}</td>
                                         </tr>
