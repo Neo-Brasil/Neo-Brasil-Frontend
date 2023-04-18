@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './ModalRegistrar.css';
+import './ModalEscolher.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
-import { toast } from 'react-toastify';
 import ModalRegistrar from '../ModalRegistrar';
 import { Link } from 'react-router-dom';
-import { MdRule } from "react-icons/md";
+import { FiCheckCircle } from "react-icons/fi";
 
 export default function ModalEscolher({ close }) {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -50,22 +49,29 @@ export default function ModalEscolher({ close }) {
 
                 <p id="nome-registro">{cliente.nome}</p>
 
-                <div className='container-table'>
+                <div className='container-table' id='table-parcelas'>
 
                     <table>
+                        <thead>
+                            <tr><th scope="col">Mês</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Registrar</th>
+                            </tr>
+                        </thead>
                         {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
                             return !value.envio ?
                                     <tbody>
                                         <tr>
-                                            <td data-label="Nome">{value.data_vencimento}</td>
+                                            <td data-label="Mês">{value.data_vencimento}</td>
 
-                                            <td data-label="Nome">{value.situacao}</td>
+                                            <td data-label="Status">{value.situacao}</td>
 
-                                            <td data-label="Nome">{value.preco}</td>
+                                            <td data-label="Preço">{value.preco}</td>
 
                                             <td data-label="Registrar">
                                                 <Link className="action" onClick={() => togglePostModal(value.id)}>
-                                                    <MdRule color="#FDC727" size={35} />
+                                                    <FiCheckCircle color="#44A756" size={30} />
                                                 </Link>
                                             </td>
                                         </tr>

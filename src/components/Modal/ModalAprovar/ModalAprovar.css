@@ -4,16 +4,23 @@
     align-items: center;
 }
 
+.aprovar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .detalhes-aprovar b{
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .detalhes-aprovar p{
-    font-size: 1.2em;
+    font-size: 1.3em;
     margin-bottom: 0.5em;
 }
 
 .detalhes-aprovar select{
+    margin-left: 8px;
     font-size: 1.2em;
     width: 200px;
     border: 0.1em solid #000;

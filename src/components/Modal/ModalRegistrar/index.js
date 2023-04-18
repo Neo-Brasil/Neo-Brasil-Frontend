@@ -44,7 +44,7 @@ export default function ModalRegistrar({ close }) {
 
     function handleSubmit() {
         if (valorPago !== '' && dataPagamento !== '') {
-            if(valorPago >= titulo.preco){
+            if(valorPago.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.') >= titulo.preco){
                 Axios.put("http://localhost:9080/atualizar/titulo" , {
                     id: titulo.id,
                     data_pagamento: dataPagamento,
@@ -87,7 +87,7 @@ export default function ModalRegistrar({ close }) {
 
                     <div className="column">
                         <b>Valor pago: </b>
-                        <MaskedInput mask={currencyMask} className="input-modal" type="text" placeholder="R$" required
+                        <MaskedInput mask={currencyMask} className="input-modal" id='alinhar-pago' type="text" placeholder="R$"  required
                                 value={valorPago} onChange={(e) => setValorPago(e.target.value)} />
                     
                         <b>Data de pagamento: </b>

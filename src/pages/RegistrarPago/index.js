@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalEscolher from '../../components/ModalEscolher';
+import ModalEscolher from '../../components/Modal/ModalEscolher';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
@@ -68,7 +68,7 @@ export default function RegistrarPago() {
                     <table>
                     <thead>
                         <tr><th scope="col">Nome</th>
-                            <th scope="col">Enviar registro</th>
+                            <th scope="col">Prestações</th>
                         </tr>
                     </thead>
                         {typeof list !== 'undefined' && list.map((value) => {

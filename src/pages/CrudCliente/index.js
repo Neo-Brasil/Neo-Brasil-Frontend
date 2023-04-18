@@ -2,7 +2,7 @@ import './CrudCliente.css';
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalDelCliente from '../../components/ModalDelCliente';
+import ModalDelCliente from '../../components/Modal/ModalDelCliente';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";

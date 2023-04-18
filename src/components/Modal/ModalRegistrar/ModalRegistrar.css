@@ -1,8 +1,8 @@
 #nome-registro{
     color: #44A754;
-    font-size: 1.8em;
+    font-size: 2em;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
 }
 
 .detalhes-registro{
@@ -32,6 +32,10 @@
     border-radius: 5px;
     padding: 5px 10px;
     margin-bottom: 0.4em;
+}
+
+#alinhar-pago{
+    text-align: end;
 }
 
 .button-color .button-all{

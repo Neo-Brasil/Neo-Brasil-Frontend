@@ -49,6 +49,7 @@ export default function Titulo({ onButtonClick }) {
         e.preventDefault()
         var endereco = localStorage.getItem("endereco");
         endereco = JSON.parse(endereco);
+        console.log(endereco);
 
         var nome = localStorage.getItem("nome");
         var cpf = localStorage.getItem("cpf");
@@ -97,7 +98,7 @@ export default function Titulo({ onButtonClick }) {
                                 </div>
 
                                 <div class="campo">
-                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+precoP} required
+                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+precoP}
                                         value={preco} onChange={(e) => setPreco(e.target.value)} />
                                     <span>Preço</span>
                                 </div>

@@ -57,16 +57,20 @@ export default function ModalRegistrar({ close }) {
                     <p id="nome-registro">{conta.nome}</p>
 
                     <div className='detalhes-aprovar'>
-                        <b>Email: </b>
-                        <p>{titulo.titulo}</p>
-                        <b>Setor: </b>
+                        <div className='aprovar'> 
+                            <p><b>Email: </b>{titulo.titulo}</p>
+                        </div>
 
-                        <select required>
-                            <option value="0"></option>
-                            <option value="1">Comercial</option>
-                            <option value="2">Financeiro</option>
-                            <option value="3">Administrador</option>
-                        </select>
+                        <div className='aprovar'> 
+                            <p><b>Setor: </b></p>
+
+                            <select required>
+                                <option value="0"></option>
+                                <option value="1">Comercial</option>
+                                <option value="2">Financeiro</option>
+                                <option value="3">Administrador</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className='buttonsRow'>

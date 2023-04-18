@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 export default function Endereco({ onButtonClick }) {
     const [cep, setCep] = useState('');
     const [rua, setRua] = useState('');
+    const [numero, setNumero] = useState('');
     const [bairro, setBairro] = useState('');
     const [city, setCity] = useState('');
     const [estado, setEstado] = useState('');
@@ -14,6 +15,7 @@ export default function Endereco({ onButtonClick }) {
 
     const [cepP, setCepp] = useState('');
     const [ruaP, setRuap] = useState('');
+    const [numeroP, setNumerop] = useState('');
     const [bairroP, setBairrop] = useState('');
     const [cityP, setCityp] = useState('');
     const [estadoP, setEstadop] = useState('');
@@ -27,6 +29,7 @@ export default function Endereco({ onButtonClick }) {
         let endereco = cliente.endereco;
         setCepp(endereco.cep);
         setRuap(endereco.logradouro);
+        setNumerop(endereco.numero);
         setBairrop(endereco.bairro);
         setCityp(endereco.localidade);
         setEstadop(endereco.uf);
@@ -53,6 +56,7 @@ export default function Endereco({ onButtonClick }) {
         var endereco =  {
             cep: cep,
             logradouro: rua,
+            numero: numero,
             bairro: bairro,
             localidade: city,
             uf: estado,
@@ -71,32 +75,46 @@ export default function Endereco({ onButtonClick }) {
 
             <div className="inputs">
 
-                <div class="campo">
-                    <IMaskInput mask="00.000-000" placeholder={cepP} maxLength='11' className="fixo" value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} />
+                <div className="campo">
+                    <IMaskInput mask="00.000-000" className="fixo" maxLength="11" placeholder={cepP}
+                    value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} />
                     <span>CEP</span>
                 </div>
-                <div class="campo">
-                    <input type="text" placeholder={ruaP} className="fixo" value={rua} onChange={(e) => setRua(e.target.value)}/>
-                    <span>Logradouro</span>
+                <div className="campo row">
+                    <div className="endereco1">
+                        <input type="text" className="fixo" placeholder={ruaP}
+                        value={rua} onChange={(e) => setRua(e.target.value)} />
+                        <span>Logradouro</span>
+                    </div>
+
+                    <div className="endereco2">
+                        <input type="number" id="num" className="fixo" placeholder={numeroP}
+                        value={numero} onChange={(e) => setNumero(e.target.value)} />
+                        <span>Número</span>
+                    </div>
                 </div>
-                <div class="campo">
-                    <input type="text" placeholder={bairroP} className="fixo" value={bairro} onChange={(e) => setBairro(e.target.value)}/>
+                <div className="campo">
+                    <input type="text" className="fixo" placeholder={bairroP}
+                    value={bairro} onChange={(e) => setBairro(e.target.value)} />
                     <span>Bairro</span>
                 </div>
-                <div class="campo row">
-                    <div className="cidade">
-                        <input type="text" placeholder={cityP} className="fixo" value={city} onChange={(e) => setCity(e.target.value)}/>
+                <div className="campo row">
+                    <div className="endereco1">
+                        <input type="text" className="fixo" placeholder={cityP}
+                        value={city} onChange={(e) => setCity(e.target.value)} />
                         <span>Localidade</span>
                     </div>
 
-                    <div className="uf">
-                        <input type="text" placeholder={estadoP} className="fixo" maxLength='2' value={estado} onChange={(e) => setEstado(e.target.value)} />
+                    <div className="endereco2">
+                        <input type="text" className="fixo" maxLength='2' placeholder={estadoP}
+                        value={estado} onChange={(e) => setEstado(e.target.value)} />
                         <span>UF</span>
                     </div>
                 </div>
 
-                <div class="campo">
-                    <input type="text" placeholder={compP} className="fixo" value={comp} onChange={(e) => setComp(e.target.value)} />
+                <div className="campo">
+                    <input type="text" className="fixo" placeholder={compP}
+                    value={comp} onChange={(e) => setComp(e.target.value)} />
                     <span>Complemento</span>
                 </div>
 

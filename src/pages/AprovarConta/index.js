@@ -1,7 +1,7 @@
 import Header from "../../components/Header";
 
 import { useState, useEffect } from 'react';
-import ModalAprovar from '../../components/ModalAprovar';
+import ModalAprovar from '../../components/Modal/ModalAprovar';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
