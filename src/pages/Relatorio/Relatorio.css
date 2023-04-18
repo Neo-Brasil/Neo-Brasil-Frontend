@@ -53,12 +53,13 @@ i{
     flex-direction: row;
     justify-content: space-around;
     padding: 20px;
-    background-color: #f9fff9;
+    background-color: #f8d56b;
 }
 
 .dados-titulo{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .Pago{

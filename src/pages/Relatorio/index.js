@@ -1,11 +1,19 @@
 import './Relatorio.css';
 import Header from "../../components/Header";
+
 import { useState, useEffect } from 'react';
 import Axios from "axios";
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 import { MdSearch } from "react-icons/md";
+import { FiLayers } from "react-icons/fi";
+import ModalParcelas from '../../components/Modal/ModalParcelas';
 
 export default function Relatorio() {
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState();
+    
     const [cliente, setCliente] = useState([]);
     const [valorRecebido, setValorRecebido] = useState(0);
     const [expectativaValor, setExpectativaValor] = useState(0);
@@ -72,72 +80,78 @@ export default function Relatorio() {
         }
     }
 
-    return (
-        <div>
-            <Header />
+    function togglePostModal() {
+        localStorage.clear();
+        setShowPostModal(!showPostModal);
+        setDetail();
+    }
 
-            {cliente.lenght === 0 ? (
+        return (
+            <div>
+                <Header />
 
-                <div className='none'>
-                    <p>Nenhum relatório encontrado...</p>
-                </div>
+                {cliente.lenght === 0 ? (
 
-            ) : (
-
-                <div className="content">
-
-                    <h1>Relatório de pagamento</h1>
-
-                    <form onSubmit={handleSubmit} id='formFilter'>
-
-                        <div className='filters'>
-                            <div className='filter'>
-                                <p>Início</p>
-                                <input type="date" className="fixo" required
-                                    value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
-                            </div>
-
-                            <div className='filter'>
-                                <p>Fim</p>
-                                <input type="date" className="fixo" required
-                                    value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
-                            </div>
-
-                            <div className='button-color'>
-                                <button className='button-orange' id='orange2'
-                                    onClick={() => handleSubmit()}
-                                ><MdSearch size={30} /></button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div className='container-table' id='values'>
-
-                        <details>
-                            <summary id='result'>Ver resultado de valores...</summary>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Expectativa de valor</th>
-                                        <th scope="col">Valor faltante</th>
-                                        <th scope="col">Valor recebido</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        <td data-label="Expectativa">R$ {expectativaValor}</td>
-                                        <td data-label="Faltante">R$ {valorRecebido}</td>
-                                        <td data-label="Recebido">R$ {valorCreditar}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </details>
+                    <div className='none'>
+                        <p>Nenhum relatório encontrado...</p>
                     </div>
 
-                    {/* <div className='container-table' id='values'>
+                ) : (
+
+                    <div className="content">
+
+                        <h1>Relatório de pagamento</h1>
+
+                        <form onSubmit={handleSubmit} id='formFilter'>
+
+                            <div className='filters'>
+                                <div className='filter'>
+                                    <p>Início</p>
+                                    <input type="date" className="fixo" required
+                                        value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
+                                </div>
+
+                                <div className='filter'>
+                                    <p>Fim</p>
+                                    <input type="date" className="fixo" required
+                                        value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
+                                </div>
+
+                                <div className='button-color'>
+                                    <button className='button-orange' id='orange2'
+                                        onClick={() => handleSubmit()}
+                                    ><MdSearch size={30} /></button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div className='container-table' id='values'>
+
+                            <details>
+                                <summary id='result'>Ver resultado de valores...</summary>
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Expectativa de valor</th>
+                                            <th scope="col">Valor faltante</th>
+                                            <th scope="col">Valor recebido</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td data-label="Expectativa">R$ {expectativaValor}</td>
+                                            <td data-label="Faltante">R$ {valorRecebido}</td>
+                                            <td data-label="Recebido">R$ {valorCreditar}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </details>
+                        </div>
+
+                        {/* <div className='container-table' id='values'>
                         <table>
                             <tbody>
                                 <tr>
@@ -156,60 +170,77 @@ export default function Relatorio() {
                         </table>
                     </div> */}
 
-                    <div className='container-table'>
+                        <div className='container-table'>
 
-                        <i>Total: {total}</i>
+                            <i>Total: {total}</i>
 
-                        <table>
-                            <thead>
-                                <tr><th scope="col">Nome</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                        </table>
+                            <table>
+                                <thead>
+                                    <tr><th scope="col">Nome</th>
+                                        <th scope="col">Prestações</th>
+                                    </tr>
+                                </thead>
+                            </table>
 
-                        {typeof cliente !== 'undefined' && cliente.map((value) => {
-                            return !value.envio ?
+                            {typeof cliente !== 'undefined' && cliente.map((value) => {
+                                return !value.envio ?
 
-                                <details>
-                                    <summary>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td data-label="Nome">{value[1]}</td>
+                                    <details>
+                                        <summary>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td data-label="Nome">{value[1]}</td>
 
-                                                    <td data-label="Status">
-                                                        <p className={value[4].situacao}>{value[4].situacao}</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </summary>
+                                                        <td data-label="Prestações">
+                                                            <Link className="action" onClick={() => togglePostModal()}>
+                                                                <FiLayers color="#FDC727" size={30} />
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </summary>
 
-                                    <div className='detalhes-relatorio'>
-                                        <div className='dados-titulo'>
-                                            <p><b>Nome do cliente: </b>{value[1]}</p>
-                                            <p><b>CPF: </b>{value[2]}</p>
-                                            <p><b>Email: </b>{value[3]}</p>
+                                        <div className='detalhes-relatorio'>
+                                            <div className='dados-titulo'>
+                                                <p><b>Nome do cliente: </b>{value[1]}</p>
+                                                <p><b>CPF: </b>{value[2]}</p>
+                                                <p><b>Email: </b>{value[3]}</p>
+                                            </div>
+
+                                            <div className='dados-titulo'>
+                                                <p><b>Título do plano: </b>{value[4].tipo}</p>
+                                                <p><b>Preço: </b>{value[4].preco}</p>
+                                                <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
+                                                <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
+                                                <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
+                                            </div>
+
+                                            {/* <div className='dados-titulo'>
+                                                <p><b>Título do plano: </b>{value[4].tipo}</p>
+                                                <p><b>Preço: </b>{value[4].preco}</p>
+                                                <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
+                                            </div>
+
+                                            <div className='dados-titulo'>
+                                                <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
+                                                <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
+                                            </div> */}
+
                                         </div>
 
-                                        <div className='dados-titulo'>
-                                            <p><b>Título do plano: </b>{value[4].tipo}</p>
-                                            <p><b>Preço: </b>{value[4].preco}</p>
-                                            <p><b>Data de vencimento: </b>{value[4].data_vencimento}</p>
-                                            <p><b>Data de pagamento: </b>{value[4].data_pagamento}</p>
-                                            <p><b>Dias para creditar: </b>{value[4].tempo_credito}</p>
-                                        </div>
-                                    </div>
+                                    </details>
 
-                                </details>
-
-                                : null
-                        })}
+                                    : null
+                            })}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )}
+                {showPostModal && (
+                    <ModalParcelas conteudo={detail} close={togglePostModal} />
+                )}
+            </div>
 
-    )
-}
+        )
+    }
