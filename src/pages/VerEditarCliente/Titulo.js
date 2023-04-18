@@ -49,7 +49,6 @@ export default function Titulo({ onButtonClick }) {
         e.preventDefault()
         var endereco = localStorage.getItem("endereco");
         endereco = JSON.parse(endereco);
-        console.log(endereco);
 
         var nome = localStorage.getItem("nome");
         var cpf = localStorage.getItem("cpf");
