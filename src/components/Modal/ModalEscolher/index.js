@@ -22,7 +22,13 @@ export default function ModalEscolher({ close }) {
         });
         Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
             var dado = resp.data
-            setPrestacoes(dado.prestacoes)
+            let pre_prestacoes = []
+            for (let k in dado.prestacoes) {
+                if(dado.prestacoes[k].situacao != "Pago"){
+                    pre_prestacoes.push(dado.prestacoes[k])
+                }
+            }
+            setPrestacoes(pre_prestacoes)
             setTitulo(dado)
           });
       }, [])
