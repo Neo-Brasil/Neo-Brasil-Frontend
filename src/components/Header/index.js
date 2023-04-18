@@ -18,7 +18,7 @@ export default function Header() {
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
     
-    if(acesso == "ADM"){
+    if(acesso == "1"){
         return (
             <div className="sidebar">
 
@@ -61,111 +61,63 @@ export default function Header() {
 
             </div>
         )
+    } else if(acesso == "2") {
+        return (
+            <div className="sidebar">
+
+                <div className='nav'>
+
+                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
+
+                    <Link to={'/cadastro'} id={cadastro}>
+                        <FiUserPlus size={35} />
+                    </Link>
+
+                    <Link to={'/clientes_cadastrados'} id={crudCli}>
+                        <FiUser size={35} />
+                    </Link>
+
+                    <Link to={'/relatorio'} id={relatorio}>
+                        <FiFileText size={35} />
+                    </Link>
+
+                </div>
+
+                <div className='signout'>
+
+                    <Link to={'/'}>
+                        <FiLogOut size={35} />
+                    </Link>
+                </div>
+
+            </div>
+        )
+    } else if(acesso == "3"){
+        return (
+            <div className="sidebar">
+
+                <div className='nav'>
+
+                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
+
+                    <Link to={'/registrar_pagamento'} id={registra}>
+                        <MdAddCard size={35} />
+                    </Link>
+
+                    <Link to={'/relatorio'} id={relatorio}>
+                        <FiFileText size={35} />
+                    </Link>
+
+                </div>
+
+                <div className='signout'>
+
+                    <Link to={'/'}>
+                        <FiLogOut size={35} />
+                    </Link>
+                </div>
+
+            </div>
+        )
     }
-
-
-    // if Administrador {
-    //     return (
-    //         <div className="sidebar">
-
-    //             <div className='nav'>
-
-    //                 <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-    //                 <Link to={'/aprovar_contas'} id={aprova} >
-    //                     <RiShieldCheckFill size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/usuarios_cadastrados'} id={crudUser} >
-    //                     <RiShieldUserFill size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/cadastro'} id={cadastro}>
-    //                     <FiUserPlus size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/clientes_cadastrados'} id={crudCli}>
-    //                     <FiUser size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/registrar_pagamento'} id={registra}>
-    //                     <MdAddCard size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/relatorio'} id={relatorio}>
-    //                     <FiFileText size={35} />
-    //                 </Link>
-
-    //             </div>
-
-    //             <div className='signout'>
-
-    //                 <Link to={'/'}>
-    //                     <FiLogOut size={35} />
-    //                 </Link>
-    //             </div>
-
-    //         </div>
-    //     )
-
-    // } elif Comercial {
-    //     return (
-    //         <div className="sidebar">
-
-    //             <div className='nav'>
-
-    //                 <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-    //                 <Link to={'/cadastro'} id={cadastro}>
-    //                     <FiUserPlus size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/clientes_cadastrados'} id={crudCli}>
-    //                     <FiUser size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/relatorio'} id={relatorio}>
-    //                     <FiFileText size={35} />
-    //                 </Link>
-
-    //             </div>
-
-    //             <div className='signout'>
-
-    //                 <Link to={'/'}>
-    //                     <FiLogOut size={35} />
-    //                 </Link>
-    //             </div>
-
-    //         </div>
-    //     )
-
-    // } else {
-    //     return (
-    //         <div className="sidebar">
-
-    //             <div className='nav'>
-
-    //                 <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-    //                 <Link to={'/registrar_pagamento'} id={registra}>
-    //                     <MdAddCard size={35} />
-    //                 </Link>
-
-    //                 <Link to={'/relatorio'} id={relatorio}>
-    //                     <FiFileText size={35} />
-    //                 </Link>
-
-    //             </div>
-
-    //             <div className='signout'>
-
-    //                 <Link to={'/'}>
-    //                     <FiLogOut size={35} />
-    //                 </Link>
-    //             </div>
-
-    //         </div>
-    //     )
-    // }
 }

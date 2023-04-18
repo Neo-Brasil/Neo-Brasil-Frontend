@@ -18,11 +18,17 @@ export default function Login() {
                 senha: senha
             }).then((resp) => {
                 var resposta = resp.data
-                console.log(resposta);
                 if (resposta) {
+                    Axios.get(`http://localhost:9080/listagem/usuarios`).then((resp) => {
+                        let usuarios = resp.data
+                        for(let k in usuarios){
+                            if(usuarios[k].email == email){
+                                localStorage.setItem("acesso", usuarios[k].setor.id)
+                            }
+                        }
+                    });
                     localStorage.setItem("login", "ok");
-                    localStorage.setItem("acesso", "ADM")
-                    window.location.href = '/cadastro'
+                    window.location.href = '/relatorio'
                 }
             });
         } else {
