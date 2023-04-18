@@ -34,7 +34,7 @@ export default function ModalEscolher({ close }) {
       }, [])
 
     function togglePostModal(id_prestacao) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id_prestacao", id_prestacao);
         localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);

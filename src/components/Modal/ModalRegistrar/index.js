@@ -56,7 +56,7 @@ export default function ModalRegistrar({ close }) {
                 } ).then((res) => {
                     console.log(res)
                 })
-                localStorage.clear();
+                // localStorage.clear();
                 toast.success('Registrado com sucesso!')
                 close()
                 window.location.reload(true);

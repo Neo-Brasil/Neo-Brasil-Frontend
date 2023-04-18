@@ -9,6 +9,7 @@ import { RiShieldCheckFill, RiShieldUserFill } from "react-icons/ri";
 // import { GiLindenLeaf } from "react-icons/gi";
 
 export default function Header() {
+    const acesso = localStorage.getItem("acesso")
 
     const aprova = localStorage.getItem('aprova')
     const crudUser = localStorage.getItem('crudUser')
@@ -16,49 +17,52 @@ export default function Header() {
     const crudCli = localStorage.getItem('crudCli')
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
+    
+    if(acesso == "ADM"){
+        return (
+            <div className="sidebar">
 
-    return (
-                <div className="sidebar">
-    
-                    <div className='nav'>
-    
-                        <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-    
-                        <Link to={'/aprovar_contas'} id={aprova} >
-                            <RiShieldCheckFill size={30} />
-                        </Link>
-    
-                        <Link to={'/usuarios_cadastrados'} id={crudUser} >
-                            <RiShieldUserFill size={30} />
-                        </Link>
-    
-                        <Link to={'/cadastro'} id={cadastro}>
-                            <FiUserPlus size={30} />
-                        </Link>
-    
-                        <Link to={'/clientes_cadastrados'} id={crudCli}>
-                            <FiUser size={30} />
-                        </Link>
-    
-                        <Link to={'/registrar_pagamento'} id={registra}>
-                            <MdAddCard size={30} />
-                        </Link>
-    
-                        <Link to={'/relatorio'} id={relatorio}>
-                            <FiFileText size={30} />
-                        </Link>
-    
-                    </div>
-    
-                    <div className='signout'>
-    
-                        <Link to={'/'}>
-                            <FiLogOut size={30} />
-                        </Link>
-                    </div>
-    
+                <div className='nav'>
+
+                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
+
+                    <Link to={'/aprovar_contas'} id={aprova} >
+                        <RiShieldCheckFill size={30} />
+                    </Link>
+
+                    <Link to={'/usuarios_cadastrados'} id={crudUser} >
+                        <RiShieldUserFill size={30} />
+                    </Link>
+
+                    <Link to={'/cadastro'} id={cadastro}>
+                        <FiUserPlus size={30} />
+                    </Link>
+
+                    <Link to={'/clientes_cadastrados'} id={crudCli}>
+                        <FiUser size={30} />
+                    </Link>
+
+                    <Link to={'/registrar_pagamento'} id={registra}>
+                        <MdAddCard size={30} />
+                    </Link>
+
+                    <Link to={'/relatorio'} id={relatorio}>
+                        <FiFileText size={30} />
+                    </Link>
+
                 </div>
-            )
+
+                <div className='signout'>
+
+                    <Link to={'/'}>
+                        <FiLogOut size={30} />
+                    </Link>
+                </div>
+
+            </div>
+        )
+    }
+
 
     // if Administrador {
     //     return (

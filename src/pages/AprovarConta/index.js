@@ -20,7 +20,7 @@ export default function AprovarConta() {
     
 
     function togglePostModal(id) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();

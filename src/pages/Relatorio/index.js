@@ -47,7 +47,7 @@ export default function Relatorio() {
     }
 
     function togglePostModal(id_titulo) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id_titulo", id_titulo)
         setShowPostModal(!showPostModal);
         setDetail();

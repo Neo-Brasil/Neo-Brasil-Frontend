@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 export default function Pessoal({ onButtonClick }) {
     if(localStorage.getItem("login") === "ok"){
         toast.success('Bem-vindo!')
-        localStorage.clear();
+        localStorage.removeItem("login");
     }
     
     const [nome, setNome] = useState('');

@@ -23,14 +23,14 @@ export default function CrudUsuario() {
     localStorage.setItem('crudUser', 'crudUser-white')
 
     function togglePostModal(id) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();
     }
 
     function togglePostModal2(id) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal2(!showPostModal2);
         setDetail2();

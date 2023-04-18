@@ -19,7 +19,7 @@ export default function RegistrarPago() {
     localStorage.setItem('registra', 'registra-white')
 
     function togglePostModal(id_cliente, id_titulo) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id_cliente", id_cliente);
         localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);
