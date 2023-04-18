@@ -55,8 +55,8 @@ export default function Endereco({ onButtonClick }) {
         e.preventDefault()
         var endereco =  {
             cep: cep,
-            logradouro: rua,
             numero: numero,
+            logradouro: rua,
             bairro: bairro,
             localidade: city,
             uf: estado,

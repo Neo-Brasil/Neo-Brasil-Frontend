@@ -45,11 +45,13 @@ export default function ModalRegistrar({ close }) {
     function handleSubmit() {
         if (valorPago !== '' && dataPagamento !== '') {
             if(valorPago.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.') >= titulo.preco){
-                Axios.put("http://localhost:9080/atualizar/titulo" , {
-                    id: titulo.id,
-                    data_pagamento: dataPagamento,
-                    ultimo_valor_pago: parseFloat(valorPago.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
-                    situacao: "Pago"
+                Axios.put("http://localhost:9080/pagar/prestacao" , {
+                    id: id_titulo,
+                    prestacoes: [
+                        {
+                            id: id_prestacao
+                        }
+                    ]
                 } ).then((res) => {
                     console.log(res)
                 })
