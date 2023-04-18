@@ -25,27 +25,27 @@ export default function Header() {
                         <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
     
                         <Link to={'/aprovar_contas'} id={aprova} >
-                            <RiShieldCheckFill size={35} />
+                            <RiShieldCheckFill size={30} />
                         </Link>
     
                         <Link to={'/usuarios_cadastrados'} id={crudUser} >
-                            <RiShieldUserFill size={35} />
+                            <RiShieldUserFill size={30} />
                         </Link>
     
                         <Link to={'/cadastro'} id={cadastro}>
-                            <FiUserPlus size={35} />
+                            <FiUserPlus size={30} />
                         </Link>
     
                         <Link to={'/clientes_cadastrados'} id={crudCli}>
-                            <FiUser size={35} />
+                            <FiUser size={30} />
                         </Link>
     
                         <Link to={'/registrar_pagamento'} id={registra}>
-                            <MdAddCard size={35} />
+                            <MdAddCard size={30} />
                         </Link>
     
                         <Link to={'/relatorio'} id={relatorio}>
-                            <FiFileText size={35} />
+                            <FiFileText size={30} />
                         </Link>
     
                     </div>
@@ -53,7 +53,7 @@ export default function Header() {
                     <div className='signout'>
     
                         <Link to={'/'}>
-                            <FiLogOut size={35} />
+                            <FiLogOut size={30} />
                         </Link>
                     </div>
     
