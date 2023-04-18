@@ -24,7 +24,6 @@ export default function ModalDelCliente({close}){
         Axios.delete(`http://localhost:9080/excluir/cliente/${id}`).then((res) => {
             console.log(res)
         })
-        localStorage.clear();
         close();
         window.location.reload(true);
     }

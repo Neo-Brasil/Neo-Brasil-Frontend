@@ -159,8 +159,6 @@ export default function Relatorio() {
                                             <div className='dados-titulo'>
                                                 <p><b>Título do plano: </b>{value.titulos[0].titulo}</p>
                                                 <p><b>Preço: </b>{value.titulos[0].preco}</p>
-                                                <p><b>Data de vencimento: </b>{value.titulos[0].data_vencimento}</p>
-                                                <p><b>Data de pagamento: </b>{value.titulos[0].data_pagamento}</p>
                                                 <p><b>Dias para creditar: </b>{value.titulos[0].tempo_credito}</p>
                                             </div>
                                         </div>
