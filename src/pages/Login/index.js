@@ -24,12 +24,18 @@ export default function Login() {
                         let usuarios = resp.data
                         for(let k in usuarios){
                             if(usuarios[k].email == email){
-                                localStorage.setItem("acesso", usuarios[k].setor.id)
+                                if(usuarios[k].autorizado == 1){
+                                    localStorage.setItem("acesso", usuarios[k].setor.id)
+                                    localStorage.setItem("login", "ok");
+                                    window.location.href = '/relatorio'
+                                }else{
+                                    toast.success('Aguarde seu cadastro ser autorizado!')
+                                    setEmail('')
+                                    setSenha('')
+                                }
                             }
                         }
                     });
-                    localStorage.setItem("login", "ok");
-                    window.location.href = '/relatorio'
                 }
             });
         } else {
