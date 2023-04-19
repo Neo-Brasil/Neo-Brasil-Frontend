@@ -13,6 +13,8 @@ export default function ModalParcelas({ close }) {
 
 
     useEffect(() => {
+        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
+          });
         Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`).then((resp) => {
             var dado = resp.data
             setPrestacoes(dado)
