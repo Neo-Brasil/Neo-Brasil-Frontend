@@ -24,7 +24,6 @@ export default function Relatorio() {
     const [clientes, setClientes] = useState([]);
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
-
     const [total, setTotal] = useState();
 
     localStorage.removeItem('cadastro')
@@ -43,9 +42,7 @@ export default function Relatorio() {
     function handleSubmit(e) {
         e.preventDefault()
 
-        if (dataInicio !== "" && dataFim !== "") {
-            console.log("oi")
-        } else {
+        if (dataInicio == "" || dataFim == "") {
             toast.warning('Preencha ambos os campos!')
         }
     }
@@ -53,6 +50,8 @@ export default function Relatorio() {
     function togglePostModal(id_titulo) {
         // localStorage.clear();
         localStorage.setItem("id_titulo", id_titulo)
+        localStorage.setItem("dataInicio", dataInicio)
+        localStorage.setItem("dataFim", dataFim)
         setShowPostModal(!showPostModal);
         setDetail();
     }

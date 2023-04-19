@@ -6,15 +6,16 @@ import "./ModalParcelas.css"
 export default function ModalParcelas({ close }) {
    
     const [cliente, setCliente] = useState({});
-    const [titulo, setTitulo] = useState({});
     const [prestacoes, setPrestacoes] = useState();
-    const id_titulo = localStorage.getItem("id_titulo") ; 
+    const id_titulo = localStorage.getItem("id_titulo"); 
+    const dataInicio = localStorage.getItem("dataInicio"); 
+    const dataFim = localStorage.getItem("dataFim"); 
+
 
     useEffect(() => {
-        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
+        Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`).then((resp) => {
             var dado = resp.data
-            setPrestacoes(dado.prestacoes)
-            setTitulo(dado)
+            setPrestacoes(dado)
           });
       }, [])
 
