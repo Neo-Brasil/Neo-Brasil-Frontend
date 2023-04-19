@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
-import { Link } from 'react-router-dom';
-import { FiCheckCircle } from "react-icons/fi";
+import "./ModalParcelas.css"
 
 export default function ModalParcelas({ close }) {
    
     const [cliente, setCliente] = useState({});
-    const [titulo, setTitulo] = useState({});
     const [prestacoes, setPrestacoes] = useState();
-    const id_cliente = localStorage.getItem("id_cliente") ; 
-    const id_titulo = localStorage.getItem("id_titulo") ; 
+    const id_titulo = localStorage.getItem("id_titulo"); 
+    const dataInicio = localStorage.getItem("dataInicio"); 
+    const dataFim = localStorage.getItem("dataFim"); 
+
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`).then((resp) => {
-          var dado = resp.data
-          setCliente(dado)
-        });
-        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
+        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
+          });
+        Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`).then((resp) => {
             var dado = resp.data
-            setPrestacoes(dado.prestacoes)
-            setTitulo(dado)
+            setPrestacoes(dado)
           });
       }, [])
 
@@ -56,9 +53,9 @@ export default function ModalParcelas({ close }) {
                                         <tr>
                                             <td data-label="MêsVence">{value.data_vencimento}</td>
 
-                                            <td data-label="MêsPago">{value.data_vencimento}</td>
+                                            <td data-label="MêsPago">{value.data_pagamento}</td>
 
-                                            <td data-label="Status">{value.situacao}</td>
+                                            <td id={value.situacao} data-label="Status">{value.situacao}</td>
 
                                             <td data-label="Preço">{value.preco}</td>
                                         </tr>

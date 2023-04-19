@@ -1,5 +1,5 @@
 import './CrudCliente.css';
-import Header from "../../components/Header";
+import Header from "../../components/Header/index.tsx";
 
 import { useState, useEffect } from 'react';
 import ModalDelCliente from '../../components/Modal/ModalDelCliente';

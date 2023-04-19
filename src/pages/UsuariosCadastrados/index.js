@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/Header/index.tsx";
 import { useState, useEffect } from 'react';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
@@ -15,6 +15,8 @@ export default function CrudUsuario() {
     const [showPostModal2, setShowPostModal2] = useState(false);
     const [detail2, setDetail2] = useState();
 
+    const [total, setTotal] = useState();
+
     localStorage.removeItem('cadastro')
     localStorage.removeItem('registra')
     localStorage.removeItem('relatorio')
@@ -23,14 +25,14 @@ export default function CrudUsuario() {
     localStorage.setItem('crudUser', 'crudUser-white')
 
     function togglePostModal(id) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();
     }
 
     function togglePostModal2(id) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal2(!showPostModal2);
         setDetail2();
@@ -40,13 +42,17 @@ export default function CrudUsuario() {
         Axios.get(`http://127.0.0.1:9080/listagem/usuarios`).then((resp) => {
             var dados = resp.data
             var novoDados = []
+            let total_count = 0;
             for (var k in dados) {
+                total_count = total_count + 1;
+
                 var novoDado = []
                 novoDado.push(dados[k].id)
                 novoDado.push(dados[k].email);
                 novoDados.push(novoDado)
             }
             setList(novoDados);
+            setTotal(total_count);
         });
     }, [])
 
@@ -63,6 +69,9 @@ export default function CrudUsuario() {
                     <h1>Usuários cadastrados</h1>
 
                     <div className='container-table'>
+
+                    <i>Total: {total}</i>
+                    
                         <table>
                             <thead>
                                 <tr>

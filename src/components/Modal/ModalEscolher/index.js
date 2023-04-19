@@ -16,6 +16,8 @@ export default function ModalEscolher({ close }) {
     const id_titulo = localStorage.getItem("id_titulo") ; 
 
     useEffect(() => {
+        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
+          });
         Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`).then((resp) => {
           var dado = resp.data
           setCliente(dado)
@@ -34,7 +36,7 @@ export default function ModalEscolher({ close }) {
       }, [])
 
     function togglePostModal(id_prestacao) {
-        localStorage.clear();
+        // localStorage.clear();
         localStorage.setItem("id_prestacao", id_prestacao);
         localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);

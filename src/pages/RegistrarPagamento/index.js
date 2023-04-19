@@ -1,27 +1,28 @@
-import Header from "../../components/Header";
+import Header from "../../components/Header/index.tsx";
 
 import { useState, useEffect } from 'react';
-import ModalAprovar from '../../components/Modal/ModalAprovar';
+import ModalEscolher from '../../components/Modal/ModalEscolher';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
 
-export default function AprovarConta() {
+export default function RegistrarPago() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
+    const [total, setTotal] = useState();
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
-    localStorage.removeItem('registra')
     localStorage.removeItem('relatorio')
     localStorage.removeItem('crudCli')
-    localStorage.setItem('aprova', 'aprova-white')
-    
+    localStorage.removeItem('aprova')
+    localStorage.setItem('registra', 'registra-white')
 
-    function togglePostModal(id) {
-        localStorage.clear();
-        localStorage.setItem("id", id);
+    function togglePostModal(id_cliente, id_titulo) {
+        // localStorage.clear();
+        localStorage.setItem("id_cliente", id_cliente);
+        localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);
         setDetail();
     }
@@ -30,19 +31,26 @@ export default function AprovarConta() {
       Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
         var dados = resp.data
         var novoDados = []
-        for(var k in dados){
-            var dado = dados[k]
-            var titulo = dado.titulos[0]
-            if(titulo.situacao !== "Pago"){
-                var novoDado = []
-                novoDado.push(dado.id)
-                novoDado.push(dado.nome);
-                novoDado.push(dado.cpf);
-                novoDado.push(dado.email);
-                novoDados.push(novoDado)
-                setList(novoDados);
+        let total_count = 0;
+            for (var k in dados) {
+                total_count = total_count + 1;
+
+                var dado = dados[k]
+                var titulo = dado.titulos[0]
+                if(titulo.situacao !== "Pago"){
+                    var novoDado = []
+                    novoDado.push(dado.id)
+                    novoDado.push(dado.nome);
+                    novoDado.push(dado.cpf);
+                    novoDado.push(dado.email);
+                    let titulo = dado.titulos
+                    titulo = titulo[0]
+                    novoDado.push(titulo.id);
+                    novoDados.push(novoDado);
+                    setList(novoDados);
+                    setTotal(total_count);
+                }
             }
-        }
       });
     }, [])
 
@@ -52,20 +60,22 @@ export default function AprovarConta() {
             <Header />
             {list.lenght === 0 ? (
                 <div className='content'>
-                    <h1>Nenhuma conta para aprovar...</h1>
+                    <h1>Nenhum registro encontrado...</h1>
                 </div>
             ) : (
             
             <div className="content">
 
-                <h1>Aprovação de contas</h1>
+                <h1>Registro de pagamento</h1>
 
                 <div className='container-table'>
+
+                <i>Total: {total}</i>
 
                     <table>
                     <thead>
                         <tr><th scope="col">Nome</th>
-                            <th scope="col">Analisar</th>
+                            <th scope="col">Prestações</th>
                         </tr>
                     </thead>
                         {typeof list !== 'undefined' && list.map((value) => {
@@ -74,8 +84,8 @@ export default function AprovarConta() {
                                         <tr>
                                             <td data-label="Nome">{value[1]}</td>
 
-                                            <td data-label="Analisar">
-                                                <Link className="action" onClick={() => togglePostModal(value[0])}>
+                                            <td data-label="Registrar">
+                                                <Link className="action" onClick={() => togglePostModal(value[0],value[4])}>
                                                     <MdRule color="#FDC727" size={35} />
                                                 </Link>
                                             </td>
@@ -89,7 +99,7 @@ export default function AprovarConta() {
             </div>
             )}
             {showPostModal && (
-                <ModalAprovar conteudo={detail} close={togglePostModal} />
+                <ModalEscolher conteudo={detail} close={togglePostModal} />
             )}
         </div>
 

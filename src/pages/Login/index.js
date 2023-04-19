@@ -6,19 +6,38 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function Login() {
+    localStorage.clear()
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault()
         if (email !== "" || senha !== "") {
+            console.log(email, senha);
             Axios.post("http://localhost:9080/checagem/usuario", {
                 email: email,
                 senha: senha
             }).then((resp) => {
                 var resposta = resp.data
                 if (resposta) {
-                    localStorage.setItem("login", "ok");
-                    window.location.href = '/cadastro'
+                    Axios.get(`http://localhost:9080/listagem/usuarios`).then((resp) => {
+                        let usuarios = resp.data
+                        for(let k in usuarios){
+                            if(usuarios[k].email == email){
+                                if(usuarios[k].autorizado == 1){
+                                    localStorage.setItem("acesso", usuarios[k].setor.id)
+                                    localStorage.setItem("login", "ok");
+                                    window.location.href = '/relatorio'
+                                }else{
+                                    toast.success('Aguarde seu cadastro ser autorizado!')
+                                    setEmail('')
+                                    setSenha('')
+                                }
+                            }
+                        }
+                    });
+                } else{
+                    toast.warning('Conta inexistente!')
                 }
             });
         } else {

@@ -49,16 +49,16 @@ export default function ModalRegistrar({ close }) {
                     id: id_titulo,
                     prestacoes: [
                         {
-                            id: id_prestacao
+                            id: id_prestacao,
+                            data_pagamento: dataPagamento
                         }
                     ]
                 } ).then((res) => {
                     console.log(res)
                 })
-                localStorage.clear();
+                // localStorage.clear();
                 toast.success('Registrado com sucesso!')
                 close()
-                window.location.reload(true);
             }else {
                 toast.error('Valor incorreto')
             }

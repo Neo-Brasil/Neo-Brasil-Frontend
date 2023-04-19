@@ -1,19 +1,21 @@
 import { Routes, Route } from 'react-router-dom'
 import React from 'react';
 
-import Login from '../pages/Login/index.tsx'
-import CriarConta from '../pages/CriarConta/index.tsx';
-import Termos from '../pages/Termos/index.js';
+import Login from '../pages/Login/index.js'
+import CriarConta from '../pages/CriarConta/index.js'
+import Termos from '../pages/Termos/index.js'
 
-import AprovarConta from '../pages/AprovarConta'
-import CrudUsuario from '../pages/CrudUsuario'
+import AprovarConta from '../pages/AprovacaoContas'
+import CrudUsuario from '../pages/UsuariosCadastrados'
 
-import CadastrarCliente from '../pages/CadastrarCliente'
-import CrudCliente from '../pages/CrudCliente'
+import CadastrarCliente from '../pages/CadastroCliente'
+import CrudCliente from '../pages/ClientesCadastrados'
 import VerEditarCliente from '../pages/VerEditarCliente'
 
-import RegistrarPago from '../pages/RegistrarPago'
+import RegistrarPago from '../pages/RegistrarPagamento/index.js'
 import Relatorio from '../pages/Relatorio'
+
+import Erro from '../pages/Erro/index.tsx'
 
 export default function RoutesApp(){
     return(
@@ -31,6 +33,8 @@ export default function RoutesApp(){
 
             <Route path="/registrar_pagamento" element={ <RegistrarPago/> } />
             <Route path="/relatorio" element={ <Relatorio/> } />
+
+            <Route path="*" element={ <Erro/> } />
                        
         </Routes>
     )

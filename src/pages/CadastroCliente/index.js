@@ -1,5 +1,5 @@
 import './CadastrarCliente.css';
-import Header from "../../components/Header";
+import Header from "../../components/Header/index.tsx";
 
 import Pessoal from './Pessoal';
 import Endereco from './Endereco';

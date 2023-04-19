@@ -72,7 +72,10 @@ export default function Titulo({ onButtonClick }) {
         } ).then((res) => {
             console.log(res)
         })
-        localStorage.clear();
+        localStorage.removeItem("nome");
+        localStorage.removeItem('cpf');
+        localStorage.removeItem('email');
+        localStorage.removeItem('endereco');
         
         toast.success('Editado com sucesso!')
         onButtonClick("pageone")

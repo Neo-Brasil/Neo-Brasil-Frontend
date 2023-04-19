@@ -1,0 +1,19 @@
+.erro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10%;
+    background: #FFFFFF url("../../assets/lotus25porcent.png") 
+no-repeat center fixed;
+height: 60vh;
+}
+
+.erro b{
+    font-size: 3.5em;
+    margin: 2% 0;
+}
+
+.erro p{
+    font-size: 1.5em;
+}

@@ -53,9 +53,7 @@ export default function Titulo({ onButtonClick }) {
                 ]
             }).then((res) => {
                 console.log(res)
-            })
-            localStorage.clear();
-            
+            })            
             toast.success('Cadastrado com sucesso!')
             onButtonClick("pageone")
 

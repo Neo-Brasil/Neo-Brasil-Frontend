@@ -1,0 +1,26 @@
+#permitido{
+    margin: 20px 0px 40px 0px;
+}
+
+.link a{
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    color: #133f78;
+    text-decoration: none;
+    margin: 10px 0px;
+}
+
+.link :hover{
+    background-color: #e6effb;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.link svg{
+    color: #174b8f;
+}
+
+.link a p{
+    margin-left: 5px;
+}
