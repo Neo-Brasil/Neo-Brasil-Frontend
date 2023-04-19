@@ -59,7 +59,6 @@ export default function ModalRegistrar({ close }) {
                 // localStorage.clear();
                 toast.success('Registrado com sucesso!')
                 close()
-                window.location.reload(true);
             }else {
                 toast.error('Valor incorreto')
             }
