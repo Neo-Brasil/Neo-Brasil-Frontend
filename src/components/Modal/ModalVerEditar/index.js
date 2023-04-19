@@ -6,18 +6,32 @@ import { toast } from 'react-toastify';
 
 export default function ModalVerEditar({ close }) {
     const [email, setEmail] = useState('');
+    const [nome, setNome] = useState('');
+    const [setorId, setIdSetor] = useState('');
     const id = localStorage.getItem("id");
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`).then((resp) => {
             var dado = resp.data
             setEmail(dado.email)
+            setNome(dado.nome)
+            setIdSetor(dado.setor.id)
         });
+
     }, [])
 
     function handleSubmit() {
-        Axios.put()
-        
+        Axios.get(`http://127.0.0.1:9080/selecionar/setor/${setorId}`).then((resp) => {
+            Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
+                id: id,
+                email: email,
+                nome: nome,
+                setor: resp.data
+            }).then((resp) => {
+            });
+        });
+        // window.location.reload(true);
+        // localStorage.setItem("update", "1")
     }
 
     return (
@@ -37,7 +51,7 @@ export default function ModalVerEditar({ close }) {
                     <div className='detalhes-ver-editar'>
                         <div className='inputs'>
                             <div className="campo">
-                                <input type="text"  className="fixo" maxLength="60" />
+                                <input type="text"  className="fixo" maxLength="60" placeholder={nome} value={nome} onChange={(e) => setNome(e.target.value)}/>
                                 <span>Nome completo</span>
                             </div>
                             
@@ -47,10 +61,10 @@ export default function ModalVerEditar({ close }) {
                             </div>
 
                             <div className="opcoes">
-                            <select required>
-                                <option value="0">Setor</option>
-                                <option value="1">Comercial</option>
-                                <option value="2">Financeiro</option>
+                            <select value={setorId} onChange={(e) => setIdSetor(e.target.value)}>
+                                <option value="1">Administrador</option>
+                                <option value="2">Comercial</option>
+                                <option value="3">Financeiro</option>
                             </select>
                         </div>
                         </div>
