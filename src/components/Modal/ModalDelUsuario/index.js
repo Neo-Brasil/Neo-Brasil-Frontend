@@ -14,10 +14,10 @@ export default function ModalDelUsuario({close}){
     }, [])
 
     function handleSubmit() {
-        Axios.delete('http://127.0.0.1:9080/excluir/usuario').then((resp) => {
+        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`).then((resp) => {
             console.log(resp)
         })
-        // localStorage.clear();
+        //localStorage.clear();
         close();
         window.location.reload(true);
     }

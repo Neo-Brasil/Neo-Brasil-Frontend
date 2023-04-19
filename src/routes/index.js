@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom'
 import React from 'react';
 
-import Login from '../pages/Login/index.js'
-import CriarConta from '../pages/CriarConta/index.js'
-import Termos from '../pages/Termos/index.js'
+import Login from '../pages/Login'
+
+import CriarConta from '../pages/CriarConta'
+import Termos from '../pages/Termos'
 
 import AprovarConta from '../pages/AprovacaoContas'
 import CrudUsuario from '../pages/UsuariosCadastrados'
@@ -12,7 +13,7 @@ import CadastrarCliente from '../pages/CadastroCliente'
 import CrudCliente from '../pages/ClientesCadastrados'
 import VerEditarCliente from '../pages/VerEditarCliente'
 
-import RegistrarPago from '../pages/RegistrarPagamento/index.js'
+import RegistrarPago from '../pages/RegistrarPagamento'
 import Relatorio from '../pages/Relatorio'
 
 import Erro from '../pages/Erro/index.tsx'

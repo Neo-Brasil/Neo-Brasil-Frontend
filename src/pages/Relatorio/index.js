@@ -18,11 +18,12 @@ export default function Relatorio() {
     
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
-
-    const [valorCreditar, setValorCreditar] = useState();
-    const [valorRecebido, setValorRecebido] = useState();
-    const [expectativaValor, setExpectativaValor] = useState();
+    
     const [clientes, setClientes] = useState([]);
+    const [valorRecebido, setValorRecebido] = useState(0);
+    const [expectativaValor, setExpectativaValor] = useState(0);
+    const [valorCreditar, setValorCreditar] = useState(0);
+
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
 
