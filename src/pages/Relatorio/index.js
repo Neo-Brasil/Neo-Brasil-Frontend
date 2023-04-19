@@ -48,12 +48,15 @@ export default function Relatorio() {
     }
 
     function togglePostModal(id_titulo) {
-        // localStorage.clear();
-        localStorage.setItem("id_titulo", id_titulo)
-        localStorage.setItem("dataInicio", dataInicio)
-        localStorage.setItem("dataFim", dataFim)
-        setShowPostModal(!showPostModal);
-        setDetail();
+        if(dataInicio == "" || dataFim == ""){
+            toast.warning('Escolha um intervalo de datas!')
+        }else{
+            localStorage.setItem("id_titulo", id_titulo)
+            localStorage.setItem("dataInicio", dataInicio)
+            localStorage.setItem("dataFim", dataFim)
+            setShowPostModal(!showPostModal);
+            setDetail();
+        }
     }
 
         return (
