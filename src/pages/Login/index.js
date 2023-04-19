@@ -36,6 +36,8 @@ export default function Login() {
                             }
                         }
                     });
+                } else{
+                    toast.warning('Conta inexistente!')
                 }
             });
         } else {
