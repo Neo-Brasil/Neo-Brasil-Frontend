@@ -5,8 +5,8 @@ import Login from '../pages/Login/index.js'
 import CriarConta from '../pages/CriarConta/index.js';
 import Termos from '../pages/Termos/index.js';
 
-import AprovarConta from '../pages/AprovarConta'
-import CrudUsuario from '../pages/CrudUsuario'
+import AprovarConta from '../pages/AprovacaoContas'
+import CrudUsuario from '../pages/UsuariosCadastrados'
 
 import CadastrarCliente from '../pages/CadastrarCliente'
 import CrudCliente from '../pages/CrudCliente'

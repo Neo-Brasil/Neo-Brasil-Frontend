@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import ModalAprovar from '../../components/Modal/ModalAprovar';
 import Axios from "axios";
@@ -10,6 +10,11 @@ export default function AprovarConta() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
+
+    if(localStorage.getItem("update")=="1"){
+        localStorage.removeItem('update')
+        toast.success('Aprovado com sucesso!')
+    } 
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
@@ -27,23 +32,19 @@ export default function AprovarConta() {
     }
 
     useEffect(() => {
-      Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
-        var dados = resp.data
-        var novoDados = []
-        for(var k in dados){
-            var dado = dados[k]
-            var titulo = dado.titulos[0]
-            if(titulo.situacao !== "Pago"){
+        Axios.get(`http://127.0.0.1:9080/listagem/usuarios`).then((resp) => {
+            var dados = resp.data
+            var novoDados = []
+            for (var k in dados) {
                 var novoDado = []
-                novoDado.push(dado.id)
-                novoDado.push(dado.nome);
-                novoDado.push(dado.cpf);
-                novoDado.push(dado.email);
-                novoDados.push(novoDado)
-                setList(novoDados);
+                if(!dados[k].autorizado){
+                    novoDado.push(dados[k].id)
+                    novoDado.push(dados[k].email);
+                    novoDados.push(novoDado)
+                }
             }
-        }
-      });
+            setList(novoDados);
+        });
     }, [])
 
 
