@@ -119,5 +119,7 @@ export default function Header() {
 
             </div>
         )
+    } else{
+        window.location.href = '/sem/acesso'
     }
 }

@@ -6,70 +6,73 @@ import { MdAddCard } from "react-icons/md";
 import React from 'react';
 
 export default function SemAcesso() {
-  // return (
-  //   <div>
-
-  //     <div className='semacesso'>
-
-  //       <MdGroupOff size={100} />
-
-  //       <b>Acesso negado</b>
-  //       <p>O setor Comercial não possui o acesso dessa URL</p>
-  //       <p id='permitido'>Páginas disponibilizadas para o seu setor: </p>
-
-  //       <div className='link'>
-  //         <Link to={'/cadastro'}>
-  //           <FiUserPlus size={35} />
-  //           <p>Cadastro de clientes</p>
-  //         </Link>
-  //       </div>
-
-  //       <div className='link'>
-  //         <Link to={'/clientes_cadastrados'}>
-  //           <FiUser size={35} />
-  //           <p>Clientes cadastrados</p>
-  //         </Link>
-  //       </div>
-
-  //       <div className='link'>
-  //         <Link to={'/relatorio'}>
-  //           <FiFileText size={35} />
-  //           <p>Relatório de pagamento</p>
-  //         </Link>
-  //       </div>
-
-  //     </div>
-
-  //   </div>
-  // );
-
-  return (
-    <div>
-
-      <div className='semacesso'>
-
-        <MdGroupOff size={100} />
-
-        <b>Acesso negado</b>
-        <p>O setor Financeiro não possui o acesso dessa URL</p>
-        <p id='permitido'>Páginas disponibilizadas para o seu setor: </p>
-
-        <div className='link'>
-          <Link to={'/registrar_pagamento'}>
-            <MdAddCard size={35} />
-            <p>Registro de pagamento</p>
-          </Link>
+  const acesso = localStorage.getItem("acesso")
+  if(acesso == "2"){
+    return (
+      <div>
+  
+        <div className='semacesso'>
+  
+          <MdGroupOff size={100} />
+  
+          <b>Acesso negado</b>
+          <p>O setor Comercial não possui o acesso dessa URL</p>
+          <p id='permitido'>Páginas disponibilizadas para o seu setor: </p>
+  
+          <div className='link'>
+            <Link to={'/cadastro'}>
+              <FiUserPlus size={35} />
+              <p>Cadastro de clientes</p>
+            </Link>
+          </div>
+  
+          <div className='link'>
+            <Link to={'/clientes_cadastrados'}>
+              <FiUser size={35} />
+              <p>Clientes cadastrados</p>
+            </Link>
+          </div>
+  
+          <div className='link'>
+            <Link to={'/relatorio'}>
+              <FiFileText size={35} />
+              <p>Relatório de pagamento</p>
+            </Link>
+          </div>
+  
         </div>
-
-        <div className='link'>
-          <Link to={'/relatorio'}>
-            <FiFileText size={35} />
-            <p>Relatório de pagamento</p>
-          </Link>
-        </div>
-
+  
       </div>
-
-    </div>
-  );
+    );
+  }else if(acesso =="3"){
+    return (
+      <div>
+  
+        <div className='semacesso'>
+  
+          <MdGroupOff size={100} />
+  
+          <b>Acesso negado</b>
+          <p>O setor Financeiro não possui o acesso dessa URL</p>
+          <p id='permitido'>Páginas disponibilizadas para o seu setor: </p>
+  
+          <div className='link'>
+            <Link to={'/registrar_pagamento'}>
+              <MdAddCard size={35} />
+              <p>Registro de pagamento</p>
+            </Link>
+          </div>
+  
+          <div className='link'>
+            <Link to={'/relatorio'}>
+              <FiFileText size={35} />
+              <p>Relatório de pagamento</p>
+            </Link>
+          </div>
+  
+        </div>
+  
+      </div>
+    );
+  }
 }
