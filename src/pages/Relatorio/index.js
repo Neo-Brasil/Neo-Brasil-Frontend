@@ -20,9 +20,9 @@ export default function Relatorio() {
     const [detail, setDetail] = useState();
     
     const [clientes, setClientes] = useState([]);
-    const [valorRecebido, setValorRecebido] = useState(0);
+    const [valorFaltante, setValorFaltante] = useState(0);
     const [expectativaValor, setExpectativaValor] = useState(0);
-    const [valorCreditar, setValorCreditar] = useState(0);
+    const [valorRecebido, setValorRecebido] = useState(0);
 
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
@@ -42,9 +42,15 @@ export default function Relatorio() {
 
     function handleSubmit(e) {
         e.preventDefault()
-
         if (dataInicio == "" || dataFim == "") {
             toast.warning('Preencha ambos os campos!')
+        }else{
+            Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`).then((resp) => {
+                var dado = resp.data
+                setValorRecebido(dado.recebido);
+                setValorFaltante(dado.faltante);
+                setExpectativaValor(dado.expectativa)
+              });
         }
     }
 
@@ -108,7 +114,7 @@ export default function Relatorio() {
                                     <thead>
                                         <tr>
                                             <th scope="col">Expectativa de valor</th>
-                                            <th scope="col">Valor faltante</th>
+                                            <th scope="col">Valor à creditar</th>
                                             <th scope="col">Valor recebido</th>
                                         </tr>
                                     </thead>
@@ -116,8 +122,8 @@ export default function Relatorio() {
                                     <tbody>
                                         <tr>
                                             <td data-label="Expectativa">R$ {expectativaValor}</td>
-                                            <td data-label="Faltante">R$ {valorRecebido}</td>
-                                            <td data-label="Recebido">R$ {valorCreditar}</td>
+                                            <td data-label="Faltante">R$ {valorFaltante}</td>
+                                            <td data-label="Recebido">R$ {valorRecebido}</td>
                                         </tr>
                                     </tbody>
                                 </table>
