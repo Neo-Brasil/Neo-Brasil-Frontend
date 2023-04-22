@@ -13,14 +13,26 @@ export default function Login() {
     function handleSubmit(e) {
         e.preventDefault()
         if (email !== "" || senha !== "") {
-            console.log(email, senha);
             Axios.post("http://localhost:9080/checagem/usuario", {
                 email: email,
                 senha: senha
-            }).then((resp) => {
+            })
+            .catch(function (error) {
+                if (error.response) {
+                    if(error.response.status === 403){
+                        toast.warning('Conta inexistente!')
+                    }
+                }
+              })
+            .then((resp) => {
                 var resposta = resp.data
-                if (resposta) {
-                    Axios.get(`http://localhost:9080/listagem/usuarios`).then((resp) => {
+                localStorage.setItem("token", resposta)
+
+                Axios.get(`http://localhost:9080/listagem/usuarios`, {
+                    headers: {
+                        'Authorization': `Bearer ${resposta}`
+                        }
+                }).then((resp) => {
                         let usuarios = resp.data
                         for(let k in usuarios){
                             if(usuarios[k].email == email){
@@ -34,11 +46,8 @@ export default function Login() {
                                     setSenha('')
                                 }
                             }
-                        }
-                    });
-                } else{
-                    toast.warning('Conta inexistente!')
-                }
+                    }
+                });
             });
         } else {
             toast.warning('Preencha todos os campos')
