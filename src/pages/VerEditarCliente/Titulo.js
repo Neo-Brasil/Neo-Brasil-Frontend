@@ -34,7 +34,11 @@ export default function Titulo({ onButtonClick }) {
     });
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
         let cliente = resp.data;
         let titulo = cliente.titulos[0];
         setTitulop(titulo.titulo);
@@ -69,7 +73,11 @@ export default function Titulo({ onButtonClick }) {
                     tempo_credito:prazo
                 }
             ]
-        } ).then((res) => {
+        },{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((res) => {
             console.log(res)
         })
         localStorage.removeItem("nome");

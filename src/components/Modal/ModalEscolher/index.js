@@ -16,13 +16,25 @@ export default function ModalEscolher({ close }) {
     const id_titulo = localStorage.getItem("id_titulo") ; 
 
     useEffect(() => {
-        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`).then((resp) => {
+        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
           });
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
           var dado = resp.data
           setCliente(dado)
         });
-        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
+        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             var dado = resp.data
             let pre_prestacoes = []
             for (let k in dado.prestacoes) {

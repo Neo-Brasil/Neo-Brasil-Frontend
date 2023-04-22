@@ -9,7 +9,11 @@ export default function ModalDelCliente({close}){
     const id = parseInt(id_);
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/listagem/clientes`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
           var dados = resp.data
           for(var k in dados){
             if(dados[k].id === id){
@@ -21,7 +25,11 @@ export default function ModalDelCliente({close}){
       }, [])
 
     function handleSubmit() {
-        Axios.delete(`http://localhost:9080/excluir/cliente/${id}`).then((res) => {
+        Axios.delete(`http://localhost:9080/excluir/cliente/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((res) => {
             console.log(res)
         })
         close();

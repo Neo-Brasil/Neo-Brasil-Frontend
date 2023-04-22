@@ -24,7 +24,11 @@ export default function Endereco({ onButtonClick }) {
     const {id} = useParams();
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
         let cliente = resp.data;
         let endereco = cliente.endereco;
         setCepp(endereco.cep);

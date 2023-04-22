@@ -31,7 +31,11 @@ export default function AprovarConta() {
     }
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/listagem/usuarios`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/listagem/usuarios`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             var dados = resp.data
             var novoDados = []
             for (var k in dados) {

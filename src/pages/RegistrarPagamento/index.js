@@ -28,7 +28,11 @@ export default function RegistrarPago() {
     }
 
     useEffect(() => {
-      Axios.get(`http://127.0.0.1:9080/listagem/clientes`).then((resp) => {
+      Axios.get(`http://127.0.0.1:9080/listagem/clientes`,{
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+    }).then((resp) => {
         var dados = resp.data
         var novoDados = []
         let total_count = 0;

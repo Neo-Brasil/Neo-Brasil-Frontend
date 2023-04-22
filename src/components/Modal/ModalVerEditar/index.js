@@ -11,7 +11,11 @@ export default function ModalVerEditar({ close }) {
     const id = localStorage.getItem("id");
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             var dado = resp.data
             setEmail(dado.email)
             setNome(dado.nome)
@@ -21,12 +25,20 @@ export default function ModalVerEditar({ close }) {
     }, [])
 
     function handleSubmit() {
-        Axios.get(`http://127.0.0.1:9080/selecionar/setor/${setorId}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/setor/${setorId}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
                 id: id,
                 email: email,
                 nome: nome,
                 setor: resp.data
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
             }).then((resp) => {
                 toast.success('Usuário editado com sucesso!')
             });

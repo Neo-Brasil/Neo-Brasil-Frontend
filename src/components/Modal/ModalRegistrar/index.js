@@ -29,7 +29,11 @@ export default function ModalRegistrar({ close }) {
     });
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${id_titulo}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${id_titulo}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
           var dado = resp.data
           setTitulo(dado)
           let prestacoes = dado.prestacoes;
@@ -53,7 +57,11 @@ export default function ModalRegistrar({ close }) {
                             data_pagamento: dataPagamento
                         }
                     ]
-                } ).then((res) => {
+                },{
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                        }
+                }).then((res) => {
                     console.log(res)
                 })
                 // localStorage.clear();

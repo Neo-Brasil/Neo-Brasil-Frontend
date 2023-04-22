@@ -7,14 +7,22 @@ export default function ModalDelUsuario({close}){
     const id = localStorage.getItem("id");
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             var dado = resp.data
             setEmail(dado.email)
         });
     }, [])
 
     function handleSubmit() {
-        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`).then((resp) => {
+        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             console.log(resp)
         })
         //localStorage.clear();

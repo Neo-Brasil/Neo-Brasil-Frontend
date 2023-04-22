@@ -35,7 +35,11 @@ export default function Relatorio() {
     localStorage.setItem('relatorio', 'relatorio-white')
 
     useEffect(() => {
-        Axios.get(`http://localhost:9080/listagem/clientes`).then((resp) => {
+        Axios.get(`http://localhost:9080/listagem/clientes`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             setClientes(resp.data)
         });
     }, [])
@@ -45,7 +49,11 @@ export default function Relatorio() {
         if (dataInicio == "" || dataFim == "") {
             toast.warning('Preencha ambos os campos!')
         }else{
-            Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`).then((resp) => {
+            Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`,{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+            }).then((resp) => {
                 var dado = resp.data
                 setValorRecebido(dado.recebido);
                 setValorFaltante(dado.faltante);

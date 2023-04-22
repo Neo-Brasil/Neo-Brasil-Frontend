@@ -51,6 +51,10 @@ export default function Titulo({ onButtonClick }) {
                         situacao: "Em aberto"
                     }
                 ]
+            },{
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
             }).then((res) => {
                 console.log(res)
             })            

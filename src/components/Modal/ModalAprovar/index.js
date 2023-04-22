@@ -11,7 +11,11 @@ export default function ModalRegistrar({ close }) {
     const id = localStorage.getItem("id");
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/listagem/usuarios`).then((resp) => {
+        Axios.get(`http://127.0.0.1:9080/listagem/usuarios`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
             var dados = resp.data
             var novoDados = []
             for (var k in dados) {
@@ -27,6 +31,10 @@ export default function ModalRegistrar({ close }) {
         Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
             id: id,
             autorizado: true
+        },{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
         }).then((resp) => {
         });
         window.location.reload(true);
