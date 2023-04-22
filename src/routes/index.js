@@ -21,7 +21,7 @@ import SemAcesso from '../pages/SemAcesso/index.tsx';
 
 export default function RoutesApp(){
     const acesso = localStorage.getItem("acesso")
-    if(acesso == null){
+    if(acesso == null || acesso == 0){
         return(
             <Routes>
                 <Route path="/" element={ <Login/> } /> 

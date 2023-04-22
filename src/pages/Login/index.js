@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 export default function Login() {
     localStorage.clear()
+    localStorage.setItem("acesso", 0)
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -19,7 +20,7 @@ export default function Login() {
             })
             .catch(function (error) {
                 if (error.response) {
-                    if(error.response.status === 403){
+                    if(error.response.status == 403){
                         toast.warning('Conta inexistente!')
                     }
                 }
