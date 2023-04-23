@@ -132,9 +132,9 @@ export default function Relatorio() {
 
                                     <tbody>
                                         <tr>
-                                            <td data-label="Expectativa">R$ {expectativaValor}</td>
-                                            <td data-label="Faltante">R$ {valorFaltante}</td>
-                                            <td data-label="Recebido">R$ {valorRecebido}</td>
+                                            <td data-label="Expectativa">R$ {valorFaltante}</td>
+                                            <td data-label="Faltante">R$ {valorRecebido}</td>
+                                            <td data-label="Recebido">R$ {expectativaValor}</td>
                                         </tr>
                                     </tbody>
                                 </table>
