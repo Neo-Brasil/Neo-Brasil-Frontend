@@ -27,7 +27,18 @@ export default function ModalRegistrar({ close }) {
             }
         });
     }, [])
-    function handleSubmit() {
+    function recusar() {
+        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
+            console.log(resp)
+        })
+        window.location.reload(true);
+        localStorage.setItem("update", "1")
+    }
+    function aprovar() {
         Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
             let setores = resp.data
             for(let k in setores){
@@ -35,6 +46,7 @@ export default function ModalRegistrar({ close }) {
                     Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
                         id: id,
                         autorizado: true,
+                        papel: setores[k].area,
                         setor: setores[k]
                     },{
                         headers: {
@@ -80,10 +92,10 @@ export default function ModalRegistrar({ close }) {
                     </div>
 
                     <div className='buttonsRow'>
-                        <div className='button-color' onClick={() => handleSubmit()}>
+                        <div className='button-color' onClick={() => recusar()}>
                             <button className='button-red-modal'>RECUSAR</button>
                         </div>                        
-                        <div className='button-color' onClick={() => handleSubmit()}>
+                        <div className='button-color' onClick={() => aprovar()}>
                             <button className='button-green-modal'>APROVAR</button>
                         </div>
                     </div>
