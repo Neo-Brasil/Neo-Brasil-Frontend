@@ -28,15 +28,23 @@ export default function ModalRegistrar({ close }) {
         });
     }, [])
     function handleSubmit() {
-        Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
-            id: id,
-            autorizado: true
-        },{
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
+        Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
+            let setores = resp.data
+            for(let k in setores){
+                if(setores[k].id == setorId){
+                    Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
+                        id: id,
+                        autorizado: true,
+                        setor: setores[k]
+                    },{
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem("token")}`
+                            }
+                    }).then((resp) => {
+                    });
                 }
-        }).then((resp) => {
-        });
+            }
+        }) 
         window.location.reload(true);
         localStorage.setItem("update", "1")
     }

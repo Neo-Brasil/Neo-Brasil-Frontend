@@ -47,6 +47,12 @@ export default function CriarConta() {
                                             setor: setores[k]
                                     }).then((resp) => {
                                     })
+                                console.log({
+                                    nome: nome,
+                                    email: email,
+                                    senha: senha,
+                                    setor: setores[k]
+                            });
                                 }
                             }
                         }) 
