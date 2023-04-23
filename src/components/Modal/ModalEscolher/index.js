@@ -38,7 +38,7 @@ export default function ModalEscolher({ close }) {
             var dado = resp.data
             let pre_prestacoes = []
             for (let k in dado.prestacoes) {
-                if(dado.prestacoes[k].situacao != "Pago"){
+                if(dado.prestacoes[k].situacao == "Em aberto"){
                     pre_prestacoes.push(dado.prestacoes[k])
                 }
             }
