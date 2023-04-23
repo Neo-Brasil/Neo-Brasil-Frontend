@@ -11,6 +11,7 @@ export default function ModalRegistrar({ close }) {
     const [dataPagamento, setDataPagamento] = useState('');
     const [prestacao, setPrestacao] = useState({});
     const [titulo, setTitulo] = useState({});
+    const [preco, setPreco] = useState()
     const id_prestacao = localStorage.getItem("id_prestacao"); 
     const id_titulo = localStorage.getItem('id_titulo');
 
@@ -41,6 +42,7 @@ export default function ModalRegistrar({ close }) {
             let prestacao = prestacoes[k]
             if(prestacao.id == id_prestacao){
                 setPrestacao(prestacao)
+                setPreco(prestacao.preco.toString().replace(".",","))
             }
           }
         });
@@ -91,7 +93,7 @@ export default function ModalRegistrar({ close }) {
                         <b>Tipo de título: </b>
                         <p>{titulo.titulo}</p>
                         <b>Preço: </b>
-                        <p>{prestacao.preco}</p>
+                        <p>{preco}</p>
 
                     </div>
 

@@ -65,7 +65,7 @@ export default function ModalParcelas({ close }) {
 
                                             <td id={value.situacao} data-label="Status">{value.situacao}</td>
 
-                                            <td data-label="Preço">{value.preco}</td>
+                                            <td data-label="Preço">{value.preco.toString().replace(".",",")}</td>
                                         </tr>
                                     </tbody>
                             :null

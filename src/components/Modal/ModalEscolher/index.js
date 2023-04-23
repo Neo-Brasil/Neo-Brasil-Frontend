@@ -87,7 +87,7 @@ export default function ModalEscolher({ close }) {
 
                                             <td data-label="Status">{value.situacao}</td>
 
-                                            <td data-label="Preço">{value.preco}</td>
+                                            <td data-label="Preço">{value.preco.toString().replace(".",",")}</td>
 
                                             <td data-label="Registrar">
                                                 <Link className="action" onClick={() => togglePostModal(value.id)}>
