@@ -38,8 +38,9 @@ export default function Login() {
                         for(let k in usuarios){
                             if(usuarios[k].email == email){
                                 if(usuarios[k].autorizado == 1){
-                                    localStorage.setItem("acesso", usuarios[k].setor.id)
+                                    localStorage.setItem("acesso", usuarios[k].setor)
                                     localStorage.setItem("login", "ok");
+                                    // console.log(localStorage.getItem("acesso"));
                                     window.location.href = '/relatorio'
                                 }else{
                                     toast.success('Aguarde seu cadastro ser autorizado!')

@@ -36,25 +36,12 @@ export default function CriarConta() {
                         }
                     }
                     if(chave){
-                        Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
-                            let setores = resp.data
-                            for(let k in setores){
-                                if(setores[k].id == id_setor){
-                                    Axios.post("http://localhost:9080/cadastro/usuario", {
-                                            nome: nome,
-                                            email: email,
-                                            senha: senha,
-                                            setor: setores[k]
-                                    }).then((resp) => {
-                                    })
-                                console.log({
-                                    nome: nome,
-                                    email: email,
-                                    senha: senha,
-                                    setor: setores[k]
-                            });
-                                }
-                            }
+                        Axios.post("http://localhost:9080/cadastro/usuario", {
+                                nome: nome,
+                                email: email,
+                                senha: senha,
+                                setor: id_setor
+                        }).then((resp) => {
                         }) 
                         toast.success('Aguarde seu cadastro ser autorizado!')  
                         setNome('')

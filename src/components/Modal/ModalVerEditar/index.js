@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './ModalVerEditar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
-import { toast } from 'react-toastify';
 
 export default function ModalVerEditar({ close }) {
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [setorId, setIdSetor] = useState('');
     const id = localStorage.getItem("id");
+    const [papel, setPapel] = useState("");
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
@@ -19,32 +19,25 @@ export default function ModalVerEditar({ close }) {
             var dado = resp.data
             setEmail(dado.email)
             setNome(dado.nome)
-            setIdSetor(dado.setor.id)
+            setPapel(dado.papel)
         });
 
     }, [])
 
     function handleSubmit() {
-        Axios.get(`http://127.0.0.1:9080/selecionar/setor/${setorId}`,{
+        Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
+            id: id,
+            nome: nome,
+            email: email,
+            papel: papel
+        },{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
         }).then((resp) => {
-            Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
-                id: id,
-                email: email,
-                nome: nome,
-                setor: resp.data
-            },{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-            }).then((resp) => {
-                toast.success('Usuário editado com sucesso!')
-            });
+            window.location.reload(true);
+            localStorage.setItem("update", "1")
         });
-        // window.location.reload(true);
-        // localStorage.setItem("update", "1")
     }
 
     return (
@@ -74,10 +67,10 @@ export default function ModalVerEditar({ close }) {
                             </div>
 
                             <div className="opcoes">
-                            <select value={setorId} onChange={(e) => setIdSetor(e.target.value)}>
-                                <option value="1">Administrador</option>
-                                <option value="2">Comercial</option>
-                                <option value="3">Financeiro</option>
+                            <select value={papel} onChange={(e) => setPapel(e.target.value)}>
+                                <option value="ADM">Administrador</option>
+                                <option value="COMERCIAL">Comercial</option>
+                                <option value="FINANCEIRO">Financeiro</option>
                             </select>
                         </div>
                         </div>

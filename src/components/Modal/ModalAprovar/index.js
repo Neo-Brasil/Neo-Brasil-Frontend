@@ -6,8 +6,7 @@ import Axios from "axios";
 export default function ModalRegistrar({ close }) {
     const [usuario, setUsuario] = useState('');
     const [conta, setConta] = useState({});
-    const [titulo, setTitulo] = useState({});
-    const [setorId, setSetorId] = useState();
+    const [papel, setPapel] = useState();
     const id = localStorage.getItem("id");
 
     useEffect(() => {
@@ -17,12 +16,10 @@ export default function ModalRegistrar({ close }) {
                 }
         }).then((resp) => {
             var dados = resp.data
-            var novoDados = []
             for (var k in dados) {
-                var novoDado = []
                 if(dados[k].id == id){
                     setUsuario(dados[k])
-                    setSetorId(dados[k].setor.id)
+                    setPapel(dados[k].papel)
                 }
             }
         });
@@ -39,26 +36,18 @@ export default function ModalRegistrar({ close }) {
         })
     }
     function aprovar() {
-        Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
-            let setores = resp.data
-            for(let k in setores){
-                if(setores[k].id == setorId){
-                    Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
-                        id: id,
-                        autorizado: true,
-                        papel: setores[k].area,
-                        setor: setores[k]
-                    },{
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem("token")}`
-                            }
-                    }).then((resp) => {
-                        window.location.reload(true);
-                        localStorage.setItem("update", "1")
-                    });
+        Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
+            id: id,
+            autorizado: true,
+            papel: papel
+        },{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
-            }
-        }) 
+        }).then((resp) => {
+            window.location.reload(true);
+            localStorage.setItem("update", "1")
+        });
     }
 
     return (
@@ -82,11 +71,10 @@ export default function ModalRegistrar({ close }) {
 
                         <div className='aprovar'> 
                             <p><b>Setor: </b></p>
-
-                            <select value={setorId} required>
-                                <option value="1">Administrador</option>
-                                <option value="2">Comercial</option>
-                                <option value="3">Financeiro</option>
+                            <select value={papel} onChange={(e) => setPapel(e.target.value)}>
+                                <option value="ADM">Administrador</option>
+                                <option value="COMERCIAL">Comercial</option>
+                                <option value="FINANCEIRO">Financeiro</option>
                             </select>
                         </div>
                     </div>
