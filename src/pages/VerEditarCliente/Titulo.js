@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
@@ -85,9 +84,8 @@ export default function Titulo({ onButtonClick }) {
         localStorage.removeItem('email');
         localStorage.removeItem('endereco');
         
-        toast.success('Editado com sucesso!')
-        onButtonClick("pageone")
-        window.location.reload(true);
+        localStorage.setItem("update", "1")
+        window.location.href = '/clientes_cadastrados'
     }
 
     return (

@@ -32,7 +32,7 @@ export default function ModalDelCliente({close}){
         }).then((res) => {
             console.log(res)
         })
-        close();
+        localStorage.setItem("update", "1")
         window.location.reload(true);
     }
 

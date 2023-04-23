@@ -4,10 +4,16 @@ import Header from "../../components/Header/index.tsx";
 import { useState, useEffect } from 'react';
 import ModalDelCliente from '../../components/Modal/ModalDelCliente';
 import Axios from "axios";
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
 
 export default function CrudCliente() {
+    if(localStorage.getItem("update") === "1"){
+        toast.success('Realizado com sucesso!')
+        localStorage.removeItem("update");
+    }
+    
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
