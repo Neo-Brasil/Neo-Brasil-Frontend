@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 export default function Login() {
     localStorage.clear()
-    localStorage.setItem("acesso", 0)
+    localStorage.setItem("acesso", "0")
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
