@@ -66,9 +66,8 @@ export default function ModalRegistrar({ close }) {
                 }).then((res) => {
                     console.log(res)
                 })
-                // localStorage.clear();
-                toast.success('Registrado com sucesso!')
-                close()
+                localStorage.setItem("update", "1")
+                window.location.href = '/registrar_pagamento'
             }else {
                 toast.error('Valor incorreto')
             }

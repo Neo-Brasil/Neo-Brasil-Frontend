@@ -1,5 +1,5 @@
 import Header from "../../components/Header/index.tsx";
-
+import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import ModalEscolher from '../../components/Modal/ModalEscolher';
 import Axios from "axios";
@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
 
 export default function RegistrarPago() {
+    if(localStorage.getItem("update") === "1"){
+        localStorage.removeItem('update')
+        toast.success('Registrado com sucesso!')
+    } 
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
