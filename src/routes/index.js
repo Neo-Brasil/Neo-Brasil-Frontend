@@ -43,6 +43,7 @@ export default function RoutesApp(){
         
                     <Route path="/registrar_pagamento" element={ <RegistrarPago/> } />
                     <Route path="/relatorio" element={ <Relatorio/> } />
+                    <Route path="/criar_conta" element={ <CriarConta/> } /> 
 
                     <Route path="*" element={ <Erro/> } />   
                 </Routes>
@@ -61,7 +62,8 @@ export default function RoutesApp(){
     
                     <Route path="/aprovar_contas" element={ <SemAcesso/> } />
                     <Route path="/usuarios_cadastrados" element={ <SemAcesso/> } />
-                    <Route path="/registrar_pagamento" element={ <SemAcesso/> } />          
+                    <Route path="/registrar_pagamento" element={ <SemAcesso/> } />    
+                    <Route path="/criar_conta" element={ <CriarConta/> } />       
                 </Routes>
             )     
         }else if(acesso == "3"){
@@ -78,6 +80,7 @@ export default function RoutesApp(){
                     <Route path="/clientes_cadastrados/visualizar_editar/:id" element={ <SemAcesso/> } />
                     <Route path="/aprovar_contas" element={ <SemAcesso/> } />
                     <Route path="/usuarios_cadastrados" element={ <SemAcesso/> } />
+                    <Route path="/criar_conta" element={ <CriarConta/> } /> 
                 </Routes>
             )
         }else{
