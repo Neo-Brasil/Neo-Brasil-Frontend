@@ -12,7 +12,7 @@ export default function AprovarConta() {
     const [list, setList] = useState([]);
     if(localStorage.getItem("update") === "1"){
         localStorage.removeItem('update')
-        toast.success('Aprovado com sucesso!')
+        toast.success('Realizado com sucesso!')
     } 
 
     localStorage.removeItem('cadastro')

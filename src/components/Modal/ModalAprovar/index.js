@@ -34,9 +34,9 @@ export default function ModalRegistrar({ close }) {
                 }
         }).then((resp) => {
             console.log(resp)
+            window.location.reload(true);
+            localStorage.setItem("update", "1")
         })
-        window.location.reload(true);
-        localStorage.setItem("update", "1")
     }
     function aprovar() {
         Axios.get("http://localhost:9080/listagem/setor").then((resp) => {
@@ -53,12 +53,12 @@ export default function ModalRegistrar({ close }) {
                             'Authorization': `Bearer ${localStorage.getItem("token")}`
                             }
                     }).then((resp) => {
+                        window.location.reload(true);
+                        localStorage.setItem("update", "1")
                     });
                 }
             }
         }) 
-        window.location.reload(true);
-        localStorage.setItem("update", "1")
     }
 
     return (
