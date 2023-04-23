@@ -19,7 +19,7 @@ export default function Header() {
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
     
-    if(acesso == "1"){
+    if(acesso == "ADM"){
         return (
             <div className="sidebar">
 
@@ -62,7 +62,7 @@ export default function Header() {
 
             </div>
         )
-    } else if(acesso == "2") {
+    } else if(acesso == "COMERCIAL") {
         return (
             <div className="sidebar">
 
@@ -93,7 +93,7 @@ export default function Header() {
 
             </div>
         )
-    } else if(acesso == "3"){
+    } else if(acesso == "FINANCEIRO"){
         return (
             <div className="sidebar">
 

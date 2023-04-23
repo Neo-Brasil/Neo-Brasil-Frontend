@@ -7,7 +7,7 @@ import React from 'react';
 
 export default function SemAcesso() {
   const acesso = localStorage.getItem("acesso")
-  if(acesso == "2"){
+  if(acesso == "COMERCIAL"){
     return (
       <div>
   
@@ -44,7 +44,7 @@ export default function SemAcesso() {
   
       </div>
     );
-  }else if(acesso =="3"){
+  }else if(acesso =="FINANCEIRO"){
     return (
       <div>
   

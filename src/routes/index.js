@@ -21,7 +21,7 @@ import SemAcesso from '../pages/SemAcesso/index.tsx';
 
 export default function RoutesApp(){
     const acesso = localStorage.getItem("acesso")
-    if(acesso == null || acesso == "0"){
+    if(acesso == null || acesso == "NOVO" || acesso == 0){
         return(
             <Routes>
                 <Route path="/" element={ <Login/> } /> 
@@ -30,7 +30,7 @@ export default function RoutesApp(){
             </Routes>
         )
     }else{
-        if(acesso == "1"){
+        if(acesso == "ADM"){
             return(
                 <Routes> 
                     <Route path="/" element={ <Login/> } />                
@@ -48,7 +48,7 @@ export default function RoutesApp(){
                     <Route path="*" element={ <Erro/> } />   
                 </Routes>
             )
-        }else if(acesso == "2"){
+        }else if(acesso == "COMERCIAL"){
             return(
                 <Routes>     
                     <Route path="/" element={ <Login/> } />                
@@ -66,7 +66,7 @@ export default function RoutesApp(){
                     <Route path="/criar_conta" element={ <CriarConta/> } />       
                 </Routes>
             )     
-        }else if(acesso == "3"){
+        }else if(acesso == "FINANCEIRO"){
             return(
                 <Routes>  
                     <Route path="/" element={ <Login/> } />       
