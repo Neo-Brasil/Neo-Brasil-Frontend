@@ -37,7 +37,7 @@ export default function Login() {
                         let usuarios = resp.data
                         for(let k in usuarios){
                             if(usuarios[k].email == email){
-                                if(usuarios[k].autorizado == 1){
+                                if(usuarios[k].autorizado == "sim"){
                                     localStorage.setItem("acesso", usuarios[k].papel)
                                     localStorage.setItem("login", "ok");
                                     window.location.href = '/relatorio'

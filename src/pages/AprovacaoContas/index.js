@@ -40,7 +40,7 @@ export default function AprovarConta() {
             var novoDados = []
             for (var k in dados) {
                 var novoDado = []
-                if(!dados[k].autorizado){
+                if(dados[k].autorizado != "sim"){
                     novoDado.push(dados[k].id)
                     novoDado.push(dados[k].email);
                     novoDados.push(novoDado)

@@ -19,7 +19,7 @@ export default function ModalRegistrar({ close }) {
             for (var k in dados) {
                 if(dados[k].id == id){
                     setUsuario(dados[k])
-                    setPapel(dados[k].papel)
+                    setPapel(dados[k].autorizado)
                 }
             }
         });
@@ -38,7 +38,7 @@ export default function ModalRegistrar({ close }) {
     function aprovar() {
         Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
             id: id,
-            autorizado: true,
+            autorizado: "sim",
             papel: papel
         },{
             headers: {

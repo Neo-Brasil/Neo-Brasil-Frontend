@@ -10,25 +10,25 @@ export default function CriarConta() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
-    const [id_setor, setIdSetor] = useState('');
+    const [papel, setPapel] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault()
         if(senha == confirmaSenha){
-            if (nome !== "" || email !== "" || senha !== "" || id_setor !== "") {
+            if (nome !== "" || email !== "" || senha !== "" || papel !== "") {
                 Axios.get(`http://localhost:9080/listagem/usuarios`).then((resp) => {
                     let usuarios = resp.data
                     var chave = true
                     for(let k in usuarios){
                         if(usuarios[k].email == email){
-                            if(usuarios[k].autorizado == 1){
+                            if(usuarios[k].autorizado == "sim"){
                                 toast.warning('Email já cadastrado, tente logar!')
                                 setEmail("")
                             }else{
                                 toast.success('Aguarde seu cadastro ser autorizado!')
                                 setNome('')
                                 setEmail('')
-                                setIdSetor('')
+                                setPapel('')
                                 setSenha('')
                                 setConfirmaSenha('')
                             }
@@ -40,13 +40,13 @@ export default function CriarConta() {
                                 nome: nome,
                                 email: email,
                                 senha: senha,
-                                setor: id_setor
+                                autorizado: papel
                         }).then((resp) => {
                         }) 
                         toast.success('Aguarde seu cadastro ser autorizado!')  
                         setNome('')
                         setEmail('')
-                        setIdSetor('')
+                        setPapel('')
                         setSenha('') 
                         setConfirmaSenha('')
                     }
@@ -90,11 +90,10 @@ export default function CriarConta() {
                         </div>
 
                         <div className="opcoes">
-                            <select onChange={(e) => setIdSetor(e.target.value)}>
-                                <option value="0">Setor</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Comercial</option>
-                                <option value="3">Financeiro</option>
+                        <select onChange={(e) => setPapel(e.target.value)}>
+                                <option value="ADM">Administrador</option>
+                                <option value="COMERCIAL">Comercial</option>
+                                <option value="FINANCEIRO">Financeiro</option>
                             </select>
                         </div>
 
