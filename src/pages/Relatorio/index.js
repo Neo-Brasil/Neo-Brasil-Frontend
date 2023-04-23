@@ -55,9 +55,12 @@ export default function Relatorio() {
                     }
             }).then((resp) => {
                 var dado = resp.data
-                setValorRecebido(dado.recebido);
-                setValorFaltante(dado.faltante);
-                setExpectativaValor(dado.expectativa)
+                let recebido = dado.recebido
+                let faltante = dado.faltante
+                let expectativa = dado.expectativa
+                setValorRecebido(recebido.toString().replace(".",","));
+                setValorFaltante(faltante.toString().replace(".",","));
+                setExpectativaValor(expectativa.toString().replace(".",","));
               });
         }
     }
