@@ -10,6 +10,12 @@ export default function AprovarConta() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
     const [list, setList] = useState([]);
+
+    if(localStorage.getItem("login") === "ok"){
+        toast.success('Bem-vindo!')
+        localStorage.removeItem("login");
+    }
+    
     if(localStorage.getItem("update") === "1"){
         localStorage.removeItem('update')
         toast.success('Realizado com sucesso!')

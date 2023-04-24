@@ -40,7 +40,15 @@ export default function Login() {
                                 if(usuarios[k].autorizado == "sim"){
                                     localStorage.setItem("acesso", usuarios[k].papel)
                                     localStorage.setItem("login", "ok");
-                                    window.location.href = '/relatorio'
+                                    if(usuarios[k].papel == "ADM"){
+                                        window.location.href = '/aprovar_contas'
+                                    } else if(usuarios[k].papel == "COMERCIAL"){
+                                        window.location.href = '/cadastro'
+                                    } else if(usuarios[k].papel == "FINANCEIRO"){
+                                        window.location.href = '/registrar_pagamento'
+                                    } else {
+                                        window.location.href = '*'
+                                    }
                                 }else{
                                     toast.success('Aguarde seu cadastro ser autorizado!')
                                     setEmail('')

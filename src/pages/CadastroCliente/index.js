@@ -7,10 +7,15 @@ import Titulo from './Titulo';
 
 import React, { useState } from "react";
 import MultiStepProgressBar from "../../components/MultiStepProgressBar";
-
+import { toast } from 'react-toastify';
 
 export default function CadastrarCliente() {
   const [page, setPage] = useState("pageone");
+
+  if(localStorage.getItem("login") === "ok"){
+    toast.success('Bem-vindo!')
+    localStorage.removeItem("login");
+  }
 
   localStorage.removeItem('crudUser')
   localStorage.removeItem('registra')
