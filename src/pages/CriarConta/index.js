@@ -21,7 +21,7 @@ export default function CriarConta() {
                     var chave = true
                     for(let k in usuarios){
                         if(usuarios[k].email == email){
-                            if(usuarios[k].autorizado == "sim"){
+                            if(usuarios[k].autorizado == "sim" || usuarios[k].email == email){
                                 toast.warning('Email já cadastrado, tente logar!')
                                 setEmail("")
                             }else{
