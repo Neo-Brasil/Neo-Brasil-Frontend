@@ -50,7 +50,7 @@ export default function Login() {
                                         window.location.href = '*'
                                     }
                                 }else{
-                                    toast.success('Aguarde seu cadastro ser autorizado!')
+                                    toast.info('Aguarde seu cadastro ser autorizado!')
                                     setEmail('')
                                     setSenha('')
                                 }

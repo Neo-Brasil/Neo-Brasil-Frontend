@@ -25,7 +25,7 @@ export default function CriarConta() {
                                 toast.warning('Email já cadastrado, tente logar!')
                                 setEmail("")
                             }else{
-                                toast.success('Aguarde seu cadastro ser autorizado!')
+                                toast.info('Aguarde seu cadastro ser autorizado!')
                                 setNome('')
                                 setEmail('')
                                 setPapel('')
@@ -43,7 +43,7 @@ export default function CriarConta() {
                                 autorizado: papel
                         }).then((resp) => {
                         }) 
-                        toast.success('Aguarde seu cadastro ser autorizado!')  
+                        toast.info('Aguarde seu cadastro ser autorizado!')  
                         setNome('')
                         setEmail('')
                         setPapel('')
