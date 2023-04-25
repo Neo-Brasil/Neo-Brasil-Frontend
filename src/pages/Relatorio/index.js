@@ -103,6 +103,16 @@ export default function Relatorio() {
                                         value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
                                 </div>
 
+                                <div className='filter'>
+                                    <p>Intervalo</p>
+                                    <select required>
+                                        <option value="TODOS">Todas as opções</option>
+                                        <option value="VENCIMENTO">Vencimento</option>
+                                        <option value="PAGAMENTO">Pagamento</option>
+                                        <option value="CREDITO">Crédito</option>
+                                    </select>
+                                </div>
+
                                 <div className='button-color'>
                                     <button className='button-orange' id='orange2'
                                         onClick={() => handleSubmit()}
