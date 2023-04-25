@@ -22,6 +22,15 @@
     border-radius: 5px;
 }
 
+.filter select{
+    width: 11vw;
+    height: 5vh;
+    padding: 4px;
+    font-size: 1em;
+    border: 0.15em solid #000;
+    border-radius: 5px;
+}
+
 #orange2{
     width: 3vw;
     box-shadow: none;
