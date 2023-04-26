@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './ModalEscolher.css';
-import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
-import ModalRegistrar from '../ModalRegistrar';
 import { Link } from 'react-router-dom';
-import { FiCheckCircle } from "react-icons/fi";
+
+import ModalRegistrar from '../Registrar';
+import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 

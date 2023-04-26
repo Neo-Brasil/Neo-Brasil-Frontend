@@ -2,7 +2,7 @@ import './CrudCliente.css';
 import Header from "../../components/Header/index.tsx";
 
 import { useState, useEffect } from 'react';
-import ModalDelCliente from '../../components/Modal/ModalDelCliente';
+import ModalDelCliente from '../../components/Modal/DeletarCliente';
 import Axios from "axios";
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';

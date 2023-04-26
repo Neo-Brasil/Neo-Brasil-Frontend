@@ -3,7 +3,7 @@ import './ModalAprovar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 
-export default function ModalRegistrar({ close }) {
+export default function ModalAprovar({ close }) {
     const [usuario, setUsuario] = useState('');
     const [conta, setConta] = useState({});
     const [papel, setPapel] = useState();
@@ -24,6 +24,7 @@ export default function ModalRegistrar({ close }) {
             }
         });
     }, [])
+    
     function recusar() {
         Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`,{
             headers: {

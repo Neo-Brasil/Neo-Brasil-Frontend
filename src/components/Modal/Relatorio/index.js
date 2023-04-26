@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
-import "./ModalParcelas.css"
+import "./ModalRelatorio.css"
 
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 
-export default function ModalParcelas({ close }) {
+export default function ModalRelatorio({ close }) {
 
     const [cliente, setCliente] = useState({});
     const [prestacoes, setPrestacoes] = useState();

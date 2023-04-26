@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ModalRegistrar.css';
-import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
+
+import { FiArrowLeft } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
@@ -92,8 +93,7 @@ export default function ModalRegistrar({ close }) {
                             <b>Tipo de título: </b>
                             <p>{titulo.titulo}</p>
                             <b>Preço: </b>
-                            <p>
-                                <MaskedInput mask={currencyMask} className="nostyleinput" id='mascaraRegistrar'
+                            <p> <MaskedInput mask={currencyMask} className="nostyleinput" id='mascaraRegistrar'
                                     type="text" placeholder="R$" value={preco} disabled />
                             </p>
                         </div>

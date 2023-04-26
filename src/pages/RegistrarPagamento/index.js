@@ -1,7 +1,7 @@
 import Header from "../../components/Header/index.tsx";
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
-import ModalEscolher from '../../components/Modal/ModalEscolher';
+import ModalEscolher from '../../components/Modal/EscolherParaRegistrar';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";

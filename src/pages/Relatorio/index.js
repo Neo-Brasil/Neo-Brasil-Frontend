@@ -10,7 +10,7 @@ import { createNumberMask } from "text-mask-addons";
 
 import { MdSearch } from "react-icons/md";
 import { FiLayers } from "react-icons/fi";
-import ModalParcelas from '../../components/Modal/ModalParcelas';
+import ModalRelatorio from '../../components/Modal/Relatorio';
 
 export default function Relatorio() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -221,7 +221,7 @@ export default function Relatorio() {
                     </div>
                 )}
                 {showPostModal && (
-                    <ModalParcelas conteudo={detail} close={togglePostModal} />
+                    <ModalRelatorio conteudo={detail} close={togglePostModal} />
                 )}
             </div>
 

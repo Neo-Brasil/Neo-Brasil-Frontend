@@ -4,8 +4,8 @@ import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
 
-import ModalVerEditar from '../../components/Modal/ModalVerEditar';
-import ModalDelUsuario from '../../components/Modal/ModalDelUsuario';
+import ModalVerEditar from '../../components/Modal/VerEditarUsuario';
+import ModalDelUsuario from '../../components/Modal/DeletarUsuario';
 
 export default function CrudUsuario() {
     const [showPostModal, setShowPostModal] = useState(false);
