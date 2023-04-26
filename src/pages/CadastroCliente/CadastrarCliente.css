@@ -88,6 +88,10 @@ span{
     left: 290px;
 }
 
+#comple{
+    color: #44A754;
+}
+
 .button-color{
     display: flex;
     justify-content: center;

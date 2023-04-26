@@ -1,6 +1,7 @@
 #table-parcelas {
     padding: 0;
     overflow-y: scroll;
+    overflow-x: block;
     height: 40vh;
 }
 

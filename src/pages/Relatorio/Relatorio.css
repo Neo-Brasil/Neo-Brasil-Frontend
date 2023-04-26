@@ -1,3 +1,7 @@
+#tituloRelatorio{
+    padding: 100px 0px 20px 0px;
+}
+
 #formFilter{
     width: 40vw;
 }
@@ -34,6 +38,7 @@
 #orange2{
     width: 3vw;
     box-shadow: none;
+    margin-top: 50px;
 }
 
 #result {
@@ -51,6 +56,23 @@
 details summary{
     /* list-style: none; */
     cursor: pointer;
+}
+
+.nostyleinput{
+    border: 0 none;
+    outline: 0;
+    cursor: default;
+    background-color: transparent;
+    color: #000;
+    text-align: center;
+}
+
+#nostyleinput input{
+    text-align: end;
+}
+
+.nostyleinput input:focus{
+    block-size: auto;
 }
 
 i{

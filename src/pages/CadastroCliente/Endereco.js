@@ -84,7 +84,7 @@ export default function Endereco({ onButtonClick }) {
 
                 <div className="campo">
                     <input type="text" className="fixo" value={comp} onChange={(e) => setComp(e.target.value)} />
-                    <span>Complemento</span>
+                    <span id="comple">Complemento</span>
                 </div>
 
                 <div className='button-color'>

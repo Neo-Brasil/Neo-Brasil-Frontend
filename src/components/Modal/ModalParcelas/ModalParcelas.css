@@ -9,3 +9,12 @@
 #Creditado{
     color: green;
 }
+
+#nostyleinputMenor{
+    width: 100px;
+}
+
+#table-WithoutScroll {
+    padding: 0;
+    height: 40vh;
+}

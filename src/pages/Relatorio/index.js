@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import Axios from "axios";
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from "text-mask-addons";
 
 import { MdSearch } from "react-icons/md";
 import { FiLayers } from "react-icons/fi";
@@ -19,8 +21,8 @@ export default function Relatorio() {
     const [expectativaValor, setExpectativaValor] = useState(0);
     const [valorRecebido, setValorRecebido] = useState(0);
 
-    const [dataInicio, setDataInicio] = useState('');
-    const [dataFim, setDataFim] = useState('');
+    const [dataInicio, setDataInicio] = useState('0000-00-00');
+    const [dataFim, setDataFim] = useState('0000-00-00');
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
@@ -28,6 +30,20 @@ export default function Relatorio() {
     localStorage.removeItem('crudCli')
     localStorage.removeItem('aprova')
     localStorage.setItem('relatorio', 'relatorio-white')
+
+    const currencyMask = createNumberMask({ 
+        prefix: 'R$ ',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: false,
+        decimalSymbol: ',',
+        decimalLimit: 2,
+        integerLimit: 13,
+        requireDecimal: true,
+        allowNegative: false,
+        allowLeadingZeroes: false
+    });
 
     useEffect(() => {
         Axios.get(`http://localhost:9080/listagem/clientes`,{
@@ -86,7 +102,7 @@ export default function Relatorio() {
 
                     <div className="content">
 
-                        <h1>Relatório de pagamento</h1>
+                        <h1 id='tituloRelatorio'>Relatório de pagamento</h1>
 
                         <form onSubmit={handleSubmit} id='formFilter'>
 
@@ -136,10 +152,16 @@ export default function Relatorio() {
                                     </thead>
 
                                     <tbody>
-                                        <tr>
-                                            <td data-label="Expectativa">R$ {valorFaltante}</td>
-                                            <td data-label="Faltante">R$ {valorRecebido}</td>
-                                            <td data-label="Recebido">R$ {expectativaValor}</td>
+                                        <tr id='nostyleinput'>
+                                            <td data-label="Expectativa">
+                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
+                                                type="text" placeholder="R$" value={expectativaValor} disabled /></td>
+                                            <td data-label="Faltante">
+                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
+                                                type="text" placeholder="R$" value={valorFaltante} disabled /></td>
+                                            <td data-label="Recebido">
+                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
+                                                type="text" placeholder="R$" value={valorRecebido} disabled /></td>
                                         </tr>
                                     </tbody>
                                 </table>
