@@ -5,7 +5,7 @@ import { FiUserPlus, FiUser, FiFileText } from "react-icons/fi";
 import { MdAddCard } from "react-icons/md";
 import React from 'react';
 
-export default function SemAcesso() {
+export default function Erro() {
   const acesso = localStorage.getItem("acesso")
   if(acesso == "COMERCIAL"){
     return (

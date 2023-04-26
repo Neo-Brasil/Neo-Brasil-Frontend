@@ -6,7 +6,6 @@ import "./ModalParcelas.css"
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 
-
 export default function ModalParcelas({ close }) {
 
     const [cliente, setCliente] = useState({});

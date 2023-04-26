@@ -5,6 +5,8 @@ import Axios from "axios";
 import ModalRegistrar from '../ModalRegistrar';
 import { Link } from 'react-router-dom';
 import { FiCheckCircle } from "react-icons/fi";
+import MaskedInput from "react-text-mask";
+import { createNumberMask } from "text-mask-addons";
 
 export default function ModalEscolher({ close }) {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -14,6 +16,20 @@ export default function ModalEscolher({ close }) {
     const [prestacoes, setPrestacoes] = useState();
     const id_cliente = localStorage.getItem("id_cliente") ; 
     const id_titulo = localStorage.getItem("id_titulo") ; 
+
+    const currencyMask = createNumberMask({ 
+        prefix: 'R$ ',
+        suffix: '',
+        includeThousandsSeparator: true,
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: false,
+        decimalSymbol: ',',
+        decimalLimit: 2,
+        integerLimit: 13,
+        requireDecimal: true,
+        allowNegative: false,
+        allowLeadingZeroes: false
+    });
 
     useEffect(() => {
         Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`,{
@@ -87,8 +103,10 @@ export default function ModalEscolher({ close }) {
 
                                             <td data-label="Status">{value.situacao}</td>
 
-                                            <td data-label="Preço">{value.preco.toString().replace(".",",")}</td>
-
+                                            <td data-label="Preço">
+                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
+                                                type="text" placeholder="R$" value={value.preco.toString().replace(".",",")} disabled /></td>
+                                    
                                             <td data-label="Registrar">
                                                 <Link className="action" onClick={() => togglePostModal(value.id)}>
                                                     <FiCheckCircle color="#44A756" size={30} />

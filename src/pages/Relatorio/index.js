@@ -21,8 +21,8 @@ export default function Relatorio() {
     const [expectativaValor, setExpectativaValor] = useState(0);
     const [valorRecebido, setValorRecebido] = useState(0);
 
-    const [dataInicio, setDataInicio] = useState('0000-00-00');
-    const [dataFim, setDataFim] = useState('0000-00-00');
+    const [dataInicio, setDataInicio] = useState();
+    const [dataFim, setDataFim] = useState();
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
