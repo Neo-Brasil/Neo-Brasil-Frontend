@@ -70,6 +70,7 @@ export default function ModalRelatorio({ close }) {
                         <table>
                             <thead>
                                 <tr>
+                                    <th scope="col">Prestação</th>
                                     <th scope="col">Mês de vencimento</th>
                                     <th scope="col">Mês de pagamento</th>
                                     <th scope="col">Status</th>
@@ -84,6 +85,8 @@ export default function ModalRelatorio({ close }) {
                                     return !value.envio ?
                                         <tbody>
                                             <tr>
+                                                <td data-label="Prestação">{value.preco}</td>
+                                                
                                                 <td data-label="MêsVence">{value.data_vencimento}</td>
 
                                                 <td data-label="MêsPago">{value.data_pagamento}</td>

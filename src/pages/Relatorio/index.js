@@ -147,24 +147,24 @@ export default function Relatorio() {
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th scope="col">Expectativa de valor</th>
-                                            <th scope="col">Valor à creditar</th>
+                                            <th scope="col">Valor a receber</th>
                                             <th scope="col">Valor recebido</th>
+                                            <th scope="col">Valor à creditar</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <tr id='nostyleinput'>
-                                            <td data-label="Expectativa">
+                                            <td data-label="Receber">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
                                                 type="text" placeholder="R$" value={expectativaValor} disabled /></td>
-                                            <td data-label="Faltante">
-                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={valorFaltante} disabled /></td>
                                             <td data-label="Recebido">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
                                                 type="text" placeholder="R$" value={valorRecebido} disabled /></td>
-                                        </tr>
+                                            <td data-label="Creditar">
+                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
+                                                type="text" placeholder="R$" value={valorFaltante} disabled /></td>
+                                            </tr>
                                     </tbody>
                                 </table>
 
