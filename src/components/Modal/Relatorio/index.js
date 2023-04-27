@@ -44,7 +44,7 @@ export default function ModalRelatorio({ close }) {
             var dado = resp.data
             setPrestacoes(dado)
 
-            
+
         });
     }, [])
 
@@ -66,7 +66,7 @@ export default function ModalRelatorio({ close }) {
                     <div className='container-table' id='table-parcelas'>
 
                         <i>Total: {total}</i>
-
+                        
                         <table>
                             <thead>
                                 <tr>
@@ -75,31 +75,36 @@ export default function ModalRelatorio({ close }) {
                                     <th scope="col">Status</th>
                                     <th scope="col">Preço</th>
                                 </tr>
-                            </thead>
-                            {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
-                                return !value.envio ?
-                                    <tbody>
-                                        <tr>
-                                            <td data-label="MêsVence">{value.data_vencimento}</td>
-
-                                            <td data-label="MêsPago">{value.data_pagamento}</td>
-
-                                            <td id={value.situacao} data-label="Status">{value.situacao}</td>
-
-                                            <td data-label="Preço">
-                                                <MaskedInput mask={currencyMask} className="nostyleinput" id='nostyleinputMenor'
-                                                    placeholder='R$ ' type="text" disabled
-                                                    value={value.preco.toString().replace(".", ",")}></MaskedInput> </td>
-
-                                        </tr>
-                                    </tbody>
-                                    : null
-                            })}
+                                </thead>
                         </table>
 
+                        <div className='scroll' id='line'>
+                            <table>
+                                {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
+                                    return !value.envio ?
+                                        <tbody>
+                                            <tr>
+                                                <td data-label="MêsVence">{value.data_vencimento}</td>
+
+                                                <td data-label="MêsPago">{value.data_pagamento}</td>
+
+                                                <td id={value.situacao} data-label="Status">{value.situacao}</td>
+
+                                                <td data-label="Preço">
+                                                    <MaskedInput mask={currencyMask} className="nostyleinput" id='nostyleinputMenor'
+                                                        placeholder='R$ ' type="text" disabled
+                                                        value={value.preco.toString().replace(".", ",")}></MaskedInput> </td>
+
+                                            </tr>
+                                        </tbody>
+                                        : null
+                                })}
+                            </table>
+                        </div>
+
+                        </div>
                     </div>
-                </div>
             )}
-        </div>
-    )
-}
+                </div>
+            )
+            }

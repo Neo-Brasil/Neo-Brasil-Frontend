@@ -59,6 +59,8 @@ export default function Relatorio() {
         e.preventDefault()
         if (dataInicio == "" || dataFim == "") {
             toast.warning('Preencha ambos os campos!')
+        }else if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
+            toast.warning('Data final não pode ser menor que a data inicial!')
         }else{
             Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`,{
                 headers: {
