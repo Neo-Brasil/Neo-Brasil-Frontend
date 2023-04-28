@@ -10,6 +10,7 @@ export default function Endereco({ onButtonClick }) {
     const [city, setCity] = useState('');
     const [estado, setEstado] = useState('');
     const [comp, setComp] = useState('');
+    const [disableAddress, setDisableAddress] = useState(false);
 
     const checkCEP = (e) => {
         const cep = e.target.value.replace(/\D/g, '');
@@ -21,7 +22,19 @@ export default function Endereco({ onButtonClick }) {
           setBairro(data.bairro);
           setCity(data.localidade);
           setEstado(data.uf);
-        }).catch((err) => toast.warning("CEP inválido"))
+        }).catch((err) => {
+            toast.warning("CEP inválido")
+            setBairro('');
+            setCity('');
+            setEstado('');
+            setRua('');
+            setDisableAddress(false);
+            }
+        )    
+      }
+
+      function handleDisableAddress() {
+        setDisableAddress(true);
       }
 
     function handleSubmit(e) {
@@ -57,7 +70,7 @@ export default function Endereco({ onButtonClick }) {
                 </div>
                 <div className="campo row">
                     <div className="endereco1">
-                        <input type="text" className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
+                        <input type='text' className="fixo" value={rua} onChange={(e) => setRua(e.target.value)} required />
                         <span>Logradouro</span>
                     </div>
 
@@ -65,6 +78,19 @@ export default function Endereco({ onButtonClick }) {
                         <input type="number" id="num" className="fixo" value={numero} onChange={(e) => setNumero(e.target.value)} required />
                         <span>Número</span>
                     </div>
+
+                    {/* <div className="endereco1">
+                        <input type={disableAddress ? 'text' !== "" : 'text' === ""} className="fixo" 
+                        value={rua} onChange={(e) => setRua(e.target.value)} required />
+                        <span>Logradouro</span>
+                    </div>
+
+                    <div className="endereco2">
+                        <input type="number" id="num" className="fixo" 
+                        value={numero} onChange={(e) => setNumero(e.target.value)} required />
+                        <span onClick={handleDisableAddress}>Número
+                        {disableAddress ? disabled : ""}</span>
+                    </div> */}
                 </div>
                 <div className="campo">
                     <input type="text" className="fixo" value={bairro} onChange={(e) => setBairro(e.target.value)} required />
