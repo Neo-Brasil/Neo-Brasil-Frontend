@@ -35,15 +35,21 @@
     text-shadow: 3px 3px 2px #a95704;
 }
 
+#sign input::placeholder {
+    color: #000;
+}
+
+#eye{
+    position: absolute;
+    top: 54.4vh;
+    right: 44vh;
+}
+
 #enviarLogin{
     width: 8vw;
     margin-top: 5px;
     height: 4.5vh;
     border-radius: 5px;
-}
-
-#sign input::placeholder {
-    color: #000;
 }
 
 .button-orange a{

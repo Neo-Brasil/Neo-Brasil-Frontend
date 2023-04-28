@@ -4,12 +4,22 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Login() {
     localStorage.clear()
     localStorage.setItem("acesso", "0")
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
+    function handleShowPassword() {
+        setShowPassword(true);
+    
+        setTimeout(() => {
+          setShowPassword(false);
+        }, 1500);
+      }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -80,8 +90,13 @@ export default function Login() {
                         </div>
 
                         <div className="campo" id='sign'>
-                            <input type="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'}
+                                id="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
                         </div>
+
+                        <p id='eye' onClick={handleShowPassword}>
+                            {showPassword ? <FaEyeSlash color='#434343' /> : <FaEye color='#434343' />}
+                        </p>
 
                         <div className='button-color'>
                             <button className='button-green' id='enviarLogin' 
