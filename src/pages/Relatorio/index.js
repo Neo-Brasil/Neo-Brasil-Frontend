@@ -17,9 +17,9 @@ export default function Relatorio() {
     const [detail, setDetail] = useState();
     
     const [clientes, setClientes] = useState([]);
-    const [valorFaltante, setValorFaltante] = useState(0);
-    const [valorReceber, setvalorReceber] = useState(0);
     const [valorRecebido, setValorRecebido] = useState(0);
+    const [valorReceber, setValorReceber] = useState(0);
+    const [valorCreditar, setValorCreditar] = useState(0);
 
     const [dataInicio, setDataInicio] = useState('0000-00-00');
     const [dataFim, setDataFim] = useState('0000-00-00');
@@ -68,12 +68,12 @@ export default function Relatorio() {
                     }
             }).then((resp) => {
                 var dado = resp.data
+                let receber = dado.receber
                 let recebido = dado.recebido
-                let faltante = dado.faltante
-                let expectativa = dado.expectativa
+                let creditar = dado.creditar
                 setValorRecebido(recebido.toString().replace(".",","));
-                setValorFaltante(faltante.toString().replace(".",","));
-                setvalorReceber(expectativa.toString().replace(".",","));
+                setValorReceber(receber.toString().replace(".",","));
+                setValorCreditar(creditar.toString().replace(".",","));
               });
         }
     }
@@ -163,7 +163,7 @@ export default function Relatorio() {
                                                 type="text" placeholder="R$" value={valorRecebido} disabled /></td>
                                             <td data-label="Creditar">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={valorFaltante} disabled /></td>
+                                                type="text" placeholder="R$" value={valorCreditar} disabled /></td>
                                             </tr>
                                     </tbody>
                                 </table>
