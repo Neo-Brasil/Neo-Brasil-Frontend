@@ -45,18 +45,7 @@ export default function Relatorio() {
         allowLeadingZeroes: false
     });
 
-    useEffect(() => {
-        Axios.get(`http://localhost:9080/listagem/clientes`,{
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
-        }).then((resp) => {
-            setClientes(resp.data)
-        });
-    }, [])
-
-    function handleSubmit(e) {
-        e.preventDefault()
+    function listagemPrestacoes(){
         if (dataInicio == "" || dataFim == "") {
             toast.warning('Preencha ambos os campos!')
         }else if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
@@ -76,6 +65,22 @@ export default function Relatorio() {
                 setValorCreditar(creditar.toString().replace(".",","));
               });
         }
+    }
+
+    useEffect(() => {
+        listagemPrestacoes();
+        Axios.get(`http://localhost:9080/listagem/clientes`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
+            setClientes(resp.data)
+        });
+    }, [])
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        listagemPrestacoes();
     }
 
     function togglePostModal(id_titulo) {

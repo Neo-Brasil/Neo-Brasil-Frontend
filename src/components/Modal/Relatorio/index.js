@@ -35,17 +35,17 @@ export default function ModalRelatorio({ close }) {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
         }).then((resp) => {
-        });
-        Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        }).then((resp) => {
-            var dado = resp.data
-            for (let k in dado) {             
-                dado[k].indice = parseInt(k) + 1
-            }
-            setPrestacoes(dado)
+            Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            }).then((resp) => {
+                var dado = resp.data
+                for (let k in dado) {             
+                    dado[k].indice = parseInt(k) + 1
+                }
+                setPrestacoes(dado)
+            });
         });
     }, [])
 
