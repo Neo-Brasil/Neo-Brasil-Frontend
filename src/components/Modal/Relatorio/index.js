@@ -42,9 +42,10 @@ export default function ModalRelatorio({ close }) {
             }
         }).then((resp) => {
             var dado = resp.data
+            for (let k in dado) {             
+                dado[k].indice = parseInt(k) + 1
+            }
             setPrestacoes(dado)
-
-
         });
     }, [])
 
@@ -70,6 +71,7 @@ export default function ModalRelatorio({ close }) {
                         <table>
                             <thead>
                                 <tr>
+                                    <th scope="col">Índice</th>
                                     <th scope="col">Prestação</th>
                                     <th scope="col">Mês de vencimento</th>
                                     <th scope="col">Mês de pagamento</th>
@@ -85,6 +87,8 @@ export default function ModalRelatorio({ close }) {
                                     return !value.envio ?
                                         <tbody>
                                             <tr>
+                                                <td data-label="Índice">{value.indice}</td>
+                                                
                                                 <td data-label="Prestação">{value.preco}</td>
                                                 
                                                 <td data-label="MêsVence">{value.data_vencimento}</td>

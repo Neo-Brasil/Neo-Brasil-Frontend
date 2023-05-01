@@ -53,8 +53,9 @@ export default function ModalEscolher({ close }) {
         }).then((resp) => {
             var dado = resp.data
             let pre_prestacoes = []
-            for (let k in dado.prestacoes) {
-                if (dado.prestacoes[k].situacao == "Em aberto") {
+            for (let k in dado.prestacoes) {             
+                dado.prestacoes[k].indice = parseInt(k) + 1
+                if (dado.prestacoes[k].situacao == "Em aberto" || dado.prestacoes[k].situacao == "Inadimplente") {
                     pre_prestacoes.push(dado.prestacoes[k])
                 }
             }
@@ -89,7 +90,9 @@ export default function ModalEscolher({ close }) {
 
                         <table>
                             <thead>
-                                <tr><th scope="col">Mês</th>
+                                <tr>
+                                    <th scope="col">Índice</th>
+                                    <th scope="col">Vencimento</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Preço</th>
                                     <th scope="col">Registrar</th>
@@ -103,7 +106,9 @@ export default function ModalEscolher({ close }) {
                                     return !value.envio ?
                                         <tbody>
                                             <tr>
-                                                <td data-label="Mês">{value.data_vencimento}</td>
+                                                <td data-label="Índice">{value.indice}</td>
+
+                                                <td data-label="Vencimento">{value.data_vencimento}</td>
 
                                                 <td data-label="Status">{value.situacao}</td>
 
