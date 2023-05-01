@@ -18,11 +18,11 @@ export default function Relatorio() {
     
     const [clientes, setClientes] = useState([]);
     const [valorFaltante, setValorFaltante] = useState(0);
-    const [expectativaValor, setExpectativaValor] = useState(0);
+    const [valorReceber, setvalorReceber] = useState(0);
     const [valorRecebido, setValorRecebido] = useState(0);
 
-    const [dataInicio, setDataInicio] = useState();
-    const [dataFim, setDataFim] = useState();
+    const [dataInicio, setDataInicio] = useState('0000-00-00');
+    const [dataFim, setDataFim] = useState('0000-00-00');
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
@@ -73,7 +73,7 @@ export default function Relatorio() {
                 let expectativa = dado.expectativa
                 setValorRecebido(recebido.toString().replace(".",","));
                 setValorFaltante(faltante.toString().replace(".",","));
-                setExpectativaValor(expectativa.toString().replace(".",","));
+                setvalorReceber(expectativa.toString().replace(".",","));
               });
         }
     }
@@ -111,13 +111,13 @@ export default function Relatorio() {
                             <div className='filters'>
                                 <div className='filter'>
                                     <p>Início</p>
-                                    <input type="date" className="fixo" required
+                                    <input type="date" className="fixo"
                                         value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
                                 </div>
 
                                 <div className='filter'>
                                     <p>Fim</p>
-                                    <input type="date" className="fixo" required
+                                    <input type="date" className="fixo"
                                         value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
                                 </div>
 
@@ -157,7 +157,7 @@ export default function Relatorio() {
                                         <tr id='nostyleinput'>
                                             <td data-label="Receber">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={expectativaValor} disabled /></td>
+                                                type="text" placeholder="R$" value={valorReceber} disabled /></td>
                                             <td data-label="Recebido">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
                                                 type="text" placeholder="R$" value={valorRecebido} disabled /></td>

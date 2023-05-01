@@ -42,7 +42,7 @@ export default function Titulo({ onButtonClick }) {
         let titulo = cliente.titulos[0];
         setTitulop(titulo.titulo);
         setPrecop(titulo.preco);
-        setDataVencp(titulo.data_vencimento);
+        setDataVenc(titulo.data_vencimento);
         setPrazop(titulo.tempo_credito);
         setId(titulo.id);
         });
@@ -110,7 +110,6 @@ export default function Titulo({ onButtonClick }) {
                                         value={preco} onChange={(e) => setPreco(e.target.value)} />
                                     <span>Preço</span>
                                 </div>
-
                                 <div class="campo">
                                     <input class="fixo" type="date" placeholder={dataVencP} 
                                     value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
