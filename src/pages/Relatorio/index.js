@@ -46,25 +46,29 @@ export default function Relatorio() {
     });
 
     function listagemPrestacoes(){
-        if (dataInicio == "" || dataFim == "") {
-            toast.warning('Preencha ambos os campos!')
-        }else if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
-            toast.warning('Data final não pode ser menor que a data inicial!')
-        }else{
-            Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`,{
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-            }).then((resp) => {
-                var dado = resp.data
-                let receber = dado.receber
-                let recebido = dado.recebido
-                let creditar = dado.creditar
-                setValorRecebido(recebido.toString().replace(".",","));
-                setValorReceber(receber.toString().replace(".",","));
-                setValorCreditar(creditar.toString().replace(".",","));
-              });
-        }
+        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).then((resp) => {
+            if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
+                toast.warning('Data final não pode ser menor que a data inicial!')
+            }else{
+                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`,{
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                        }
+                }).then((resp) => {
+                    var dado = resp.data
+                    let receber = dado.receber
+                    let recebido = dado.recebido
+                    let creditar = dado.creditar
+                    setValorRecebido(recebido.toString().replace(".",","));
+                    setValorReceber(receber.toString().replace(".",","));
+                    setValorCreditar(creditar.toString().replace(".",","));
+                  });
+            }
+        });
     }
 
     useEffect(() => {
