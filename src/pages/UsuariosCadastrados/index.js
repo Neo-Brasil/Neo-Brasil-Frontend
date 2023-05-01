@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
-
+import { toast } from 'react-toastify';
 import ModalVerEditar from '../../components/Modal/VerEditarUsuario';
 import ModalDelUsuario from '../../components/Modal/DeletarUsuario';
 
@@ -14,6 +14,7 @@ export default function CrudUsuario() {
 
     const [showPostModal2, setShowPostModal2] = useState(false);
     const [detail2, setDetail2] = useState();
+    const email_usuario = localStorage.getItem("email_usuario")
 
     const [total, setTotal] = useState();
 
@@ -33,9 +34,20 @@ export default function CrudUsuario() {
 
     function togglePostModal2(id) {
         // localStorage.clear();
-        localStorage.setItem("id", id);
-        setShowPostModal2(!showPostModal2);
-        setDetail2();
+        Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+        }).then((resp) => {
+            var usuario = resp.data
+            if(usuario.email != email_usuario){
+                localStorage.setItem("id", id);
+                setShowPostModal2(!showPostModal2);
+                setDetail2();
+            }else{
+                toast.warning('Administradores não podem se excluir!')
+            }
+        });
     }
 
     useEffect(() => {
