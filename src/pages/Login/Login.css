@@ -57,12 +57,6 @@
     color: #FFF;
 }
 
-/* .logar p{
-    text-align: center;
-    margin-top: 14%;
-    margin-bottom: 15%;
-} */
-
 .button-color .button-orange{
     background-color: #F79736;
     color: #FFF;
@@ -75,8 +69,40 @@
 }
 
 .button-color #goTo{
-    color: #F27F0C;
+    color: #e1780e;
     text-decoration: none;
-    text-shadow: 0.5px 2px 0.5px #a95704;
     font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    .login{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .logo img{
+        width: 305px;
+        height: 172px;
+    }
+
+    .signIn {
+        font-size: 2.5em;
+        margin: 0;
+        margin: 10px 0px 15px 0px;
+    }
+
+    #sign input {
+        width: 270px;
+        height: 1.5vh;
+    }
+
+    #eye {
+        position: absolute;
+        top: 62vh;
+        right: 10vh;
+    }
+
+    #enviarLogin {
+        width: 18vw;
+    }
 }
