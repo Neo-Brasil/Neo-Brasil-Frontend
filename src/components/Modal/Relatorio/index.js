@@ -5,6 +5,7 @@ import "./ModalRelatorio.css"
 
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalRelatorio({ close }) {
 
@@ -34,11 +35,15 @@ export default function ModalRelatorio({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+            }).catch(function (error) {
+                VerificaToken(error)
             }).then((resp) => {
                 var dado = resp.data
                 for (let k in dado) {             

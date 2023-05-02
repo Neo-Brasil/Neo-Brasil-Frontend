@@ -3,6 +3,7 @@ import Axios from "axios";
 import { toast } from 'react-toastify';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import VerificaToken from '../../script/verificaToken';
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
@@ -54,6 +55,8 @@ export default function Titulo({ onButtonClick }) {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
+            }).catch(function (error) {
+                VerificaToken(error)
             }).then((res) => {
                 console.log(res)
             })            

@@ -3,6 +3,7 @@ import Axios from "axios";
 import { toast } from 'react-toastify';
 import { IMaskInput } from "react-imask";
 import { useParams } from "react-router-dom";
+import VerificaToken from '../../script/verificaToken';
 
 export default function Endereco({ onButtonClick }) {
     const [cep, setCep] = useState('');
@@ -28,16 +29,18 @@ export default function Endereco({ onButtonClick }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
-        let cliente = resp.data;
-        let endereco = cliente.endereco;
-        setCepp(endereco.cep);
-        setRuap(endereco.logradouro);
-        setNumerop(endereco.numero);
-        setBairrop(endereco.bairro);
-        setCityp(endereco.localidade);
-        setEstadop(endereco.uf);
-        setCompp(endereco.complemento);
+            let cliente = resp.data;
+            let endereco = cliente.endereco;
+            setCepp(endereco.cep);
+            setRuap(endereco.logradouro);
+            setNumerop(endereco.numero);
+            setBairrop(endereco.bairro);
+            setCityp(endereco.localidade);
+            setEstadop(endereco.uf);
+            setCompp(endereco.complemento);
         });
       }, [])
 

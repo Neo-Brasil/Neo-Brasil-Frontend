@@ -2,6 +2,7 @@ import './ModalDelCliente.css';
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalDelCliente({close}){
     const [nome, setNome] = useState('');
@@ -13,6 +14,8 @@ export default function ModalDelCliente({close}){
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
           var dados = resp.data
           for(var k in dados){
@@ -29,6 +32,8 @@ export default function ModalDelCliente({close}){
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((res) => {
             console.log(res)
         })

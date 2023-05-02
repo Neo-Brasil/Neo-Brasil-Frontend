@@ -4,6 +4,7 @@ import { IMaskInput } from "react-imask";
 import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
+import VerificaToken from '../../script/verificaToken';
 
 export default function Pessoal({ onButtonClick }) {
     const [nome, setNome] = useState('');
@@ -21,6 +22,8 @@ export default function Pessoal({ onButtonClick }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
         let cliente = resp.data;
         setNomep(cliente.nome);

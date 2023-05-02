@@ -7,6 +7,7 @@ import ModalRegistrar from '../Registrar';
 import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalEscolher({ close }) {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -36,12 +37,16 @@ export default function ModalEscolher({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
         });
         Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id_cliente}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dado = resp.data
             setCliente(dado)
@@ -50,6 +55,8 @@ export default function ModalEscolher({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dado = resp.data
             let pre_prestacoes = []

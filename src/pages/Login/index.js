@@ -7,6 +7,10 @@ import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function Login() {
+    if(localStorage.getItem('erro') == 'y'){
+        toast.warning('Token expirado!')
+        toast.info('Logue novamente')
+    }
     localStorage.clear()
     localStorage.setItem("acesso", "0")
     const [email, setEmail] = useState('');

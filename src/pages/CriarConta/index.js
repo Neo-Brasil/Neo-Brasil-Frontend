@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import VerificaToken from '../../script/verificaToken';
 
 export default function CriarConta() {
     const [nome, setNome] = useState('');
@@ -41,6 +42,8 @@ export default function CriarConta() {
                                 email: email,
                                 senha: senha,
                                 autorizado: papel
+                        }).catch(function (error) {
+                            VerificaToken(error)
                         }).then((resp) => {
                         }) 
                         toast.info('Aguarde seu cadastro ser autorizado!')  

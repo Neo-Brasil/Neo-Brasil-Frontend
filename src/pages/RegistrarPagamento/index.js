@@ -5,6 +5,7 @@ import ModalEscolher from '../../components/Modal/EscolherParaRegistrar';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
+import VerificaToken from '../../script/verificaToken';
 
 export default function RegistrarPago() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -42,6 +43,8 @@ export default function RegistrarPago() {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+    }).catch(function (error) {
+        VerificaToken(error)
     }).then((resp) => {
         var dados = resp.data
         var novoDados = []

@@ -5,6 +5,7 @@ import ModalAprovar from '../../components/Modal/Aprovar';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { MdRule } from "react-icons/md";
+import VerificaToken from "../../script/verificaToken.js";
 
 export default function AprovarConta() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -41,6 +42,8 @@ export default function AprovarConta() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dados = resp.data
             var novoDados = []

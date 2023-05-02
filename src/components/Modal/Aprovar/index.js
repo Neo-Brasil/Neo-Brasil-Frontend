@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ModalAprovar.css';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalAprovar({ close }) {
     const [usuario, setUsuario] = useState('');
@@ -14,6 +15,8 @@ export default function ModalAprovar({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dados = resp.data
             for (var k in dados) {
@@ -30,6 +33,8 @@ export default function ModalAprovar({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             console.log(resp)
             window.location.reload(true);
@@ -45,6 +50,8 @@ export default function ModalAprovar({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             window.location.reload(true);
             localStorage.setItem("update", "1")

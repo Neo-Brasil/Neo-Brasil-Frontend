@@ -3,6 +3,7 @@ import Axios from "axios";
 import { useParams } from "react-router-dom";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import VerificaToken from '../../script/verificaToken';
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
@@ -37,14 +38,16 @@ export default function Titulo({ onButtonClick }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
-        let cliente = resp.data;
-        let titulo = cliente.titulos[0];
-        setTitulop(titulo.titulo);
-        setPrecop(titulo.preco);
-        setDataVenc(titulo.data_vencimento);
-        setPrazop(titulo.tempo_credito);
-        setId(titulo.id);
+            let cliente = resp.data;
+            let titulo = cliente.titulos[0];
+            setTitulop(titulo.titulo);
+            setPrecop(titulo.preco);
+            setDataVenc(titulo.data_vencimento);
+            setPrazop(titulo.tempo_credito);
+            setId(titulo.id);
         });
       }, [])
 
@@ -76,6 +79,8 @@ export default function Titulo({ onButtonClick }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((res) => {
             console.log(res)
         })

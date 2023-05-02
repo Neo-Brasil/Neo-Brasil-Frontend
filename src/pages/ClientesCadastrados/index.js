@@ -7,6 +7,7 @@ import Axios from "axios";
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { MdContactPage, MdDeleteForever } from "react-icons/md";
+import VerificaToken from '../../script/verificaToken';
 
 export default function CrudCliente() {
     if(localStorage.getItem("update") === "1"){
@@ -38,6 +39,8 @@ export default function CrudCliente() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
           var dados = resp.data
           var novoDados = []

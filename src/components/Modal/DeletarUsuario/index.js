@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalDelUsuario({close}){
     const [email, setEmail] = useState('');
@@ -11,6 +12,8 @@ export default function ModalDelUsuario({close}){
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dado = resp.data
             setEmail(dado.email)
@@ -22,6 +25,8 @@ export default function ModalDelUsuario({close}){
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             console.log(resp)
         })

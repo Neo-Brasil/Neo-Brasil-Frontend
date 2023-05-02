@@ -6,6 +6,7 @@ import { MdContactPage, MdDeleteForever } from "react-icons/md";
 import { toast } from 'react-toastify';
 import ModalVerEditar from '../../components/Modal/VerEditarUsuario';
 import ModalDelUsuario from '../../components/Modal/DeletarUsuario';
+import VerificaToken from '../../script/verificaToken';
 
 export default function CrudUsuario() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -38,6 +39,8 @@ export default function CrudUsuario() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var usuario = resp.data
             if(usuario.email != email_usuario){
@@ -55,6 +58,8 @@ export default function CrudUsuario() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dados = resp.data
             var novoDados = []

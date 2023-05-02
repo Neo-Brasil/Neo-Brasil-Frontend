@@ -6,6 +6,7 @@ import { FiArrowLeft } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
+import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalRegistrar({ close }) {
     const [valorPago, setValorPago] = useState('');
@@ -35,6 +36,8 @@ export default function ModalRegistrar({ close }) {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             var dado = resp.data
             setTitulo(dado)
@@ -64,6 +67,8 @@ export default function ModalRegistrar({ close }) {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
+                }).catch(function (error) {
+                    VerificaToken(error)
                 }).then((res) => {
                     console.log(res)
                 })

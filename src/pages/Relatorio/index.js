@@ -11,6 +11,7 @@ import { createNumberMask } from "text-mask-addons";
 import { MdSearch } from "react-icons/md";
 import { FiLayers } from "react-icons/fi";
 import ModalRelatorio from '../../components/Modal/Relatorio';
+import VerificaToken from '../../script/verificaToken';
 
 export default function Relatorio() {
     const [showPostModal, setShowPostModal] = useState(false);
@@ -50,6 +51,8 @@ export default function Relatorio() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
                 toast.warning('Data final não pode ser menor que a data inicial!')
@@ -58,6 +61,8 @@ export default function Relatorio() {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                         }
+                }).catch(function (error) {
+                    VerificaToken(error)
                 }).then((resp) => {
                     var dado = resp.data
                     let receber = dado.receber
@@ -77,6 +82,8 @@ export default function Relatorio() {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
+        }).catch(function (error) {
+            VerificaToken(error)
         }).then((resp) => {
             setClientes(resp.data)
         });
