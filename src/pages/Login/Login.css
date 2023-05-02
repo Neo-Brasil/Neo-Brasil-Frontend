@@ -74,7 +74,25 @@
     font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
+    #eye {
+        right: 33vh;
+    }
+}
+
+@media screen and (max-width: 960px) {
+    #eye {
+        right: 21vh;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #eye {
+        right: 8vh;
+    }
+}
+
+@media screen and (max-width: 700px) {
     .login{
         flex-direction: column;
         justify-content: center;
@@ -97,12 +115,35 @@
     }
 
     #eye {
-        position: absolute;
         top: 62vh;
-        right: 10vh;
+        right: 28vh;
     }
 
     #enviarLogin {
         width: 18vw;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    #eye {
+        right: 25vh;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    #eye {
+        right: 21vh;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    #eye {
+        right: 17vh;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    #eye {
+        right: 11vh;
     }
 }

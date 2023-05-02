@@ -1,5 +1,6 @@
 import './CriarConta.css';
 import logo from '../../assets/logo-transparent.png';
+import lotus from '../../assets/lotus.png';
 import React, { useState } from "react";
 import Axios from "axios";
 import { Link } from 'react-router-dom';
@@ -68,7 +69,10 @@ export default function CriarConta() {
         <div>
             <div className="login">
                 <div className='logo'>
+                <picture>
+                    <source media="(max-width: 700px)" srcset={lotus} />
                     <img src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
+                </picture>
                 </div>
 
                 <form onSubmit={handleSubmit}>

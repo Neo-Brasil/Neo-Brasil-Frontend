@@ -84,7 +84,7 @@ export default function Login() {
             <div className="login">
                 <div className='logo'>
                 <picture>
-                    <source media="(max-width: 600px)" srcset={lotus} />
+                    <source media="(max-width: 700px)" srcset={lotus} />
                     <img src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
                 </picture>
                 </div>
