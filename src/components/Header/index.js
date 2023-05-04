@@ -1,12 +1,12 @@
 import './header.css';
 import logo from '../../assets/logo-transparent.png';
+import lotus from '../../assets/lotus.png';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { FiUserPlus, FiUser, FiFileText, FiLogOut } from "react-icons/fi";
 import { MdAddCard } from "react-icons/md";
 import { RiShieldCheckFill, RiShieldUserFill } from "react-icons/ri";
-
-// import { GiLindenLeaf } from "react-icons/gi";
 
 export default function Header() {
     const acesso = localStorage.getItem("acesso")
@@ -17,51 +17,58 @@ export default function Header() {
     const crudCli = localStorage.getItem('crudCli')
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
-    
-    if(acesso == "ADM"){
+
+    if (acesso == "ADM") {
         return (
             <div className="sidebar">
 
-                <div className='nav'>
-
-                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-                    <Link to={'/aprovar_contas'} id={aprova} >
-                        <RiShieldCheckFill size={30} />
-                    </Link>
-
-                    <Link to={'/usuarios_cadastrados'} id={crudUser} >
-                        <RiShieldUserFill size={30} />
-                    </Link>
-
-                    <Link to={'/cadastro'} id={cadastro}>
-                        <FiUserPlus size={30} />
-                    </Link>
-
-                    <Link to={'/clientes_cadastrados'} id={crudCli}>
-                        <FiUser size={30} />
-                    </Link>
-
-                    <Link to={'/registrar_pagamento'} id={registra}>
-                        <MdAddCard size={30} />
-                    </Link>
-
-                    <Link to={'/relatorio'} id={relatorio}>
-                        <FiFileText size={30} />
-                    </Link>
-
+                <div className='headerLogo'>
+                <picture>
+                    <source media="(max-width: 700px)" srcSet={lotus} />
+                    <img id='logoHeader' src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
+                </picture>
                 </div>
 
-                <div className='signout'>
+                <ul className="nav-links">
 
-                    <Link to={'/'}>
-                        <FiLogOut size={30} />
-                    </Link>
-                </div>
+                    <input type="checkbox" id="checkbox_toggle" />
+                    <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
 
+                    <div className='nav'>
+
+                        <Link to={'/aprovar_contas'} id={aprova} >
+                            <RiShieldCheckFill size={30} />
+                        </Link>
+
+                        <Link to={'/usuarios_cadastrados'} id={crudUser} >
+                            <RiShieldUserFill size={30} />
+                        </Link>
+
+                        <Link to={'/cadastro'} id={cadastro}>
+                            <FiUserPlus size={30} />
+                        </Link>
+
+                        <Link to={'/clientes_cadastrados'} id={crudCli}>
+                            <FiUser size={30} />
+                        </Link>
+
+                        <Link to={'/registrar_pagamento'} id={registra}>
+                            <MdAddCard size={30} />
+                        </Link>
+
+                        <Link to={'/relatorio'} id={relatorio}>
+                            <FiFileText size={30} />
+                        </Link>
+
+                        <Link to={'/'} id='signout' style={{background: "transparent"}}>
+                            <FiLogOut size={30} />
+                        </Link>
+                    </div>
+
+                </ul>
             </div>
         )
-    } else if(acesso == "COMERCIAL") {
+    } else if (acesso == "COMERCIAL") {
         return (
             <div className="sidebar">
 
@@ -92,7 +99,7 @@ export default function Header() {
 
             </div>
         )
-    } else if(acesso == "FINANCEIRO"){
+    } else if (acesso == "FINANCEIRO") {
         return (
             <div className="sidebar">
 
@@ -119,7 +126,5 @@ export default function Header() {
 
             </div>
         )
-    } else{
-        window.location.href = '/sem/acesso'
     }
 }

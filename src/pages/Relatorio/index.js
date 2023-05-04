@@ -1,5 +1,5 @@
 import './Relatorio.css';
-import Header from "../../components/Header/index.tsx";
+import Header from "../../components/Header/index";
 
 import { useState, useEffect } from 'react';
 import Axios from "axios";

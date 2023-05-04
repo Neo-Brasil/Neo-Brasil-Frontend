@@ -1,4 +1,4 @@
-import Header from "../../components/Header/index.tsx";
+import Header from "../../components/Header/index";
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import ModalAprovar from '../../components/Modal/Aprovar';

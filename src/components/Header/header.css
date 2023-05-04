@@ -11,7 +11,7 @@
     justify-content: space-between;
 }
 
-.sidebar .nav img{
+.sidebar .headerLogo #logoHeader{
     height: 200px;
     width: 200px;
     padding: 30px 15px 30px 15px;
@@ -45,17 +45,86 @@
     border-bottom-left-radius: 25px;
 }
 
-.signout{
-    display: flex;
-    justify-content: center;
-}
 
-.signout svg{
+#signout svg{
     color: #fff;
-    margin-bottom: 50px;
+    margin: 40px 0 20px 55px;
 }
 
-.signout svg:hover{
+#signout svg:hover{
     color: #F27F0C;
     filter: drop-shadow(1px 1px 1.5px #fbfaf9);
+    background-color: transparent !important;
+}
+
+/* ---------------------------------------- */
+
+input[type=checkbox] {
+    display: none;
+}
+
+.hamburger {
+    display: none;
+    font-size: 24px;
+    user-select: none;
+}
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        padding: 0 1em;
+        height: 13vh;
+        width: 100vw;
+        border-top-right-radius: 0px;
+        /* border-bottom-left-radius: 70px; */
+        border-bottom-right-radius: 0px;
+        flex-direction: row;
+    }
+
+    .sidebar .headerLogo #logoHeader{
+        height: 66px;
+        width: 132px;
+        padding: 1em 0 1em 3em;
+    }
+
+    .nav {
+        display: none;
+        position: absolute;
+        background-color: #44A754;
+        right: 0;
+        left: 0;
+        text-align: center;
+        margin-top: 4%;
+        padding: 15px 0px;
+    }
+
+    .nav a {
+        width: 100vw;
+        margin-left: 0%;
+    }
+
+    .nav a+a {
+        margin: 10px 0 10px 0;
+    }
+
+    .nav a:hover {
+        border-radius: 0;
+    }
+
+    #aprova-white, #crudUser-white, #cadastro-white, #crudCli-white, #registra-white, #relatorio-white {
+        background-color: #FFF;
+        border-radius: 0;
+    }
+
+    .nav a svg, #signout svg {
+        margin-left: 50%;
+    }
+
+    input[type=checkbox]:checked~.nav {
+        display: block;
+    }
+
+    .hamburger {
+        display: block;
+        padding: 1.5em 3em 0 0 ;
+    }
 }

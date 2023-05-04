@@ -1,4 +1,4 @@
-import Header from "../../components/Header/index.tsx";
+import Header from "../../components/Header/index";
 
 import Pessoal from './Pessoal';
 import Endereco from './Endereco';

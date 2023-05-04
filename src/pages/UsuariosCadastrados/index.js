@@ -1,4 +1,4 @@
-import Header from "../../components/Header/index.tsx";
+import Header from "../../components/Header/index";
 import { useState, useEffect } from 'react';
 import Axios from "axios";
 import { Link } from 'react-router-dom';
