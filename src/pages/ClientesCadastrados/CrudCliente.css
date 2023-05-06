@@ -41,7 +41,7 @@ tr button{
     cursor: pointer;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 970px) {
 
     .container-table {
         padding: 1px 25px;

@@ -1,7 +1,7 @@
 import './header.css';
 import logo from '../../assets/logo-transparent.png';
 import lotus from '../../assets/lotus.png';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import { FiUserPlus, FiUser, FiFileText, FiLogOut } from "react-icons/fi";
@@ -18,21 +18,27 @@ export default function Header() {
     const registra = localStorage.getItem('registra')
     const relatorio = localStorage.getItem('relatorio')
 
+    const [navopen, setNavopen] = useState(false);
+
+    function handleNav() {
+        setNavopen(!navopen);
+    }
+
     if (acesso == "ADM") {
         return (
-            <div className="sidebar">
+            <div className={navopen ? "sidebar_open" : "sidebar"}>
 
                 <div className='headerLogo'>
-                <picture>
-                    <source media="(max-width: 700px)" srcSet={lotus} />
-                    <img id='logoHeader' src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
-                </picture>
+                    <picture>
+                        <source media="(max-width: 700px)" srcSet={lotus} />
+                        <img id='logoHeader' src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
+                    </picture>
                 </div>
 
                 <ul className="nav-links">
 
-                    <input type="checkbox" id="checkbox_toggle" />
-                    <label htmlFor="checkbox_toggle" className="hamburger">&#9776;</label>
+                    <input type="checkbox" id="checkbox_toggle" onClick={handleNav}/>
+                    <label htmlFor="checkbox_toggle" className="hamburger" >&#9776;</label>
 
                     <div className='nav'>
 
@@ -60,7 +66,7 @@ export default function Header() {
                             <FiFileText size={30} />
                         </Link>
 
-                        <Link to={'/'} id='signout' style={{background: "transparent"}}>
+                        <Link to={'/'} id='signout' style={{ background: "transparent" }}>
                             <FiLogOut size={30} />
                         </Link>
                     </div>
