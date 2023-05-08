@@ -107,23 +107,23 @@ export default function CriarConta() {
                             <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
 
-                        <div className="campo" id='sign'>
+                        <div className="password">
                             <input type={showPassword ? 'text' : 'password'}
-                                id="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                                placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+
+                            <p onClick={handleShowPassword}>
+                                {showPassword ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
+                            </p>
                         </div>
 
-                        <p id='eye2' onClick={handleShowPassword}>
-                            {showPassword ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
-                        </p>
-
-                        <div className="campo" id='sign'>
+                        <div className="password">
                             <input type={showPassword2 ? 'text' : 'password'}
-                                id="password" placeholder='Confirmar Senha' value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
-                        </div>
+                                placeholder='Confirmar senha' value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
 
-                        <p id='eye3' onClick={handleShowPassword2}>
-                            {showPassword2 ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
-                        </p>
+                            <p onClick={handleShowPassword2}>
+                                {showPassword2 ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
+                            </p>
+                        </div>
 
                         <div className="opcoes">
                         <select onChange={(e) => setPapel(e.target.value)}>
@@ -137,12 +137,12 @@ export default function CriarConta() {
                             os <Link to={'/termosDeUso'}>Termos de Uso</Link>.</p>
 
                         <div className='button-color'>
-                            <button className='button-green' id='enviarLogin'
+                            <button className='button-green' id='sendSign'
                                 onClick={() => handleSubmit()}>CRIAR</button>
                         </div>
 
-                        <div className='button-color' >
-                            <Link to={'/'} id='goTo'>VOLTAR PARA LOGIN
+                        <div className='navSign' >
+                            <Link to={'/'}>VOLTAR PARA LOGIN
                             </Link>
                         </div>
                     </div>

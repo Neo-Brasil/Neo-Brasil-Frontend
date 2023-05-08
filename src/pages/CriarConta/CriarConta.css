@@ -8,6 +8,12 @@
     margin-bottom: 5%;
 }
 
+.opcoes select:focus{
+    box-shadow: 0 0 0 0; 
+    border: 2px solid #44A754;
+    outline: 0;
+}
+
 #termos{
     margin-bottom: 6%;
     text-align: center;
@@ -18,20 +24,10 @@
     color: #000;
 }
 
-#eye2{
-    position: absolute;
-    top: 47.4vh;
-    right: 44vh;
-}
-
-#eye3{
-    position: absolute;
-    top: 54.8vh;
-    right: 44vh;
-}
 
 @media screen and (max-width: 700px) {
     .opcoes select {
         width: 304px;
     }
 }
+

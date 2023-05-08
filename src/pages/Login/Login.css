@@ -39,58 +39,66 @@
     color: #000;
 }
 
-#eye{
-    position: absolute;
-    top: 54.4vh;
-    right: 44vh;
+#sign input:focus{
+    box-shadow: 0 0 0 0; 
+    border: 2px solid #44A754;
+    outline: 0;
 }
 
-#enviarLogin{
+/* relacionado ao olho para ver a senha */
+
+.password{
+    width: 350px;
+    height: 2vh;
+    padding: 10px 10px 10px 20px;
+    border: 2px solid #44A754;
+    border-radius: 5px;
+    background-color: #FFF;
+    margin-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.password input{
+    border: none;
+    font-size: 15px;
+    width: 320px;
+}
+
+.password input:focus{
+    outline: 0;
+}
+
+.password input::placeholder {
+    color: #000;
+}
+
+/* ------------------------------- */
+
+
+#sendSign{
     width: 8vw;
     margin-top: 5px;
     height: 4.5vh;
     border-radius: 5px;
 }
 
-.button-orange a{
-    text-decoration: none;
-    color: #FFF;
+.navSign{
+    display: flex;
+    justify-content: center;
 }
 
-.button-color .button-orange{
-    background-color: #F79736;
-    color: #FFF;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-.button-orange:hover{
-    background-color: #F27F0C;
-}
-
-.button-color #goTo{
+.navSign a{
     color: #e1780e;
     text-decoration: none;
     font-weight: bold;
 }
 
-@media screen and (max-width: 1200px) {
-    #eye {
-        right: 33vh;
-    }
+.navSign a:hover{
+    color: #F27F0C;
 }
 
-@media screen and (max-width: 960px) {
-    #eye {
-        right: 21vh;
-    }
-}
-
-@media screen and (max-width: 780px) {
-    #eye {
-        right: 8vh;
-    }
-}
 
 @media screen and (max-width: 700px) {
     .login{
@@ -114,36 +122,11 @@
         height: 1.5vh;
     }
 
-    #eye {
-        top: 62vh;
-        right: 28vh;
+    .password {
+        width: 270px;
     }
 
-    #enviarLogin {
+    #sendSign {
         width: 18vw;
-    }
-}
-
-@media screen and (max-width: 630px) {
-    #eye {
-        right: 25vh;
-    }
-}
-
-@media screen and (max-width: 590px) {
-    #eye {
-        right: 21vh;
-    }
-}
-
-@media screen and (max-width: 530px) {
-    #eye {
-        right: 17vh;
-    }
-}
-
-@media screen and (max-width: 440px) {
-    #eye {
-        right: 11vh;
     }
 }
