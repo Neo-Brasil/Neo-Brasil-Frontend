@@ -24,7 +24,7 @@ export default function Login() {
         setTimeout(() => {
           setShowPassword(false);
         }, 1500);
-      }
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -104,7 +104,7 @@ export default function Login() {
                         </div>
 
                         <p id='eye' onClick={handleShowPassword}>
-                            {showPassword ? <FaEyeSlash color='#434343' /> : <FaEye color='#434343' />}
+                            {showPassword ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
                         </p>
 
                         <div className='button-color'>

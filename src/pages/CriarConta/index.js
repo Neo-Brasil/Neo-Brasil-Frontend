@@ -6,13 +6,32 @@ import Axios from "axios";
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VerificaToken from '../../script/verificaToken';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function CriarConta() {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [confirmaSenha, setConfirmaSenha] = useState('');
+    const [showPassword2, setShowPassword2] = useState(false);
     const [papel, setPapel] = useState('');
+
+    function handleShowPassword() {
+        setShowPassword(true);
+    
+        setTimeout(() => {
+          setShowPassword(false);
+        }, 1500);
+    }
+
+    function handleShowPassword2() {
+        setShowPassword2(true);
+    
+        setTimeout(() => {
+          setShowPassword2(false);
+        }, 1500);
+    }
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -89,12 +108,22 @@ export default function CriarConta() {
                         </div>
 
                         <div className="campo" id='sign'>
-                            <input type="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                            <input type={showPassword ? 'text' : 'password'}
+                                id="password" placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
                         </div>
 
+                        <p id='eye2' onClick={handleShowPassword}>
+                            {showPassword ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
+                        </p>
+
                         <div className="campo" id='sign'>
-                            <input type="password" placeholder='Confirmar Senha' value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
+                            <input type={showPassword2 ? 'text' : 'password'}
+                                id="password" placeholder='Confirmar Senha' value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
                         </div>
+
+                        <p id='eye3' onClick={handleShowPassword2}>
+                            {showPassword2 ? <FaEye color='#434343' /> : <FaEyeSlash color='#434343' />}
+                        </p>
 
                         <div className="opcoes">
                         <select onChange={(e) => setPapel(e.target.value)}>

@@ -18,6 +18,18 @@
     color: #000;
 }
 
+#eye2{
+    position: absolute;
+    top: 47.4vh;
+    right: 44vh;
+}
+
+#eye3{
+    position: absolute;
+    top: 54.8vh;
+    right: 44vh;
+}
+
 @media screen and (max-width: 700px) {
     .opcoes select {
         width: 304px;
