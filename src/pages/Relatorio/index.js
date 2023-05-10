@@ -21,6 +21,7 @@ export default function Relatorio() {
     const [valorRecebido, setValorRecebido] = useState(0);
     const [valorReceber, setValorReceber] = useState(0);
     const [valorCreditar, setValorCreditar] = useState(0);
+    const [interlavo, setIntervalo] = useState("Todos");
 
     const [dataInicio, setDataInicio] = useState('0000-00-00');
     const [dataFim, setDataFim] = useState('0000-00-00');
@@ -102,6 +103,7 @@ export default function Relatorio() {
             localStorage.setItem("id_titulo", id_titulo)
             localStorage.setItem("dataInicio", dataInicio)
             localStorage.setItem("dataFim", dataFim)
+            localStorage.setItem("intervalo", interlavo)
             setShowPostModal(!showPostModal);
             setDetail();
         }
@@ -140,11 +142,11 @@ export default function Relatorio() {
 
                                 <div className='filter'>
                                     <p>Intervalo</p>
-                                    <select required>
-                                        <option value="TODOS">Todas as opções</option>
-                                        <option value="VENCIMENTO">Vencimento</option>
-                                        <option value="PAGAMENTO">Pagamento</option>
-                                        <option value="CREDITO">Crédito</option>
+                                    <select onChange={(e) => setIntervalo(e.target.value)} required>
+                                        <option value="Todos">Todas as opções</option>
+                                        <option value="Vencimento">Vencimento</option>
+                                        <option value="Pagamento">Pagamento</option>
+                                        <option value="Crédito">Crédito</option>
                                     </select>
                                 </div>
 
