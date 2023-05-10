@@ -1,3 +1,5 @@
+/* estilização para os inputs  */
+
 .inputs{
     margin-top: 50px;
 }
@@ -53,6 +55,8 @@ span{
     color: #44A754;
 }
 
+ /* para campos de endereço  */
+
 #num::-webkit-outer-spin-button,
 #num::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -92,6 +96,8 @@ span{
     color: #44A754;
 }
 
+/* botoes */
+
 .button-color{
     display: flex;
     justify-content: center;
@@ -115,10 +121,6 @@ span{
 
 .button-green:hover{
     background-color: #398a47;
-}
-
-.button-red-light{
-    background-color: #fe3030;
 }
 
 .add{

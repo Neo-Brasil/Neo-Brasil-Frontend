@@ -63,7 +63,7 @@ export default function Endereco({ onButtonClick }) {
 
                 <div className="campo">
                     <IMaskInput mask="00.000-000" className="fixo" maxLength="11" value={cep} onBlur={checkCEP} onChange={(e) => setCep(e.target.value)} required />
-                    <span id="spanGreen">CEP</span>
+                    <span>CEP</span>
                 </div>
 
                 <div className="campo row">
@@ -74,7 +74,7 @@ export default function Endereco({ onButtonClick }) {
 
                     <div className="endereco2">
                         <input type="number" id="num" className="fixo" value={numero} onChange={(e) => setNumero(e.target.value)} required />
-                        <span id="spanGreen">Número</span>
+                        <span>Número</span>
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@ export default function Endereco({ onButtonClick }) {
 
                 <div className="campo">
                     <input type="text" className="fixo" value={comp} onChange={(e) => setComp(e.target.value)} />
-                    <span id="spanGreen">Complemento</span>
+                    <span id="comple">Complemento</span>
                 </div>
 
                 <div className='button-color'>
