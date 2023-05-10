@@ -170,7 +170,7 @@ export default function Relatorio() {
                                     </thead>
 
                                     <tbody>
-                                        <tr id='nostyleinput'>
+                                        <tr id='nostyleinput' className='noMargin'>
                                             <td data-label="Valor à receber">
                                                 <MaskedInput mask={currencyMask} className="nostyleinput" 
                                                 type="text" placeholder="R$" value={valorReceber} disabled /></td>
@@ -191,7 +191,8 @@ export default function Relatorio() {
 
                             <table>
                                 <thead>
-                                    <tr><th scope="col">Nome</th>
+                                    <tr>
+                                        <th scope="col">Nome</th>
                                         <th scope="col">Prestações</th>
                                     </tr>
                                 </thead>
@@ -204,7 +205,7 @@ export default function Relatorio() {
                                         <summary>
                                             <table>
                                                 <tbody>
-                                                    <tr>
+                                                    <tr  className='noMargin'>
                                                         <td data-label="Nome">{value.nome}</td>
 
                                                         <td data-label="Prestações">

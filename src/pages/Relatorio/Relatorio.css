@@ -167,6 +167,11 @@ i{
     table tr{
         display: block;
         padding: 0;
+        margin-bottom: 2em;
+    }
+
+    .noMargin{
+        margin-bottom: 0;
     }
 
     table td{
@@ -181,5 +186,9 @@ i{
         float: left;
         font-weight: bold;
         text-transform: uppercase;
+    }
+
+    #line td {
+        padding: 5px 0px;
     }
 }

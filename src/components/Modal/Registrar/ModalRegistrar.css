@@ -53,3 +53,16 @@
     background-color: #44A754;
     margin-top: 50px;
 }
+
+
+@media screen and (max-width: 700px) {
+
+    .detalhes-registro {
+        flex-direction: column;
+    }
+
+    .button-color .button-green-modal{
+        margin-top: 20px;
+        width: 30vw;
+    }
+}

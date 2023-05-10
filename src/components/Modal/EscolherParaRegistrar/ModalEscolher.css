@@ -5,8 +5,7 @@
 .scroll {
     overflow-y: scroll;
     overflow-x: block;
-    height: 40vh;
-    width: 40vw;
+    height: 35vh;
 }
 
 .scroll td {

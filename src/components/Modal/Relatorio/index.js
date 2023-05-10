@@ -14,7 +14,6 @@ export default function ModalRelatorio({ close }) {
     const id_titulo = localStorage.getItem("id_titulo");
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
-    const [total, setTotal] = useState();
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -70,10 +69,8 @@ export default function ModalRelatorio({ close }) {
                     <p id="nome-registro">{cliente.nome}</p>
 
                     <div className='container-table' id='table-parcelas'>
-
-                        <i>Total: {total}</i>
                         
-                        <table>
+                        <table id='linhaFixa'>
                             <thead>
                                 <tr>
                                     <th scope="col">Índice</th>
@@ -96,9 +93,9 @@ export default function ModalRelatorio({ close }) {
                                                 
                                                 <td data-label="Prestação">{value.preco}</td>
                                                 
-                                                <td data-label="MêsVence">{value.data_vencimento}</td>
+                                                <td data-label="Mês de vencimento">{value.data_vencimento}</td>
 
-                                                <td data-label="MêsPago">{value.data_pagamento}</td>
+                                                <td data-label="Mês de pagamento">{value.data_pagamento}</td>
 
                                                 <td id={value.situacao} data-label="Status">{value.situacao}</td>
 
