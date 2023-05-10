@@ -97,6 +97,47 @@ i{
     align-self: self-start;
 }
 
+
+@media screen and (max-width: 1265px) {
+    .filter input, .filter select {
+        font-size: .8em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .filters {
+        flex-direction: column;
+    }
+
+    .filter input {
+        width: 38vw;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+
+    .filter select {
+        width: 43vw;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+
+    .filter option{
+        font-size: .8em;
+    }
+
+    #orange2 {
+        width: 12vw;
+        margin-top: 0; 
+        margin-bottom: 20px; 
+    }
+
+    .container-table {
+        padding: 1px 55px;
+    }
+}
+
+/* tabela do relatorio  */
+
 .detalhes-relatorio{
     display: flex;
     flex-direction: row;
@@ -109,4 +150,36 @@ i{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+    table thead{
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    table tr{
+        display: block;
+        padding: 0;
+    }
+
+    table td{
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 1em;
+        text-align: right;
+    }
+
+    table td::before{
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 }

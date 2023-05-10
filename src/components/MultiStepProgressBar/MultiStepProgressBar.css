@@ -64,10 +64,10 @@
     z-index: -1;
 }
 
-@media screen and (max-width: 480px) {
-    .indexedStep{
-        width: 15px;
-        height: 15px;
-        font-size: 6px;
+@media screen and (max-width: 700px) {
+    .indexedStep {
+        width: 30px;
+        height: 30px;
+        font-size: 15px;
     }
 }

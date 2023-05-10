@@ -126,3 +126,14 @@ span{
 .add{
     text-align: end;
 }
+
+
+@media screen and (max-width: 700px) {
+    .campo input {
+        width: 285px;
+    }
+
+    .button-color .button-green {
+        width: 25vw;
+    }
+}
