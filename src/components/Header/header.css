@@ -7,7 +7,7 @@
     border-bottom-right-radius: 70px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
 .sidebar:before {
@@ -66,13 +66,16 @@
     border-bottom-left-radius: 25px;
 }
 
-
-#signout svg{
-    color: #fff;
-    margin: 40px 0 20px 55px;
+#signoutEnd{
+    margin-top: 75%;
 }
 
-#signout svg:hover{
+#signout svg, #signoutEnd svg{
+    color: #fff;
+    margin: 40px 0 15px 55px;
+}
+
+#signout svg:hover, #signoutEnd svg:hover{
     color: #F27F0C;
     filter: drop-shadow(1px 1px 1.5px #fbfaf9);
     background-color: transparent !important;
@@ -169,8 +172,12 @@ input[type=checkbox] {
         border-radius: 0;
     }
 
-    .nav a svg, #signout svg {
+    .nav a svg, #signout svg, #signoutEnd svg {
         margin-left: 50%;
+    }
+
+    #signoutEnd {
+        margin-top: 10%;
     }
 
 }

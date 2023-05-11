@@ -21,6 +21,7 @@ export default function Relatorio() {
     const [valorRecebido, setValorRecebido] = useState(0);
     const [valorReceber, setValorReceber] = useState(0);
     const [valorCreditar, setValorCreditar] = useState(0);
+    const [interlavo, setIntervalo] = useState("Todos");
 
     const [dataInicio, setDataInicio] = useState('');
     const [dataFim, setDataFim] = useState('');
@@ -68,8 +69,9 @@ export default function Relatorio() {
                     let receber = dado.receber
                     let recebido = dado.recebido
                     let creditar = dado.creditar
-                    setValorRecebido(recebido.toString().replace(".",","));
+                    
                     setValorReceber(receber.toString().replace(".",","));
+                    setValorRecebido(recebido.toString().replace(".",","));
                     setValorCreditar(creditar.toString().replace(".",","));
                   });
             }
@@ -101,6 +103,7 @@ export default function Relatorio() {
             localStorage.setItem("id_titulo", id_titulo)
             localStorage.setItem("dataInicio", dataInicio)
             localStorage.setItem("dataFim", dataFim)
+            localStorage.setItem("intervalo", interlavo)
             setShowPostModal(!showPostModal);
             setDetail();
         }
@@ -139,11 +142,11 @@ export default function Relatorio() {
 
                                 <div className='filter'>
                                     <p>Intervalo</p>
-                                    <select required>
-                                        <option value="TODOS">Todas as opções</option>
-                                        <option value="VENCIMENTO">Vencimento</option>
-                                        <option value="PAGAMENTO">Pagamento</option>
-                                        <option value="CREDITO">Crédito</option>
+                                    <select onChange={(e) => setIntervalo(e.target.value)} required>
+                                        <option value="Todos">Todas as opções</option>
+                                        <option value="Vencimento">Vencimento</option>
+                                        <option value="Pagamento">Pagamento</option>
+                                        <option value="Crédito">Crédito</option>
                                     </select>
                                 </div>
 

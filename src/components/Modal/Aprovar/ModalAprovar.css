@@ -43,3 +43,8 @@
 .buttonsRow .button-green-modal{
     margin-right: 20px;
 }
+
+.button-color + 
+.button-color{
+    margin-left: 10px;
+}

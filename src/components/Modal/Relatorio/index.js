@@ -14,6 +14,7 @@ export default function ModalRelatorio({ close }) {
     const id_titulo = localStorage.getItem("id_titulo");
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
+    const intervalo = localStorage.getItem("intervalo")
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -30,27 +31,107 @@ export default function ModalRelatorio({ close }) {
     });
 
     useEffect(() => {
-        Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
-            Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+        if(intervalo == "Todos"){
+            Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
             }).catch(function (error) {
                 VerificaToken(error)
             }).then((resp) => {
-                var dado = resp.data
-                for (let k in dado) {             
-                    dado[k].indice = parseInt(k) + 1
-                }
-                setPrestacoes(dado)
+                Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                }).catch(function (error) {
+                    VerificaToken(error)
+                }).then((resp) => {
+                    var dado = resp.data
+                    for (let k in dado) {             
+                        dado[k].indice = parseInt(k) + 1
+                    }
+                    setPrestacoes(dado)
+                });
             });
-        });
+        } else if(intervalo == "Vencimento"){
+            Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            }).catch(function (error) {
+                VerificaToken(error)
+            }).then((resp) => {
+                Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                }).catch(function (error) {
+                    VerificaToken(error)
+                }).then((resp) => {
+                    var dado = resp.data
+                    var dados = []
+                    for (let k in dado) {             
+                        dado[k].indice = parseInt(k) + 1
+                        if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
+                            dados.push(dado[k])
+                        }
+                    }
+                    setPrestacoes(dados)
+                });
+            });
+        } else if(intervalo == "Pagamento"){
+            Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            }).catch(function (error) {
+                VerificaToken(error)
+            }).then((resp) => {
+                Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                }).catch(function (error) {
+                    VerificaToken(error)
+                }).then((resp) => {
+                    var dado = resp.data
+                    var dados = []
+                    for (let k in dado) {             
+                        dado[k].indice = parseInt(k) + 1
+                        if(dado[k].situacao == "Pago"){
+                            dados.push(dado[k])
+                        }
+                    }
+                    setPrestacoes(dados)
+                });
+            });
+        } else if(intervalo == "Crédito"){
+            Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            }).catch(function (error) {
+                VerificaToken(error)
+            }).then((resp) => {
+                Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${id_titulo}/periodo/${dataInicio}/${dataFim}`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                }).catch(function (error) {
+                    VerificaToken(error)
+                }).then((resp) => {
+                    var dado = resp.data
+                    var dados = []
+                    for (let k in dado) {             
+                        dado[k].indice = parseInt(k) + 1
+                        if(dado[k].situacao == "Creditado"){
+                            dados.push(dado[k])
+                        }
+                    }
+                    setPrestacoes(dados)
+                });
+            });
+        }
     }, [])
 
 

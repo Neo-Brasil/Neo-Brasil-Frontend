@@ -136,4 +136,16 @@ span{
     .button-color .button-green {
         width: 25vw;
     }
+
+    .endereco1 input{
+        width: 180px;
+    }
+    
+    .endereco2 input{
+        width: 60px;
+    }
+    
+    .endereco2 span{
+        left: 225px;
+    }
 }

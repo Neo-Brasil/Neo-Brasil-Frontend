@@ -37,7 +37,7 @@ export default function Header() {
 
                 <ul className="nav-links">
 
-                    <input type="checkbox" id="checkbox_toggle" onClick={handleNav}/>
+                    <input type="checkbox" id="checkbox_toggle" onClick={handleNav} />
                     <label htmlFor="checkbox_toggle" className="hamburger" >&#9776;</label>
 
                     <div className='nav'>
@@ -76,60 +76,73 @@ export default function Header() {
         )
     } else if (acesso == "COMERCIAL") {
         return (
-            <div className="sidebar">
+            <div className={navopen ? "sidebar_open" : "sidebar"}>
 
-                <div className='nav'>
-
-                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-                    <Link to={'/cadastro'} id={cadastro}>
-                        <FiUserPlus size={35} />
-                    </Link>
-
-                    <Link to={'/clientes_cadastrados'} id={crudCli}>
-                        <FiUser size={35} />
-                    </Link>
-
-                    <Link to={'/relatorio'} id={relatorio}>
-                        <FiFileText size={35} />
-                    </Link>
-
+                <div className='headerLogo'>
+                    <picture>
+                        <source media="(max-width: 700px)" srcSet={lotus} />
+                        <img id='logoHeader' src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
+                    </picture>
                 </div>
 
-                <div className='signout'>
+                <ul className="nav-links">
 
-                    <Link to={'/'}>
-                        <FiLogOut size={35} />
-                    </Link>
-                </div>
+                    <input type="checkbox" id="checkbox_toggle" onClick={handleNav} />
+                    <label htmlFor="checkbox_toggle" className="hamburger" >&#9776;</label>
 
+                    <div className='nav'>
+
+                        <Link to={'/cadastro'} id={cadastro}>
+                            <FiUserPlus size={35} />
+                        </Link>
+
+                        <Link to={'/clientes_cadastrados'} id={crudCli}>
+                            <FiUser size={35} />
+                        </Link>
+
+                        <Link to={'/relatorio'} id={relatorio}>
+                            <FiFileText size={35} />
+                        </Link>
+
+                        <Link to={'/'} id='signoutEnd' style={{ background: "transparent" }}>
+                            <FiLogOut size={30} />
+                        </Link>
+                    </div>
+
+                </ul>
             </div>
         )
     } else if (acesso == "FINANCEIRO") {
         return (
-            <div className="sidebar">
+            <div className={navopen ? "sidebar_open" : "sidebar"}>
 
-                <div className='nav'>
-
-                    <img src={logo} alt="logo com uma folhagem e escrita Neo-Brasil" />
-
-                    <Link to={'/registrar_pagamento'} id={registra}>
-                        <MdAddCard size={35} />
-                    </Link>
-
-                    <Link to={'/relatorio'} id={relatorio}>
-                        <FiFileText size={35} />
-                    </Link>
-
+                <div className='headerLogo'>
+                    <picture>
+                        <source media="(max-width: 700px)" srcSet={lotus} />
+                        <img id='logoHeader' src={logo} alt="logo de folhagem e escrito Neo-Brasil" />
+                    </picture>
                 </div>
 
-                <div className='signout'>
+                <ul className="nav-links">
 
-                    <Link to={'/'}>
-                        <FiLogOut size={35} />
-                    </Link>
-                </div>
+                    <input type="checkbox" id="checkbox_toggle" onClick={handleNav} />
+                    <label htmlFor="checkbox_toggle" className="hamburger" >&#9776;</label>
 
+                    <div className='nav'>
+                        <Link to={'/registrar_pagamento'} id={registra}>
+                            <MdAddCard size={35} />
+                        </Link>
+
+                        <Link to={'/relatorio'} id={relatorio}>
+                            <FiFileText size={35} />
+                        </Link>
+
+                        <Link to={'/'} id='signoutEnd' style={{ background: "transparent" }}>
+                            <FiLogOut size={30} />
+                        </Link>
+                    </div>
+
+                </ul>
             </div>
         )
     }
