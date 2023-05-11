@@ -21,7 +21,7 @@ export default function Relatorio() {
     const [valorRecebido, setValorRecebido] = useState(0);
     const [valorReceber, setValorReceber] = useState(0);
     const [valorCreditar, setValorCreditar] = useState(0);
-    const [interlavo, setIntervalo] = useState("Todos");
+    const [interlavo, setIntervalo] = useState("Todas");
 
     const [dataInicio, setDataInicio] = useState('0000-00-00');
     const [dataFim, setDataFim] = useState('0000-00-00');
@@ -69,6 +69,7 @@ export default function Relatorio() {
                     let receber = dado.receber
                     let recebido = dado.recebido
                     let creditar = dado.creditar
+
                     setValorReceber(receber.toString().replace(".",","));
                     setValorRecebido(recebido.toString().replace(".",","));
                     setValorCreditar(creditar.toString().replace(".",","));
@@ -122,7 +123,7 @@ export default function Relatorio() {
 
                     <div className="content">
 
-                        <h1 id='tituloRelatorio'>Relatório de pagamento</h1>
+                        <h1 id='tituloRelatorio'>Relatório</h1>
 
                         <form onSubmit={handleSubmit} id='formFilter'>
 
@@ -140,9 +141,9 @@ export default function Relatorio() {
                                 </div>
 
                                 <div className='filter'>
-                                    <p>Intervalo</p>
+                                    <p>Situação</p>
                                     <select onChange={(e) => setIntervalo(e.target.value)} required>
-                                        <option value="Todos">Todas as opções</option>
+                                        <option value="Todas">Todas as situações</option>
                                         <option value="Vencimento">Vencimento</option>
                                         <option value="Pagamento">Pagamento</option>
                                         <option value="Crédito">Crédito</option>

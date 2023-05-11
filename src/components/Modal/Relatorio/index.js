@@ -15,6 +15,7 @@ export default function ModalRelatorio({ close }) {
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
     const intervalo = localStorage.getItem("intervalo")
+    const total = useEffect()
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -31,7 +32,7 @@ export default function ModalRelatorio({ close }) {
     });
 
     useEffect(() => {
-        if(intervalo == "Todos"){
+        if(intervalo == "Todas"){
             Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -147,14 +148,17 @@ export default function ModalRelatorio({ close }) {
                         <FiArrowLeft color="#000" size={25} />
                     </button>
 
-                    <p id="nome-registro">{cliente.nome}</p>
-
+                    <p>Situação: {intervalo}</p>
+                    {dataInicio === "0000-00-00"?(
+                        <p>Intervalo de datas: Todas as datas</p>
+                    ):(
+                        <p>Intervalo de datas: {dataInicio.replace("-","/").replace("-","/")} à {dataFim.replace("-","/").replace("-","/")}</p>
+                    )}
+                    
                     <div className='container-table' id='table-parcelas'>
-                        <h3>{intervalo}</h3>
                         <table id='linhaFixa'>
                             <thead>
                                 <tr>
-                                    <th scope="col">Índice</th>
                                     <th scope="col">Prestação</th>
                                     <th scope="col">Mês de vencimento</th>
                                     <th scope="col">Mês de pagamento</th>
@@ -169,10 +173,8 @@ export default function ModalRelatorio({ close }) {
                                 {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
                                     return !value.envio ?
                                         <tbody>
-                                            <tr>
-                                                <td data-label="Índice">{value.indice}</td>
-                                                
-                                                <td data-label="Prestação">{value.preco}</td>
+                                            <tr>                                                
+                                                <td data-label="Prestação">{value.indice}</td>
                                                 
                                                 <td data-label="Mês de vencimento">{value.data_vencimento}</td>
 
