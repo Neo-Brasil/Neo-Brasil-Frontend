@@ -23,8 +23,8 @@ export default function Relatorio() {
     const [valorCreditar, setValorCreditar] = useState(0);
     const [interlavo, setIntervalo] = useState("Todos");
 
-    const [dataInicio, setDataInicio] = useState('');
-    const [dataFim, setDataFim] = useState('');
+    const [dataInicio, setDataInicio] = useState('0000-00-00');
+    const [dataFim, setDataFim] = useState('0000-00-00');
 
     localStorage.removeItem('cadastro')
     localStorage.removeItem('crudUser')
@@ -69,7 +69,6 @@ export default function Relatorio() {
                     let receber = dado.receber
                     let recebido = dado.recebido
                     let creditar = dado.creditar
-                    
                     setValorReceber(receber.toString().replace(".",","));
                     setValorRecebido(recebido.toString().replace(".",","));
                     setValorCreditar(creditar.toString().replace(".",","));

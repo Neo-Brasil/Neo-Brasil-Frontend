@@ -150,7 +150,7 @@ export default function ModalRelatorio({ close }) {
                     <p id="nome-registro">{cliente.nome}</p>
 
                     <div className='container-table' id='table-parcelas'>
-                        
+                        <h3>{intervalo}</h3>
                         <table id='linhaFixa'>
                             <thead>
                                 <tr>
