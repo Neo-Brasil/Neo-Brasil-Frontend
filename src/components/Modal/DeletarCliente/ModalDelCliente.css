@@ -59,4 +59,8 @@
     .modal .container {
         margin-left: 0;
     }
+
+    .button-color .button-red {
+        width: 30vw;
+    }
 }

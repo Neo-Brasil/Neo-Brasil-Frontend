@@ -14,7 +14,8 @@ export default function ModalRelatorio({ close }) {
     const id_titulo = localStorage.getItem("id_titulo");
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
-    const intervalo = localStorage.getItem("intervalo")
+    const intervalo = localStorage.getItem("intervalo");
+    const total = 0;
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -49,6 +50,7 @@ export default function ModalRelatorio({ close }) {
                     var dado = resp.data
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
+                        total += dado[k].preco
                     }
                     setPrestacoes(dado)
                 });
@@ -74,6 +76,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -100,6 +103,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Pago"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -126,6 +130,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Creditado"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -147,14 +152,17 @@ export default function ModalRelatorio({ close }) {
                         <FiArrowLeft color="#000" size={25} />
                     </button>
 
-                    <p id="nome-registro">{cliente.nome}</p>
+                    <p>Situação: {intervalo}</p>
+                    {dataInicio === "0000-00-00"?(
+                        <p>Intervalo de datas: Todas as datas</p>
+                    ):(
+                        <p>Intervalo de datas: {dataInicio.replace("-","/").replace("-","/")} à {dataFim.replace("-","/").replace("-","/")}</p>
+                    )}
 
                     <div className='container-table' id='table-parcelas'>
-                        <h3>{intervalo}</h3>
                         <table id='linhaFixa'>
                             <thead>
                                 <tr>
-                                    <th scope="col">Índice</th>
                                     <th scope="col">Prestação</th>
                                     <th scope="col">Mês de vencimento</th>
                                     <th scope="col">Mês de pagamento</th>
@@ -169,11 +177,9 @@ export default function ModalRelatorio({ close }) {
                                 {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
                                     return !value.envio ?
                                         <tbody>
-                                            <tr>
-                                                <td data-label="Índice">{value.indice}</td>
-                                                
-                                                <td data-label="Prestação">{value.preco}</td>
-                                                
+                                            <tr>                                                
+                                                <td data-label="Prestação">{value.indice}</td>
+
                                                 <td data-label="Mês de vencimento">{value.data_vencimento}</td>
 
                                                 <td data-label="Mês de pagamento">{value.data_pagamento}</td>
@@ -191,7 +197,7 @@ export default function ModalRelatorio({ close }) {
                                 })}
                             </table>
                         </div>
-
+                        <i>Total: {total}</i>
                         </div>
                     </div>
             )}

@@ -48,3 +48,20 @@
 .button-color{
     margin-left: 10px;
 }
+
+
+@media screen and (max-width: 700px) {
+    .button-color .button-red-modal {
+        width: 30vw;
+        margin-top: 20px;
+    }
+
+    .aprovar select {
+        width: 40vw;
+        margin-bottom: 15px;
+    }
+
+    .aprovar option{
+        font-size: .7em;
+    }
+}

@@ -128,8 +128,9 @@ input[type=checkbox] {
         height: auto;
         width: 100%;
         border-top-right-radius: 0px;
-        /* border-bottom-left-radius: 70px; */
         border-bottom-right-radius: 0px;
+        display: flex;
+    justify-content: space-between;
         flex-direction: row;
     }
 

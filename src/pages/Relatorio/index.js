@@ -69,6 +69,7 @@ export default function Relatorio() {
                     let receber = dado.receber
                     let recebido = dado.recebido
                     let creditar = dado.creditar
+                    
                     setValorReceber(receber.toString().replace(".",","));
                     setValorRecebido(recebido.toString().replace(".",","));
                     setValorCreditar(creditar.toString().replace(".",","));
@@ -96,16 +97,12 @@ export default function Relatorio() {
     }
 
     function togglePostModal(id_titulo) {
-        if(dataInicio == "" || dataFim == ""){
-            toast.warning('Escolha um intervalo de datas!')
-        }else{
-            localStorage.setItem("id_titulo", id_titulo)
-            localStorage.setItem("dataInicio", dataInicio)
-            localStorage.setItem("dataFim", dataFim)
-            localStorage.setItem("intervalo", interlavo)
-            setShowPostModal(!showPostModal);
-            setDetail();
-        }
+        localStorage.setItem("id_titulo", id_titulo)
+        localStorage.setItem("dataInicio", dataInicio)
+        localStorage.setItem("dataFim", dataFim)
+        localStorage.setItem("intervalo", interlavo)
+        setShowPostModal(!showPostModal);
+        setDetail();
     }
 
         return (
@@ -122,7 +119,7 @@ export default function Relatorio() {
 
                     <div className="content">
 
-                        <h1 id='tituloRelatorio'>Relatório de pagamento</h1>
+                        <h1 id='tituloRelatorio'>Relatório</h1>
 
                         <form onSubmit={handleSubmit} id='formFilter'>
 
@@ -140,9 +137,9 @@ export default function Relatorio() {
                                 </div>
 
                                 <div className='filter'>
-                                    <p>Intervalo</p>
+                                    <p>Situação</p>
                                     <select onChange={(e) => setIntervalo(e.target.value)} required>
-                                        <option value="Todos">Todas as opções</option>
+                                        <option value="Todas">Todas as situações</option>
                                         <option value="Vencimento">Vencimento</option>
                                         <option value="Pagamento">Pagamento</option>
                                         <option value="Crédito">Crédito</option>
