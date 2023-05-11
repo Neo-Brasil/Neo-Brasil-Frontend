@@ -32,7 +32,7 @@ export default function ModalRelatorio({ close }) {
     });
 
     useEffect(() => {
-        if(intervalo == "Todos"){
+        if(intervalo == "Todas"){
             Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -197,7 +197,7 @@ export default function ModalRelatorio({ close }) {
                                 })}
                             </table>
                         </div>
-                        <i>Total: {total}</i>
+                            <i>Total: {total}</i>
                         </div>
                     </div>
             )}

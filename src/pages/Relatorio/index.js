@@ -21,7 +21,7 @@ export default function Relatorio() {
     const [valorRecebido, setValorRecebido] = useState(0);
     const [valorReceber, setValorReceber] = useState(0);
     const [valorCreditar, setValorCreditar] = useState(0);
-    const [interlavo, setIntervalo] = useState("Todos");
+    const [interlavo, setIntervalo] = useState("Todas");
 
     const [dataInicio, setDataInicio] = useState('0000-00-00');
     const [dataFim, setDataFim] = useState('0000-00-00');
