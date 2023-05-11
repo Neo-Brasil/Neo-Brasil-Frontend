@@ -15,7 +15,7 @@ export default function ModalRelatorio({ close }) {
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
     const intervalo = localStorage.getItem("intervalo")
-    const total = useEffect()
+    const total = 0
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -50,6 +50,7 @@ export default function ModalRelatorio({ close }) {
                     var dado = resp.data
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
+                        total += dado[k].preco
                     }
                     setPrestacoes(dado)
                 });
@@ -75,6 +76,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -101,6 +103,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Pago"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -127,6 +130,7 @@ export default function ModalRelatorio({ close }) {
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Creditado"){
                             dados.push(dado[k])
+                            total += dado[k].preco
                         }
                     }
                     setPrestacoes(dados)
@@ -193,7 +197,7 @@ export default function ModalRelatorio({ close }) {
                                 })}
                             </table>
                         </div>
-
+                            <p>Total: {total}</p>
                         </div>
                     </div>
             )}
