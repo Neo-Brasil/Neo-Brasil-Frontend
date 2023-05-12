@@ -27,7 +27,7 @@
 }
 
 .filter select{
-    width: 11vw;
+    width: 12vw;
     height: 5vh;
     padding: 4px;
     font-size: 1em;
@@ -93,9 +93,6 @@ details summary{
     block-size: auto;
 }
 
-i{
-    align-self: self-start;
-}
 
 
 @media screen and (max-width: 1265px) {
@@ -133,6 +130,9 @@ i{
 
     .container-table {
         padding: 1px 55px;
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
     }
 }
 

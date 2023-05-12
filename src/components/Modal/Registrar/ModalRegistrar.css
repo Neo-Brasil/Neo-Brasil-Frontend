@@ -30,6 +30,10 @@
     flex-direction: column;
 }
 
+.column + .column{
+    margin-left: 100px;
+}
+
 .input-modal{
     font-size: 16px;
     width: 200px;
@@ -64,5 +68,13 @@
     .button-color .button-green-modal{
         margin-top: 20px;
         width: 30vw;
+    }
+
+    .column + .column{
+        margin-left: 0;
+    }
+
+    #nostyleinput input {
+        width: 20vw;
     }
 }

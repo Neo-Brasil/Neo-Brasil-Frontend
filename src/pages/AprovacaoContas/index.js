@@ -77,7 +77,7 @@ export default function AprovarConta() {
 
                     <table>
                     <thead>
-                        <tr><th scope="col">Nome</th>
+                        <tr><th scope="col">Email</th>
                             <th scope="col">Analisar</th>
                         </tr>
                     </thead>
@@ -85,7 +85,7 @@ export default function AprovarConta() {
                             return !value.envio ?
                                     <tbody>
                                         <tr>
-                                            <td data-label="Nome">{value[1]}</td>
+                                            <td data-label="Email">{value[1]}</td>
 
                                             <td data-label="Analisar">
                                                 <Link className="action" onClick={() => togglePostModal(value[0])}>
