@@ -99,9 +99,8 @@ export default function ModalRegistrar({ close }) {
                             <b>Tipo de título: </b>
                             <p>{titulo.titulo}</p>
                             <b>Preço: </b>
-                            <p> 
-                                <MaskedInput mask={currencyMask} className="nostyleinput" type="text" placeholder="R$" value={titulo.preco.toString().replace(".", ",")} disabled />
-                            </p>
+                            <p>{titulo.preco}</p>
+                            {/* <MaskedInput mask={currencyMask} className="nostyleinput" type="text" placeholder="R$" value={titulo.preco.toString().replace(".", ",")} disabled /> */}
                         </div>
 
                         <div className="column">
