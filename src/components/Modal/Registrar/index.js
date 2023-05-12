@@ -69,12 +69,12 @@ export default function ModalRegistrar({ close }) {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
                 }).catch(function (error) {
-                    // VerificaToken(error)
+                    VerificaToken(error)
                 }).then((res) => {
-                    // console.log(res)
+                    console.log(res)
                 })
                 localStorage.setItem("update", "1")
-                // window.location.href = '/registrar_pagamento'
+                window.location.href = '/registrar_pagamento'
             } else {
                 toast.error('Valor incorreto')
             }
@@ -99,8 +99,8 @@ export default function ModalRegistrar({ close }) {
                             <b>Tipo de título: </b>
                             <p>{titulo.titulo}</p>
                             <b>Preço: </b>
-                            <p> <MaskedInput mask={currencyMask} className="nostyleinput" id='mascaraRegistrar'
-                                    type="text" placeholder="R$" value={preco} disabled />
+                            <p> 
+                                <MaskedInput mask={currencyMask} className="nostyleinput" type="text" placeholder="R$" value={titulo.preco.toString().replace(".", ",")} disabled />
                             </p>
                         </div>
 

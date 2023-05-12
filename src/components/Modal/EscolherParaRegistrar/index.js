@@ -120,8 +120,7 @@ export default function ModalEscolher({ close }) {
                                                 <td data-label="Status">{value.situacao}</td>
 
                                                 <td data-label="Preço">
-                                                    <MaskedInput mask={currencyMask} className="nostyleinput"
-                                                        type="text" placeholder="R$" value={value.preco.toString().replace(".", ",")} disabled /></td>
+                                                    <MaskedInput mask={currencyMask} className="nostyleinput"type="text" placeholder="R$" value={value.preco.toString().replace(".", ",")} disabled /></td>
 
                                                 <td data-label="Registrar">
                                                     <Link className="action" onClick={() => togglePostModal(value.id)}>
