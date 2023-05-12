@@ -10,6 +10,7 @@ export default function ModalVerEditar({ close }) {
     const [setorId, setIdSetor] = useState('');
     const id = localStorage.getItem("id");
     const [papel, setPapel] = useState("");
+    const  id_usuario = localStorage.getItem("id_usuario");
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
@@ -28,7 +29,7 @@ export default function ModalVerEditar({ close }) {
     }, [])
 
     function handleSubmit() {
-        Axios.put(`http://127.0.0.1:9080/atualizar/usuario`,{
+        Axios.put(`http://127.0.0.1:9080/atualizar/usuario/${id_usuario}`,{
             id: id,
             nome: nome,
             email: email,

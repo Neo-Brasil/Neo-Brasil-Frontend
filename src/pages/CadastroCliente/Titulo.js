@@ -10,6 +10,7 @@ export default function Titulo({ onButtonClick }) {
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');  
+    const id_usuario = localStorage.getItem("id_usuario");
 
     const currencyMask = createNumberMask({ 
         prefix: 'R$ ',
@@ -37,7 +38,7 @@ export default function Titulo({ onButtonClick }) {
 
             let valor = preco.replace('R$ ','').replace('.','')
 
-            Axios.post("http://localhost:9080/cadastro/cliente", {
+            Axios.post(`http://localhost:9080/cadastro/cliente/${id_usuario}`, {
                 nome: nome,
                 cpf: cpf,
                 email: email,

@@ -55,6 +55,7 @@ export default function Login() {
                                 if (usuarios[k].autorizado == "sim") {
                                     localStorage.setItem("acesso", usuarios[k].papel)
                                     localStorage.setItem("email_usuario", usuarios[k].email)
+                                    localStorage.setItem("id_usuario", usuarios[k].id)
                                     localStorage.setItem("login", "ok");
                                     if (usuarios[k].papel == "ADM") {
                                         window.location.href = '/aprovar_contas'

@@ -6,6 +6,7 @@ import VerificaToken from '../../../script/verificaToken';
 export default function ModalDelUsuario({close}){
     const [email, setEmail] = useState('');
     const id = localStorage.getItem("id");
+    const  id_usuario = localStorage.getItem("id_usuario");
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/usuario/${id}`,{
@@ -21,7 +22,7 @@ export default function ModalDelUsuario({close}){
     }, [])
 
     function handleSubmit() {
-        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}`,{
+        Axios.delete(`http://127.0.0.1:9080/excluir/usuario/${id}/${id_usuario}`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
@@ -30,7 +31,6 @@ export default function ModalDelUsuario({close}){
         }).then((resp) => {
             console.log(resp)
         })
-        //localStorage.clear();
         close();
         window.location.reload(true);
     }

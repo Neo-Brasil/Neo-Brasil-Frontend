@@ -10,6 +10,7 @@ export default function Titulo({ onButtonClick }) {
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
+    const  id_usuario = localStorage.getItem("id_usuario");
 
     const [tituloP, setTitulop] = useState('');
     const [precoP, setPrecop] = useState('');
@@ -60,7 +61,7 @@ export default function Titulo({ onButtonClick }) {
         var cpf = localStorage.getItem("cpf");
         var email = localStorage.getItem("email");
 
-        Axios.put("http://localhost:9080/atualizar" , {
+        Axios.put(`http://localhost:9080/atualizar/${id_usuario}` , {
             id: id,
             nome: nome,
             cpf: cpf,

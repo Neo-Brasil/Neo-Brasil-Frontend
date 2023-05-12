@@ -16,6 +16,7 @@ export default function ModalRegistrar({ close }) {
     const [preco, setPreco] = useState()
     const id_prestacao = localStorage.getItem("id_prestacao");
     const id_titulo = localStorage.getItem('id_titulo');
+    const id_usuario = localStorage.getItem("id_usuario");
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -55,7 +56,7 @@ export default function ModalRegistrar({ close }) {
     function handleSubmit() {
         if (valorPago !== '' && dataPagamento !== '') {
             if (valorPago.replace('R$ ', '').replace('.', '').replace('.', '').replace('.', '').replace('.', '').replace(',', '.') >= titulo.preco) {
-                Axios.put("http://localhost:9080/pagar/prestacao", {
+                Axios.put(`http://localhost:9080/pagar/prestacao/${id_usuario}`, {
                     id: id_titulo,
                     prestacoes: [
                         {
@@ -68,12 +69,12 @@ export default function ModalRegistrar({ close }) {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
                 }).catch(function (error) {
-                    VerificaToken(error)
+                    // VerificaToken(error)
                 }).then((res) => {
-                    console.log(res)
+                    // console.log(res)
                 })
                 localStorage.setItem("update", "1")
-                window.location.href = '/registrar_pagamento'
+                // window.location.href = '/registrar_pagamento'
             } else {
                 toast.error('Valor incorreto')
             }

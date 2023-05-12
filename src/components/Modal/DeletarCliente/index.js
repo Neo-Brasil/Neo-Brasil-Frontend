@@ -8,6 +8,7 @@ export default function ModalDelCliente({close}){
     const [nome, setNome] = useState('');
     const id_ = localStorage.getItem("id"); 
     const id = parseInt(id_);
+    const  id_usuario = localStorage.getItem("id_usuario");
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/listagem/clientes`,{
@@ -27,8 +28,10 @@ export default function ModalDelCliente({close}){
         });
       }, [])
 
+    console.log(localStorage.getItem("token"));
+
     function handleSubmit() {
-        Axios.delete(`http://localhost:9080/excluir/cliente/${id}`,{
+        Axios.delete(`http://localhost:9080/excluir/cliente/${id}/${id_usuario}`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
@@ -36,7 +39,7 @@ export default function ModalDelCliente({close}){
             VerificaToken(error)
         }).then((res) => {
             console.log(res)
-        })
+        }) 
         localStorage.setItem("update", "1")
         window.location.reload(true);
     }
