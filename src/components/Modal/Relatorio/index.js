@@ -8,14 +8,13 @@ import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../../script/verificaToken';
 
 export default function ModalRelatorio({ close }) {
-
     const [cliente, setCliente] = useState({});
     const [prestacoes, setPrestacoes] = useState();
     const id_titulo = localStorage.getItem("id_titulo");
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
     const intervalo = localStorage.getItem("intervalo");
-    const total = 0;
+    var total = 0;
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -138,7 +137,6 @@ export default function ModalRelatorio({ close }) {
             });
         }
     }, [])
-
 
     return (
         <div className="modal">
