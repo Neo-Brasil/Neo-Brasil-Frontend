@@ -15,7 +15,7 @@ export default function CriarConta() {
     const [showPassword, setShowPassword] = useState(false);
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [showPassword2, setShowPassword2] = useState(false);
-    const [papel, setPapel] = useState('');
+    const [papel, setPapel] = useState('ADM');
 
     function handleShowPassword() {
         setShowPassword(true);
