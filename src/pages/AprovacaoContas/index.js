@@ -31,7 +31,6 @@ export default function AprovarConta() {
     
 
     function togglePostModal(id) {
-        // localStorage.clear();
         localStorage.setItem("id", id);
         setShowPostModal(!showPostModal);
         setDetail();
@@ -59,13 +58,17 @@ export default function AprovarConta() {
         });
     }, [])
 
-
+    var chave = false
+    if(list.length == 0){
+        chave = true
+    }
     return (
         <div>
             <Header />
-            {list.lenght === 0 ? (
+            {chave ? (
                 <div className='content'>
-                    <h1>Nenhuma conta para aprovar...</h1>
+                    <h1>Aprovação de contas</h1>
+                    <h2>Nenhuma conta para aprovar</h2>
                 </div>
             ) : (
             

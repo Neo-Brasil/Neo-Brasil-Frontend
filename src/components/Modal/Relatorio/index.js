@@ -14,7 +14,7 @@ export default function ModalRelatorio({ close }) {
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
     const intervalo = localStorage.getItem("intervalo");
-    var total = 0;
+    const [total, setTotal] = useState(0);
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -47,10 +47,12 @@ export default function ModalRelatorio({ close }) {
                     VerificaToken(error)
                 }).then((resp) => {
                     var dado = resp.data
+                    var totalparcial = 0
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
-                        total += dado[k].preco
+                        totalparcial += dado[k].preco
                     }
+                    setTotal(totalparcial)
                     setPrestacoes(dado)
                 });
             });
@@ -71,13 +73,15 @@ export default function ModalRelatorio({ close }) {
                 }).then((resp) => {
                     var dado = resp.data
                     var dados = []
+                    var totalparcial = 0
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
                             dados.push(dado[k])
-                            total += dado[k].preco
+                            totalparcial += dado[k].preco
                         }
                     }
+                    setTotal(totalparcial)
                     setPrestacoes(dados)
                 });
             });
@@ -98,13 +102,15 @@ export default function ModalRelatorio({ close }) {
                 }).then((resp) => {
                     var dado = resp.data
                     var dados = []
+                    var totalparcial = 0
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Pago"){
                             dados.push(dado[k])
-                            total += dado[k].preco
+                            totalparcial += dado[k].preco
                         }
                     }
+                    setTotal(totalparcial)
                     setPrestacoes(dados)
                 });
             });
@@ -138,11 +144,24 @@ export default function ModalRelatorio({ close }) {
         }
     }, [])
 
+
     return (
         <div className="modal">
-            {cliente.lenght === 0 ? (
-                <div className='none'>
-                    <p>Nenhum dado encontrado...</p>
+            {total === 0 ? (
+                <div className="container">
+                    <button className="close" onClick={close}>
+                        <FiArrowLeft color="#000" size={25} />
+                    </button>
+
+                    <p>Situação: {intervalo}</p>
+                    {dataInicio === "0000-00-00"?(
+                        <p>Intervalo de datas: Todas as datas</p>
+                    ):(
+                        <p>Intervalo de datas: {dataInicio.replace("-","/").replace("-","/")} à {dataFim.replace("-","/").replace("-","/")}</p>
+                    )}
+                    <div className='none'>
+                        <p>Nenhum dado encontrado...</p>
+                    </div>
                 </div>
             ) : (
                 <div className="container">
@@ -195,7 +214,11 @@ export default function ModalRelatorio({ close }) {
                                 })}
                             </table>
                         </div>
-                            <i>Total: {total}</i>
+                            <i>Total: 
+                                <MaskedInput mask={currencyMask} className="nostyleinput" id='nostyleinputMenor'
+                                placeholder='R$ ' type="text" disabled
+                                value={total}></MaskedInput>
+                            </i>
                         </div>
                     </div>
             )}
