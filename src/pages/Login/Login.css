@@ -124,6 +124,7 @@
 
     .password {
         width: 270px;
+        height: 1.5vh;
     }
 
     #sendSign {
