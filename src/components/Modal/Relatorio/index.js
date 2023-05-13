@@ -217,7 +217,7 @@ export default function ModalRelatorio({ close }) {
                             <i>Total: 
                                 <MaskedInput mask={currencyMask} className="nostyleinput" id='nostyleinputMenor'
                                 placeholder='R$ ' type="text" disabled
-                                value={total}></MaskedInput>
+                                value={total.toString().replace(".", ",")}></MaskedInput>
                             </i>
                         </div>
                     </div>
