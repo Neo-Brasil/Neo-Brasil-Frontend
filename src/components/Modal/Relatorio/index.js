@@ -156,11 +156,17 @@ export default function ModalRelatorio({ close }) {
                         <FiArrowLeft color="#000" size={25} />
                     </button>
 
-                    <p>Situação: {intervalo}</p>
+                    <p><b>Situação: </b>{intervalo}</p>
                     {dataInicio === "0000-00-00"?(
-                        <p>Intervalo de datas: Todas as datas</p>
+                        <p><b>Intervalo de datas: </b> Todas as datas</p>
                     ):(
-                        <p>Intervalo de datas: {dataInicio.replace("-","/").replace("-","/")} à {dataFim.replace("-","/").replace("-","/")}</p>
+                        <p className='intervalo'><b>Intervalo de datas: </b>
+                            <input type='date' className='noInput' 
+                                value={dataInicio}></input> 
+                            à 
+                            <input type='date' className='noInput' 
+                                value={dataFim}></input>
+                        </p>
                     )}
                     <div className='none'>
                         <p>Nenhum dado encontrado...</p>
@@ -172,11 +178,17 @@ export default function ModalRelatorio({ close }) {
                         <FiArrowLeft color="#000" size={25} />
                     </button>
 
-                    <p>Situação: {intervalo}</p>
+                    <p><b>Situação: </b>{intervalo}</p>
                     {dataInicio === "0000-00-00"?(
-                        <p>Intervalo de datas: Todas as datas</p>
+                        <p><b>Intervalo de datas: </b> Todas as datas</p>
                     ):(
-                        <p>Intervalo de datas: {dataInicio.replace("-","/").replace("-","/")} à {dataFim.replace("-","/").replace("-","/")}</p>
+                        <p className='intervalo'><b>Intervalo de datas: </b>
+                            <input type='date' className='noInput' 
+                                value={dataInicio}></input> 
+                            à 
+                            <input type='date' className='noInput' 
+                                value={dataFim}></input>
+                        </p>
                     )}
 
                     <div className='container-table' id='table-parcelas'>
@@ -200,9 +212,17 @@ export default function ModalRelatorio({ close }) {
                                             <tr>                                                
                                                 <td data-label="Prestação">{value.indice}</td>
 
-                                                <td data-label="Mês de vencimento">{value.data_vencimento}</td>
+                                                <td data-label="Mês de vencimento">
+                                                    <input type='date' className='noInput' id='noInput'
+                                                    value={value.data_vencimento}></input></td>
 
-                                                <td data-label="Mês de pagamento">{value.data_pagamento}</td>
+                                                    {value.data_pagamento !== "0000-00-00" ? (
+                                                    <td data-label="Mês de pagamento">
+                                                    <input type='date' className='noInput' id='noInput'
+                                                    value={value.data_pagamento}></input></td>
+                                                    ) : (
+                                                        <td>-</td>
+                                                    )}
 
                                                 <td id={value.situacao} data-label="Status">{value.situacao}</td>
 

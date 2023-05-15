@@ -14,12 +14,40 @@
     width: 100px;
 }
 
-#table-WithoutScroll {
+#table-WithoutScroll{
     padding: 0;
     height: 40vh;
 }
 
-#line td {
+#line td{
     padding: 10px 0px;
+    margin-right: 10px;
 }
 
+.none{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.intervalo{
+    margin-bottom: 6%;
+}
+
+.noInput::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+.noInput{ 
+    border: 0;
+    font-size: 1em;
+    outline: 0;
+}
+
+.noInput + .noInput{ 
+    margin-left: 25px;
+}
+
+#noInput{ 
+    margin-left: 15px;
+}
