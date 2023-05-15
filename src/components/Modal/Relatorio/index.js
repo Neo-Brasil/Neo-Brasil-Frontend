@@ -51,8 +51,9 @@ export default function ModalRelatorio({ close }) {
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         totalparcial += dado[k].preco
+                        dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                     }
-                    setTotal(totalparcial)
+                    setTotal(totalparcial.toFixed(2).toString().replace(".",","))
                     setPrestacoes(dado)
                 });
             });
@@ -79,9 +80,10 @@ export default function ModalRelatorio({ close }) {
                         if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
                             dados.push(dado[k])
                             totalparcial += dado[k].preco
+                            dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                         }
                     }
-                    setTotal(totalparcial)
+                    setTotal(totalparcial.toFixed(2).toString().replace(".",","))
                     setPrestacoes(dados)
                 });
             });
@@ -108,9 +110,10 @@ export default function ModalRelatorio({ close }) {
                         if(dado[k].situacao == "Pago"){
                             dados.push(dado[k])
                             totalparcial += dado[k].preco
+                            dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                         }
                     }
-                    setTotal(totalparcial)
+                    setTotal(totalparcial.toFixed(2).toString().replace(".",","))
                     setPrestacoes(dados)
                 });
             });

@@ -45,7 +45,7 @@ export default function Titulo({ onButtonClick }) {
             let cliente = resp.data;
             let titulo = cliente.titulos[0];
             setTitulop(titulo.titulo);
-            setPrecop(titulo.preco);
+            setPrecop(titulo.preco.toFixed(2).toString().replace(".",","));
             setDataVenc(titulo.data_vencimento);
             setPrazop(titulo.tempo_credito);
             setId(titulo.id);

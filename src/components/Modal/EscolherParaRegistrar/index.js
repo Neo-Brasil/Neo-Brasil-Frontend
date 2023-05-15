@@ -63,6 +63,7 @@ export default function ModalEscolher({ close }) {
             for (let k in dado.prestacoes) {             
                 dado.prestacoes[k].indice = parseInt(k) + 1
                 if (dado.prestacoes[k].situacao == "Em aberto" || dado.prestacoes[k].situacao == "Inadimplente") {
+                    dado.prestacoes[k].preco = dado.prestacoes[k].preco.toFixed(2);
                     pre_prestacoes.push(dado.prestacoes[k])
                 }
             }
@@ -72,7 +73,6 @@ export default function ModalEscolher({ close }) {
     }, [])
 
     function togglePostModal(id_prestacao) {
-        // localStorage.clear();
         localStorage.setItem("id_prestacao", id_prestacao);
         localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);

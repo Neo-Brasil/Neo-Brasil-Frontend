@@ -70,9 +70,17 @@ export default function Relatorio() {
                     let recebido = dado.recebido
                     let creditar = dado.creditar
                     
-                    setValorReceber(receber.toString().replace(".",","));
-                    setValorRecebido(recebido.toString().replace(".",","));
-                    setValorCreditar(creditar.toString().replace(".",","));
+                    receber = parseFloat(receber).toFixed(2);
+                    recebido = parseFloat(recebido).toFixed(2);
+                    creditar = parseFloat(creditar).toFixed(2);
+
+                    receber = receber.toString().replace(".",",");
+                    recebido = recebido.toString().replace(".",",");
+                    creditar = creditar.toString().replace(".",",")
+                    
+                    setValorReceber(receber);
+                    setValorRecebido(recebido);
+                    setValorCreditar(creditar);
                   });
             }
         });
@@ -87,7 +95,11 @@ export default function Relatorio() {
         }).catch(function (error) {
             VerificaToken(error)
         }).then((resp) => {
-            setClientes(resp.data)
+            let cliente = resp.data;
+            for(let k in cliente){
+                cliente[k].titulos[0].preco = cliente[k].titulos[0].preco.toFixed(2).toString().replace(".",",");
+            }
+            setClientes(cliente)
         });
     }, [])
 

@@ -47,7 +47,7 @@ export default function ModalRegistrar({ close }) {
                 let prestacao = prestacoes[k]
                 if (prestacao.id == id_prestacao) {
                     setPrestacao(prestacao)
-                    setPreco(prestacao.preco.toString().replace(".", ","))
+                    setPreco("R$ "+prestacao.preco.toFixed(2).toString().replace(".", ","))
                 }
             }
         });
@@ -99,8 +99,7 @@ export default function ModalRegistrar({ close }) {
                             <b>Tipo de título: </b>
                             <p>{titulo.titulo}</p>
                             <b>Preço: </b>
-                            <p>{titulo.preco}</p>
-                            {/* <MaskedInput mask={currencyMask} className="nostyleinput" type="text" placeholder="R$" value={titulo.preco.toString().replace(".", ",")} disabled /> */}
+                            <p>{preco}</p>
                         </div>
 
                         <div className="column">
