@@ -105,7 +105,7 @@ span{
 }
 
 .button-color button{
-    width: 14vw;
+    width: 12vw;
     height: 6vh;
     color: #FFF;
     font-size: 17px;
@@ -148,4 +148,12 @@ span{
     .endereco2 span{
         left: 233px;
     }
+}
+
+/* ver,editar cliente */
+
+#arrowLeft{
+    display: flex;
+    align-self: start;
+    margin: 60px 0px -90px 50px;
 }

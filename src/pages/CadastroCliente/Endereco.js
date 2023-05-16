@@ -52,6 +52,11 @@ export default function Endereco({ onButtonClick }) {
             toast.error('Preencha os campos corretamente')
         }
     }
+
+    function handleReturn(e) {
+        return onButtonClick("pageone")
+    }
+    
     return (
         <div>
 
@@ -100,10 +105,18 @@ export default function Endereco({ onButtonClick }) {
                     <span id="comple">Complemento</span>
                 </div>
 
-                <div className='button-color'>
-                    <button className='button-green'
-                        onClick={() => handleSubmit()}>
-                        PRÓXIMO</button>
+                <div className="buttonsRow">
+                    <div className='button-color'>
+                        <button className='button-green'
+                            onClick={() => handleReturn()}>
+                            VOLTAR</button>
+                    </div>
+
+                    <div className='button-color'>
+                        <button className='button-green'
+                            onClick={() => handleSubmit()}>
+                            PRÓXIMO</button>
+                    </div>
                 </div>
             </div>
         </form>

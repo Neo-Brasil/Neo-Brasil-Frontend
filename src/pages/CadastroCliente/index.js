@@ -50,7 +50,7 @@ export default function CadastrarCliente() {
       <Header />
       <div className="content">
         <h1>Cadastro de cliente</h1>
-        <MultiStepProgressBar page={page} onPageNumberClick={nextPageNumber} />
+        <MultiStepProgressBar page={page} />
         {
           {
             pageone: <Pessoal onButtonClick={nextPage} />,

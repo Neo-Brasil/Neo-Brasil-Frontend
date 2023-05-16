@@ -69,6 +69,10 @@ export default function Titulo({ onButtonClick }) {
         }
     }
 
+    function handleReturn(e) {
+        return onButtonClick("pagetwo")
+    }
+
     return (
         <div>
 
@@ -106,10 +110,18 @@ export default function Titulo({ onButtonClick }) {
                             <span>Prazo de crédito (em dias)</span>
                         </div>
 
-                        <div className='button-color'>
-                            <button className='button-green'
-                                onClick={() => handleSubmit()}>
-                                ENVIAR</button>
+                        <div className="buttonsRow">
+                            <div className='button-color'>
+                                <button className='button-green'
+                                    onClick={() => handleReturn()}>
+                                    VOLTAR</button>
+                            </div>
+
+                            <div className='button-color'>
+                                <button className='button-green'
+                                    onClick={() => handleSubmit()}>
+                                    ENVIAR</button>
+                            </div>
                         </div>
                     </div>
                 </div>

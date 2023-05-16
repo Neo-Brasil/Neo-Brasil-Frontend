@@ -70,7 +70,11 @@ export default function Endereco({ onButtonClick }) {
             complemento: comp
         }
         localStorage.setItem("endereco", JSON.stringify(endereco));
-        return  onButtonClick("pagethree")
+        return onButtonClick("pagethree")
+    }
+
+    function handleReturn(e) {
+        return onButtonClick("pageone")
     }
 
     return (
@@ -125,11 +129,20 @@ export default function Endereco({ onButtonClick }) {
                     <span>Complemento</span>
                 </div>
 
-                <div className='button-color'>
-                    <button className='button-green'
-                        onClick={() => handleSubmit()}>
-                        PRÓXIMO</button>
+                <div className="buttonsRow">
+                    <div className='button-color'>
+                        <button className='button-green'
+                            onClick={() => handleReturn()}>
+                            VOLTAR</button>
+                    </div>
+
+                    <div className='button-color'>
+                        <button className='button-green'
+                            onClick={() => handleSubmit()}>
+                            PRÓXIMO</button>
+                    </div>
                 </div>
+                
             </div>
 
             </form>
