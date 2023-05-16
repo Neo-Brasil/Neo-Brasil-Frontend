@@ -138,13 +138,13 @@ export default function Relatorio() {
                             <div className='filters'>
                                 <div className='filter'>
                                     <p>Início</p>
-                                    <input type="date" className="fixo"
+                                    <input type="date"
                                         value={dataInicio} onChange={(e) => setDataInicio(e.target.value)} />
                                 </div>
 
                                 <div className='filter'>
                                     <p>Fim</p>
-                                    <input type="date" className="fixo"
+                                    <input type="date"
                                         value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
                                 </div>
 

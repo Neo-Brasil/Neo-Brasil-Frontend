@@ -107,13 +107,13 @@ details summary{
     }
 
     .filter input {
-        width: 38vw;
+        width: 80vw;
         font-size: 1.1em;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
 
     .filter select {
-        width: 41vw;
+        width: 86vw;
         font-size: 1.1em;
         margin-bottom: 15px;
     }
@@ -129,7 +129,7 @@ details summary{
     }
 
     .container-table {
-        padding: 1px 55px;
+        padding: 1px 30px;
         gap: 30px;
         display: flex;
         flex-direction: column;
@@ -184,6 +184,7 @@ details summary{
     table td::before{
         content: attr(data-label);
         float: left;
+        font-size: 0.85em;
         font-weight: bold;
         text-transform: uppercase;
     }

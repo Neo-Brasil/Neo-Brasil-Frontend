@@ -40,12 +40,12 @@
 
 .conteudoModal p{
     margin-bottom: 0.5em;
-    font-size: 2em;
+    font-size: 1.5em;
     text-align: center;
 }
 
 .conteudoModal .aviso{
-    font-size: 1.5em;
+    font-size: 1.3em;
     margin-bottom: 2em;
 }
 
@@ -62,5 +62,13 @@
 
     .button-color .button-red {
         width: 30vw;
+    }
+
+    .modal .container{
+        padding: 5em 3em 3.3em 3em;
+    }
+
+    .conteudoModal .aviso{
+        margin-bottom: 1.5em;
     }
 }

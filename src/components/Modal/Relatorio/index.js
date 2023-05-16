@@ -211,8 +211,8 @@ export default function ModalRelatorio({ close }) {
                             <thead>
                                 <tr>
                                     <th scope="col">Prestação</th>
-                                    <th scope="col">Mês de vencimento</th>
-                                    <th scope="col">Mês de pagamento</th>
+                                    <th scope="col">Vencimento</th>
+                                    <th scope="col">Pagamento</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Preço</th>
                                 </tr>
@@ -227,16 +227,16 @@ export default function ModalRelatorio({ close }) {
                                             <tr>                                                
                                                 <td data-label="Prestação">{value.indice}</td>
 
-                                                <td data-label="Mês de vencimento">
+                                                <td data-label="Vencimento">
                                                     <input type='date' className='noInput' id='noInput'
                                                     value={value.data_vencimento}></input></td>
 
                                                     {value.data_pagamento !== "0000-00-00" ? (
-                                                    <td data-label="Mês de pagamento">
+                                                    <td data-label="Pagamento">
                                                     <input type='date' className='noInput' id='noInput'
                                                     value={value.data_pagamento}></input></td>
                                                     ) : (
-                                                        <td>-</td>
+                                                        <td data-label="Pagamento">-</td>
                                                     )}
 
                                                 <td id={value.situacao} data-label="Status">{value.situacao}</td>

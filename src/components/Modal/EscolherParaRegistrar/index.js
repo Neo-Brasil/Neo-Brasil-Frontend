@@ -98,7 +98,7 @@ export default function ModalEscolher({ close }) {
                         <table>
                             <thead>
                                 <tr>
-                                    <th scope="col">Índice</th>
+                                    <th scope="col">Prestação</th>
                                     <th scope="col">Vencimento</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Preço</th>
@@ -107,13 +107,13 @@ export default function ModalEscolher({ close }) {
                             </thead>
                         </table>
 
-                        <div className='scroll'>
+                        <div className='scroll' id='line'>
                             <table>
                                 {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
                                     return !value.envio ?
                                         <tbody>
                                             <tr>
-                                                <td data-label="Índice">{value.indice}</td>
+                                                <td data-label="Prestação">{value.indice}</td>
 
                                                 <td data-label="Vencimento">{value.data_vencimento}</td>
 
