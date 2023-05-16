@@ -14,7 +14,8 @@ export default function ModalRelatorio({ close }) {
     const dataInicio = localStorage.getItem("dataInicio");
     const dataFim = localStorage.getItem("dataFim");
     const intervalo = localStorage.getItem("intervalo");
-    const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState('');
+    const [quantia, setQuantia] = useState(0);
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ',
@@ -48,12 +49,15 @@ export default function ModalRelatorio({ close }) {
                 }).then((resp) => {
                     var dado = resp.data
                     var totalparcial = 0
+                    var quantiaparcial = 0 
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         totalparcial += dado[k].preco
+                        quantiaparcial += 1
                         dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                     }
                     setTotal(totalparcial.toFixed(2).toString().replace(".",","))
+                    setQuantia(quantiaparcial)
                     setPrestacoes(dado)
                 });
             });
@@ -75,15 +79,18 @@ export default function ModalRelatorio({ close }) {
                     var dado = resp.data
                     var dados = []
                     var totalparcial = 0
+                    var quantiaparcial = 0 
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Em aberto" || dado[k].situacao == "Inadimplente"){
                             dados.push(dado[k])
                             totalparcial += dado[k].preco
+                            quantiaparcial += 1
                             dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                         }
                     }
                     setTotal(totalparcial.toFixed(2).toString().replace(".",","))
+                    setQuantia(quantiaparcial)
                     setPrestacoes(dados)
                 });
             });
@@ -105,15 +112,18 @@ export default function ModalRelatorio({ close }) {
                     var dado = resp.data
                     var dados = []
                     var totalparcial = 0
+                    var quantiaparcial = 0 
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Pago"){
                             dados.push(dado[k])
                             totalparcial += dado[k].preco
+                            quantiaparcial += 1
                             dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                         }
                     }
                     setTotal(totalparcial.toFixed(2).toString().replace(".",","))
+                    setQuantia(quantiaparcial)
                     setPrestacoes(dados)
                 });
             });
@@ -134,19 +144,24 @@ export default function ModalRelatorio({ close }) {
                 }).then((resp) => {
                     var dado = resp.data
                     var dados = []
+                    var totalparcial = 0
+                    var quantiaparcial = 0 
                     for (let k in dado) {             
                         dado[k].indice = parseInt(k) + 1
                         if(dado[k].situacao == "Creditado"){
                             dados.push(dado[k])
-                            total += dado[k].preco
+                            totalparcial += dado[k].preco
+                            quantiaparcial += 1
+                            dado[k].preco = dado[k].preco.toFixed(2).toString().replace(".",",");
                         }
                     }
+                    setTotal(totalparcial.toFixed(2).toString().replace(".",","))
+                    setQuantia(quantiaparcial)
                     setPrestacoes(dados)
                 });
             });
         }
     }, [])
-
 
     return (
         <div className="modal">
@@ -204,7 +219,7 @@ export default function ModalRelatorio({ close }) {
                                 </thead>
                         </table>
 
-                        <div className='scroll' id='line'>
+                        <div className={quantia > 6 ? ("scroll") : ("")} id='line'>
                             <table>
                                 {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
                                     return !value.envio ?
