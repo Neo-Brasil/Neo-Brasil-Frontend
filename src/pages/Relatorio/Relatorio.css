@@ -48,7 +48,7 @@
 }
 
 .button-orange:hover{
-    background-color: #F27F0C;
+    background-color: #F79736;
 }
 
 #orange2{
@@ -58,11 +58,11 @@
 }
 
 #result {
-    color: #FEA246;
+    color: #F79736;
 }
 
 #values table{
-    background-color: #FEA246;
+    background-color: #F79736;
 }
 
 #values table tr{
@@ -143,7 +143,7 @@ details summary{
     flex-direction: row;
     justify-content: space-around;
     padding: 20px;
-    background-color: #f8d56b;
+    background-color: #F79736;
 }
 
 .dados-titulo{

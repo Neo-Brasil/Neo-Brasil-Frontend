@@ -103,7 +103,7 @@ export default function RegistrarPago() {
 
                                             <td data-label="Registrar">
                                                 <Link className="action" onClick={() => togglePostModal(value[0],value[4])}>
-                                                    <MdRule color="#FDC727" size={35} />
+                                                    <MdRule color="#F79736" size={35} />
                                                 </Link>
                                             </td>
                                         </tr>

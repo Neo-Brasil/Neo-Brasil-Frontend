@@ -221,7 +221,7 @@ export default function Relatorio() {
 
                                                         <td data-label="Prestações">
                                                             <Link className="action" onClick={() => togglePostModal(value.titulos[0].id)}>
-                                                                <FiLayers color="#FDC727" size={30} />
+                                                                <FiLayers color="#F79736" size={30} />
                                                             </Link>
                                                         </td>
                                                     </tr>
