@@ -37,14 +37,24 @@
     background-color: #ec8824;
 }
 
-.filters{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+details summary{
+    /* list-style: none; */
+    cursor: pointer;
+}
+
+.filters details{
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.filters details + details{
+    margin-left: 250px;
 }
 
 .filter{
     margin-top: 8px;
+    padding: 0 20px;
 }
 
 .filter p{
@@ -74,7 +84,7 @@
 .sendFilter{
     display: flex;
     justify-content: center;
-    margin: 10px 0 40px 0;
+    margin: 10px 0;
 }
 
 .sendFilter button{
@@ -90,13 +100,25 @@
 
 /* --------- */
 
-details summary{
-    /* list-style: none; */
+#relatorio-table{
+    height: 40vh;
+}
+
+.pagination{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+  
+.pagination button{
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: none;
     cursor: pointer;
 }
 
-#relatorio-table{
-    height: 40vh;
+.pagination button:hover{
+    background-color: #F27F0C;
 }
 
 .financialArea{
