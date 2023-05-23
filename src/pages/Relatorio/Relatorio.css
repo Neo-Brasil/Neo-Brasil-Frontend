@@ -1,24 +1,59 @@
-#tituloRelatorio{
-    padding: 100px 0px 20px 0px;
+#formFilter{
+    width: 30vw;
+    margin-bottom: 3%;
 }
 
-#formFilter{
-    width: 40vw;
+.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.15em solid #000;
+    border-radius: 10px;
+    margin-bottom: 3%;
+}
+
+.search input{
+    border: 0 none;
+    outline: 0;
+    padding: 0 20px 0 20px;
+    font-size: 1.15em;
+    height: 2.5vh;
+    width: 24vw;
+}
+
+.button-orange{
+    border: 0 none;
+    background-color: #F79736;
+    color: #FFF;
+    width: 3vw;
+    height: 6vh;
+    box-shadow: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.button-orange:hover{
+    background-color: #ec8824;
 }
 
 .filters{
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-evenly;
 }
 
+.filter{
+    margin-top: 8px;
+}
+
 .filter p{
-    font-size: 1.3em;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 .filter input{
-    width: 8vw;
+    width: 10vw;
     height: 2vh;
     padding: 8px;
     font-size: 1em;
@@ -27,6 +62,7 @@
 }
 
 .filter select{
+    margin: 20px 0 40px 0;
     width: 12vw;
     height: 5vh;
     padding: 4px;
@@ -35,43 +71,48 @@
     border-radius: 5px;
 }
 
-.button-orange a{
-    text-decoration: none;
-    color: #FFF;
+.sendFilter{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 40px 0;
 }
 
-.button-color .button-orange{
-    background-color: #F79736;
-    color: #FFF;
-    font-weight: bold;
-    margin-top: 30px;
-}
-
-.button-orange:hover{
-    background-color: #F79736;
-}
-
-#orange2{
-    width: 3vw;
-    box-shadow: none;
-    margin-top: 50px;
-}
-
-#result {
+.sendFilter button{
     color: #F79736;
+    display: flex;
+    align-items: center;
+    border: 0 none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 1em;
+    font-weight: bold;
 }
 
-#values table{
-    background-color: #F79736;
-}
-
-#values table tr{
-    border-bottom: 1px solid #fff;
-}
+/* --------- */
 
 details summary{
     /* list-style: none; */
     cursor: pointer;
+}
+
+#relatorio-table{
+    height: 40vh;
+}
+
+.financialArea{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    gap: 10em;
+}
+
+.values{
+    display: flex;
+    flex-direction: column;
+}
+
+.values i + i{
+    margin-top: 20px;
 }
 
 .nostyleinput{
@@ -94,14 +135,23 @@ details summary{
 }
 
 
-
-@media screen and (max-width: 1265px) {
-    .filter input, .filter select {
-        font-size: .8em;
-    }
-}
-
 @media screen and (max-width: 700px) {
+    #formFilter {
+        width: 82vw;
+    }
+
+    .sendFilter {
+        margin: 10px 0 15px 0;
+    }
+
+    .search input {
+        width: 55vw;
+    }
+
+    .button-orange {
+        width: 14vw;
+    }
+
     .filters {
         flex-direction: column;
     }
@@ -115,17 +165,11 @@ details summary{
     .filter select {
         width: 86vw;
         font-size: 1.1em;
-        margin-bottom: 15px;
+        margin: 0 0 15px 0;
     }
 
     .filter option{
         font-size: .8em;
-    }
-
-    #orange2 {
-        width: 12vw;
-        margin-top: 0; 
-        margin-bottom: 20px; 
     }
 
     .container-table {
@@ -134,22 +178,6 @@ details summary{
         display: flex;
         flex-direction: column;
     }
-}
-
-/* tabela do relatorio  */
-
-.detalhes-relatorio{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 20px;
-    background-color: #F79736;
-}
-
-.dados-titulo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 @media screen and (max-width: 600px) {

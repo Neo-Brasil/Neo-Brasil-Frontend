@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 
-import { MdSearch } from "react-icons/md";
+import { MdSearch, MdSend } from "react-icons/md";
 import { FiLayers } from "react-icons/fi";
 import ModalRelatorio from '../../components/Modal/Relatorio';
 import VerificaToken from '../../script/verificaToken';
@@ -16,7 +16,7 @@ import VerificaToken from '../../script/verificaToken';
 export default function Relatorio() {
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
-    
+
     const [clientes, setClientes] = useState([]);
     const [valorRecebido, setValorRecebido] = useState(0);
     const [valorReceber, setValorReceber] = useState(0);
@@ -33,7 +33,7 @@ export default function Relatorio() {
     localStorage.removeItem('aprova')
     localStorage.setItem('relatorio', 'relatorio-white')
 
-    const currencyMask = createNumberMask({ 
+    const currencyMask = createNumberMask({
         prefix: 'R$ ',
         suffix: '',
         includeThousandsSeparator: true,
@@ -47,7 +47,7 @@ export default function Relatorio() {
         allowLeadingZeroes: false
     });
 
-    function listagemPrestacoes(){
+    function listagemPrestacoes() {
         Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -55,13 +55,13 @@ export default function Relatorio() {
         }).catch(function (error) {
             VerificaToken(error)
         }).then((resp) => {
-            if(parseInt(dataFim.replace("-","").replace("-","")) < parseInt(dataInicio.replace("-","").replace("-",""))){
+            if (parseInt(dataFim.replace("-", "").replace("-", "")) < parseInt(dataInicio.replace("-", "").replace("-", ""))) {
                 toast.warning('Data final não pode ser menor que a data inicial!')
-            }else{
-                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`,{
+            } else {
+                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
-                        }
+                    }
                 }).catch(function (error) {
                     VerificaToken(error)
                 }).then((resp) => {
@@ -69,35 +69,35 @@ export default function Relatorio() {
                     let receber = dado.receber
                     let recebido = dado.recebido
                     let creditar = dado.creditar
-                    
+
                     receber = parseFloat(receber).toFixed(2);
                     recebido = parseFloat(recebido).toFixed(2);
                     creditar = parseFloat(creditar).toFixed(2);
 
-                    receber = receber.toString().replace(".",",");
-                    recebido = recebido.toString().replace(".",",");
-                    creditar = creditar.toString().replace(".",",")
-                    
+                    receber = receber.toString().replace(".", ",");
+                    recebido = recebido.toString().replace(".", ",");
+                    creditar = creditar.toString().replace(".", ",")
+
                     setValorReceber(receber);
                     setValorRecebido(recebido);
                     setValorCreditar(creditar);
-                  });
+                });
             }
         });
     }
 
     useEffect(() => {
         listagemPrestacoes();
-        Axios.get(`http://localhost:9080/listagem/clientes`,{
+        Axios.get(`http://localhost:9080/listagem/clientes`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+            }
         }).catch(function (error) {
             VerificaToken(error)
         }).then((resp) => {
             let cliente = resp.data;
-            for(let k in cliente){
-                cliente[k].titulos[0].preco = cliente[k].titulos[0].preco.toFixed(2).toString().replace(".",",");
+            for (let k in cliente) {
+                cliente[k].titulos[0].preco = cliente[k].titulos[0].preco.toFixed(2).toString().replace(".", ",");
             }
             setClientes(cliente)
         });
@@ -117,25 +117,35 @@ export default function Relatorio() {
         setDetail();
     }
 
-        return (
-            <div>
-                <Header />
+    return (
+        <div>
+            <Header />
 
-                {clientes.lenght === 0 ? (
+            {clientes.lenght === 0 ? (
 
-                    <div className='none'>
-                        <p>Nenhum relatório encontrado...</p>
-                    </div>
+                <div className='none'>
+                    <p>Nenhum relatório encontrado...</p>
+                </div>
 
-                ) : (
+            ) : (
 
-                    <div className="content">
+                <div className="content">
 
-                        <h1 id='tituloRelatorio'>Relatório</h1>
+                    <h1>Relatório</h1>
 
-                        <form onSubmit={handleSubmit} id='formFilter'>
+                    <form onSubmit={handleSubmit} id='formFilter'>
 
-                            <div className='filters'>
+                        <div className='search'>
+                            <input type='text' placeholder='Pesquisar cliente'></input>
+                            <button className='button-orange'
+                                onClick={() => handleSubmit()}
+                            ><MdSearch size={30} /></button>
+                        </div>
+
+                        <div className='filters'>
+                            <details>
+                                <summary>Personalizar intervalo</summary>
+
                                 <div className='filter'>
                                     <p>Início</p>
                                     <input type="date"
@@ -148,8 +158,17 @@ export default function Relatorio() {
                                         value={dataFim} onChange={(e) => setDataFim(e.target.value)} />
                                 </div>
 
+                                <div className='sendFilter'>
+                                    <button>ENVIAR</button>
+                                    <MdSend size={22} color='F79736' style={{ marginLeft: '5px' }} />
+                                </div>
+
+                            </details>
+
+                            <details>
+                                <summary>Filtro de situação</summary>
+
                                 <div className='filter'>
-                                    <p>Situação</p>
                                     <select onChange={(e) => setIntervalo(e.target.value)} required>
                                         <option value="Todas">Todas as situações</option>
                                         <option value="Vencimento">Vencimento</option>
@@ -158,102 +177,86 @@ export default function Relatorio() {
                                     </select>
                                 </div>
 
-                                <div className='button-color'>
-                                    <button className='button-orange' id='orange2'
-                                        onClick={() => handleSubmit()}
-                                    ><MdSearch size={30} /></button>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div className='container-table' id='values'>
-
-                            <details>
-                                <summary id='result'>Ver resultado de valores...</summary>
-
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Valor à receber</th>
-                                            <th scope="col">Valor recebido</th>
-                                            <th scope="col">Valor à creditar</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr id='nostyleinput' className='noMargin'>
-                                            <td data-label="Valor à receber">
-                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={valorReceber} disabled /></td>
-                                            <td data-label="Valor recebido">
-                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={valorRecebido} disabled /></td>
-                                            <td data-label="Valor à creditar">
-                                                <MaskedInput mask={currencyMask} className="nostyleinput" 
-                                                type="text" placeholder="R$" value={valorCreditar} disabled /></td>
-                                            </tr>
-                                    </tbody>
-                                </table>
-
+                                {/* <div className='filter'>
+                                    <input type="radio" value="HTML"></input>
+                                        <label for="html">HTML</label><br>
+                                    <input type="radio" value="CSS"></input>
+                                        <label for="css">CSS</label><br>
+                                    <input type="radio" value="JavaScript"></input>
+                                        <label for="javascript">JavaScript</label>
+                                </div> */}
                             </details>
                         </div>
+                    </form>
 
-                        <div className='container-table'>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Prestações</th>
+                                {/* <tbody>
+                                    <tr id='nostyleinput' className='noMargin'>
+                                        <td data-label="Valor à receber">
+                                            <MaskedInput mask={currencyMask} className="nostyleinput"
+                                                type="text" placeholder="R$" value={valorReceber} disabled /></td>
+                                        <td data-label="Valor recebido">
+                                            <MaskedInput mask={currencyMask} className="nostyleinput"
+                                                type="text" placeholder="R$" value={valorRecebido} disabled /></td>
+                                        <td data-label="Valor à creditar">
+                                            <MaskedInput mask={currencyMask} className="nostyleinput"
+                                                type="text" placeholder="R$" value={valorCreditar} disabled /></td>
                                     </tr>
-                                </thead>
-                            </table>
+                                </tbody> */}
+
+                    <div className='container-table' id='relatorio-table'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">PRESTAÇÃO</th>
+                                    <th scope="col">CLIENTE</th>
+                                    <th scope="col">VENCIMENTO</th>
+                                    <th scope="col">PAGAMENTO</th>
+                                    <th scope="col">STATUS</th>
+                                    <th scope="col">PREÇO</th>
+                                </tr>
+                            </thead>
 
                             {typeof clientes !== 'undefined' && clientes.map((value) => {
                                 return !value.envio ?
 
-                                    <details>
-                                        <summary>
-                                            <table>
-                                                <tbody>
-                                                    <tr  className='noMargin'>
-                                                        <td data-label="Nome">{value.nome}</td>
+                                    <tbody>
+                                        <tr className='noMargin'>
+                                            <td data-label="Nome">{value.nome}</td>
 
-                                                        <td data-label="Prestações">
-                                                            <Link className="action" onClick={() => togglePostModal(value.titulos[0].id)}>
-                                                                <FiLayers color="#F79736" size={30} />
-                                                            </Link>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </summary>
-
-                                        <div className='detalhes-relatorio'>
-                                            <div className='dados-titulo'>
-                                                <p><b>Nome do cliente: </b>{value.nome}</p>
-                                                <p><b>CPF: </b>{value.cpf}</p>
-                                                <p><b>Email: </b>{value.email}</p>
-                                            </div>
-
-                                            <div className='dados-titulo'>
-                                                <p><b>Título do plano: </b>{value.titulos[0].titulo}</p>
-                                                <p><b>Preço: </b>{value.titulos[0].preco}</p>
-                                                <p><b>Dias para creditar: </b>{value.titulos[0].tempo_credito}</p>
-                                            </div>
-                                        </div>
-
-                                    </details>
-
-                                    : null
+                                            <td data-label="Prestações">
+                                                <Link className="action" onClick={() => togglePostModal(value.titulos[0].id)}>
+                                                    <FiLayers color="#F79736" size={30} />
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                            : null
                             })}
+                        </table>
+                    </div>
+                    
+                    <div className='financialArea'>
+                        <div className='values'>
+                            <i>Total em aberto: {}</i>
+                            <i>Total atrasado: {}</i>
+                        </div>
+
+                        <div className='values'>
+                            <i>Total creditado: {}</i>
+                            <i>Total pago: {}</i>
+                        </div>
+
+                        <div className='values'>
+                            <i>Total: {}</i>
                         </div>
                     </div>
-                )}
-                {showPostModal && (
-                    <ModalRelatorio conteudo={detail} close={togglePostModal} />
-                )}
-            </div>
 
-        )
-    }
+                </div>
+            )}
+            {showPostModal && (
+                <ModalRelatorio conteudo={detail} close={togglePostModal} />
+            )}
+        </div>
+
+    )
+}
