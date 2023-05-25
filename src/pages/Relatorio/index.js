@@ -60,13 +60,14 @@ export default function Relatorio() {
                   (intervalo === "Vencimento" && (prestacao.situacao === "Em aberto" || prestacao.situacao === "Inadimplente")) ||
                   (intervalo === "Pagamento" && prestacao.situacao === "Pago") ||
                   (intervalo === "Crédito" && prestacao.situacao === "Creditado")) {
+                    let preco = parseFloat(prestacao.preco).toFixed(2);
                 let prestacaoNova = {
                   id: prestacao.id,
                   nome: cliente.nome,
                   vencimento: prestacao.data_vencimento,
                   pagamento: prestacao.data_pagamento,
                   status: prestacao.situacao,
-                  preco: prestacao.preco
+                  preco: "R$ " + preco.toString().replace(".", ",")
                 };
                 prestacoes_var.push(prestacaoNova);
               }
@@ -83,9 +84,6 @@ export default function Relatorio() {
       });
     });
   }
-  
-  
-  
 
     const itemsPerPage = 6;
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -298,17 +296,17 @@ export default function Relatorio() {
                 </div>
                     <div className='financialArea'>
                         <div className='values'>
-                            <i>Total em aberto: { valorEmAbarto }</i>
-                            <i>Total atrasado: { valorAtrasado }</i>
+                            <i>Total em aberto: R$ { valorEmAbarto }</i>
+                            <i>Total atrasado: R$ { valorAtrasado }</i>
                         </div>
 
                         <div className='values'>
-                            <i>Total creditado: { valorCreditado }</i>
-                            <i>Total pago: { valorPago }</i>
+                            <i>Total creditado: R$ { valorCreditado }</i>
+                            <i>Total pago: R$ { valorPago }</i>
                         </div>
 
                         <div className='values'>
-                            <i>Total: { valorTotal }</i>
+                            <i>Total: R$ { valorTotal }</i>
                         </div>
                     </div>
                 </div>
