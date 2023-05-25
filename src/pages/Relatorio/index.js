@@ -60,14 +60,13 @@ export default function Relatorio() {
                   (intervalo === "Vencimento" && (prestacao.situacao === "Em aberto" || prestacao.situacao === "Inadimplente")) ||
                   (intervalo === "Pagamento" && prestacao.situacao === "Pago") ||
                   (intervalo === "Crédito" && prestacao.situacao === "Creditado")) {
-                    let preco = parseFloat(prestacao.preco).toFixed(2);
                 let prestacaoNova = {
                   id: prestacao.id,
                   nome: cliente.nome,
                   vencimento: prestacao.data_vencimento,
                   pagamento: prestacao.data_pagamento,
                   status: prestacao.situacao,
-                  preco: "R$ " + preco.toString().replace(".", ",")
+                  preco: "R$ " + parseFloat(prestacao.preco).toFixed(2).toString().replace(".", ",")
                 };
                 prestacoes_var.push(prestacaoNova);
               }
