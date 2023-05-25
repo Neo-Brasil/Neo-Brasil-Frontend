@@ -1,40 +1,41 @@
-import './Relatorio.css';
-import Header from "../../components/Header/index";
-
-import { useState, useEffect } from 'react';
-import Axios from "axios";
+import React, { useState, useEffect } from 'react';
+import Axios from 'axios';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
-import MaskedInput from "react-text-mask";
-import { createNumberMask } from "text-mask-addons";
+import { MdSearch, MdSend } from 'react-icons/md';
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+import { FaSort } from 'react-icons/fa';
+import { createNumberMask } from 'text-mask-addons';
 
-import { MdSearch, MdSend } from "react-icons/md";
-import { FiLayers, FiChevronRight, FiChevronLeft } from "react-icons/fi";
-import { FaSort } from "react-icons/fa";
+import './Relatorio.css';
+import Header from '../../components/Header';
 
 import ModalRelatorio from '../../components/Modal/Relatorio';
 import VerificaToken from '../../script/verificaToken';
 
 export default function Relatorio() {
-    const [showPostModal, setShowPostModal] = useState(false);
-    const [detail, setDetail] = useState();
-    const [valorCreditado, setValorCreditado] = useState(0);
-    const [valorPago, setValorPago] = useState(0);
-    const [valorEmAbarto, setValorEmAbarto] = useState(0);
-    const [valorAtrasado, setValorAtrasado] = useState(0);
-    const [valorTotal, setValorTotal] = useState(0);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [detail, setDetail] = useState();
+  const [valorCreditado, setValorCreditado] = useState(0);
+  const [valorPago, setValorPago] = useState(0);
+  const [valorEmAbarto, setValorEmAbarto] = useState(0);
+  const [valorAtrasado, setValorAtrasado] = useState(0);
+  const [valorTotal, setValorTotal] = useState(0);
 
-    const [intervalo, setIntervalo] = useState("Todas");
+  const [intervalo, setIntervalo] = useState('Todas');
+  const [dataInicio, setDataInicio] = useState('0000-00-00');
+  const [dataFim, setDataFim] = useState('0000-00-00');
 
-    const [dataInicio, setDataInicio] = useState('0000-00-00');
-    const [dataFim, setDataFim] = useState('0000-00-00');
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const [searchTerm, setSearchTerm] = useState('');
 
-    const [data, setData] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  useEffect(() => {
+    listagemPrestacoes();
+    listagemClientes();
+  }, []);
 
-    useEffect(() => {
-        listagemPrestacoes();
+    function listagemClientes() {
         Axios.get(`http://localhost:9080/listagem/clientes`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -54,9 +55,13 @@ export default function Relatorio() {
                     }
                 }
             }
-            setData(prestacoes)
+            const filteredData = prestacoes.filter((prestacao) =>
+            prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            
+            setData(filteredData);
         });
-    }, [])
+    }
 
     const itemsPerPage = 6;
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -158,18 +163,14 @@ export default function Relatorio() {
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
-        listagemPrestacoes();
+        e.preventDefault();
+        listagemClientes()
+        setSearchTerm('')
     }
 
-    function togglePostModal(id_titulo) {
-        localStorage.setItem("id_titulo", id_titulo)
-        localStorage.setItem("dataInicio", dataInicio)
-        localStorage.setItem("dataFim", dataFim)
-        localStorage.setItem("intervalo", intervalo)
-        setShowPostModal(!showPostModal);
-        setDetail();
-    }
+    const buscarCliente = async () => {
+        listagemClientes()
+      };
 
     return (
         <div>
@@ -190,7 +191,13 @@ export default function Relatorio() {
             <form onSubmit={handleSubmit} id='formFilter'>
 
             <div className='search'>
-                <input type='text' placeholder='Pesquisar cliente'></input>
+                <input
+                type="text"
+                placeholder="Pesquisar cliente"
+                value={searchTerm}
+                onChange={(e) => {setSearchTerm(e.target.value); listagemClientes();}}
+                onBlur={buscarCliente}
+                />
                 <button className='button-orange'
                     onClick={() => handleSubmit()}
                 ><MdSearch size={30} /></button>
@@ -296,10 +303,6 @@ export default function Relatorio() {
                     </div>
                 </div>
             )}
-            {showPostModal && (
-                <ModalRelatorio conteudo={detail} close={togglePostModal} />
-            )}
         </div>
-
     )
 }
