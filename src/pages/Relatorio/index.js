@@ -237,12 +237,12 @@ export default function Relatorio() {
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col"><FaSort size={12}/>PRESTAÇÃO</th>
-                            <th onClick={() => handleSort('name')} scope="col">CLIENTE</th>
-                            <th onClick={() => handleSort('age')} scope="col">VENCIMENTO</th>
-                            <th scope="col">PAGAMENTO</th>
+                            <th onClick={() => handleSort('id')} scope="col"><FaSort size={12}/>PRESTAÇÃO</th>
+                            <th onClick={() => handleSort('nome')} scope="col">CLIENTE</th>
+                            <th onClick={() => handleSort('vencimento')} scope="col">VENCIMENTO</th>
+                            <th onClick={() => handleSort('pagamento')} scope="col">PAGAMENTO</th>
                             <th scope="col">STATUS</th>
-                            <th scope="col">PREÇO</th>
+                            <th onClick={() => handleSort('preco')} scope="col">PREÇO</th>
                         </tr>
                     </thead>
                     <tbody>
