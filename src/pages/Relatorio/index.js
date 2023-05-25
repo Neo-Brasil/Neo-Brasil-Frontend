@@ -255,11 +255,11 @@ export default function Relatorio() {
                     <thead>
                         <tr>
                             <th onClick={() => handleSort('id')} scope="col"><FaSort size={12}/>PRESTAÇÃO</th>
-                            <th onClick={() => handleSort('nome')} scope="col">CLIENTE</th>
-                            <th onClick={() => handleSort('vencimento')} scope="col">VENCIMENTO</th>
-                            <th onClick={() => handleSort('pagamento')} scope="col">PAGAMENTO</th>
-                            <th scope="col">STATUS</th>
-                            <th onClick={() => handleSort('preco')} scope="col">PREÇO</th>
+                            <th onClick={() => handleSort('nome')} scope="col"><FaSort size={12}/>CLIENTE</th>
+                            <th onClick={() => handleSort('vencimento')} scope="col"><FaSort size={12}/>VENCIMENTO</th>
+                            <th onClick={() => handleSort('pagamento')} scope="col"><FaSort size={12}/>PAGAMENTO</th>
+                            <th onClick={() => handleSort('id')} scope="col"><FaSort size={12}/>STATUS</th>
+                            <th onClick={() => handleSort('preco')} scope="col"><FaSort size={12}/>PREÇO</th>
                         </tr>
                     </thead>
                     <tbody>
