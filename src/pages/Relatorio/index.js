@@ -8,13 +8,10 @@ import { createNumberMask } from 'text-mask-addons';
 
 import './Relatorio.css';
 import Header from '../../components/Header';
-
-import ModalRelatorio from '../../components/Modal/Relatorio';
 import VerificaToken from '../../script/verificaToken';
 
 export default function Relatorio() {
-  const [showPostModal, setShowPostModal] = useState(false);
-  const [detail, setDetail] = useState();
+  const [clientes, setClientes] = useState();
   const [valorCreditado, setValorCreditado] = useState(0);
   const [valorPago, setValorPago] = useState(0);
   const [valorEmAbarto, setValorEmAbarto] = useState(0);
@@ -29,39 +26,66 @@ export default function Relatorio() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [searchTerm, setSearchTerm] = useState('');
+  const [prestacoes_var, setPrestacoes_var] = useState([]);
 
   useEffect(() => {
     listagemPrestacoes();
     listagemClientes();
   }, []);
 
-    function listagemClientes() {
-        Axios.get(`http://localhost:9080/listagem/clientes`, {
+  function listagemClientes() {
+    Axios.get(`http://localhost:9080/listagem/clientes`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
+      }
+    }).catch(function (error) {
+      VerificaToken(error);
+    }).then((resp) => {
+      let clientes = resp.data;
+      let prestacoes_var = [];
+  
+      const promises = clientes.map((cliente) => {
+        cliente.titulos[0].preco = cliente.titulos[0].preco.toFixed(2).toString().replace(".", ",");
+        return Promise.all(cliente.titulos.map((titulo) => {
+          return Axios.get(`http://localhost:9080/listagem/titulo_prestacoes/${titulo.id}/periodo/${dataInicio}/${dataFim}`, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
+              'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
-            var prestacoes = [];
-            let clientes = resp.data;
-            for (let C in clientes) {
-                clientes[C].titulos[0].preco = clientes[C].titulos[0].preco.toFixed(2).toString().replace(".", ",");
-                for (let T in clientes[C].titulos){
-                    for (let P in clientes[C].titulos[T].prestacoes){
-                        let prestacao = clientes[C].titulos[T].prestacoes[P]
-                        let prestacaoNova = { id: prestacao.id, nome: clientes[C].nome, vencimento: prestacao.data_vencimento, pagamento: prestacao.data_pagamento, status: prestacao.situacao, preco: prestacao.preco }
-                        prestacoes.push(prestacaoNova)
-                    }
-                }
-            }
-            const filteredData = prestacoes.filter((prestacao) =>
-            prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            
-            setData(filteredData);
-        });
-    }
+          }).catch(function (error) {
+            VerificaToken(error);
+          }).then((resp) => {
+            var prestacoesDado = resp.data;
+            prestacoesDado.forEach((prestacao) => {
+              if ((intervalo === "Todas") ||
+                  (intervalo === "Vencimento" && (prestacao.situacao === "Em aberto" || prestacao.situacao === "Inadimplente")) ||
+                  (intervalo === "Pagamento" && prestacao.situacao === "Pago") ||
+                  (intervalo === "Crédito" && prestacao.situacao === "Creditado")) {
+                let prestacaoNova = {
+                  id: prestacao.id,
+                  nome: cliente.nome,
+                  vencimento: prestacao.data_vencimento,
+                  pagamento: prestacao.data_pagamento,
+                  status: prestacao.situacao,
+                  preco: prestacao.preco
+                };
+                prestacoes_var.push(prestacaoNova);
+              }
+            });
+          });
+        }));
+      });
+  
+      Promise.all(promises).then(() => {
+        const filteredData = prestacoes_var.filter((prestacao) =>
+          prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setData(filteredData);
+      });
+    });
+  }
+  
+  
+  
 
     const itemsPerPage = 6;
     const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -100,20 +124,6 @@ export default function Relatorio() {
     localStorage.removeItem('crudCli')
     localStorage.removeItem('aprova')
     localStorage.setItem('relatorio', 'relatorio-white')
-
-    const currencyMask = createNumberMask({
-        prefix: 'R$ ',
-        suffix: '',
-        includeThousandsSeparator: true,
-        thousandsSeparatorSymbol: '.',
-        allowDecimal: false,
-        decimalSymbol: ',',
-        decimalLimit: 2,
-        integerLimit: 13,
-        requireDecimal: true,
-        allowNegative: false,
-        allowLeadingZeroes: false
-    });
 
     function listagemPrestacoes() {
         Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
@@ -220,7 +230,7 @@ export default function Relatorio() {
                     </div>
 
                     <div className='sendFilter'>
-                        <button>ENVIAR</button>
+                        <button onClick={() => listagemClientes()}>ENVIAR</button>
                         <MdSend size={22} color='F79736' style={{ marginLeft: '5px' }} />
                     </div>
 
@@ -229,7 +239,7 @@ export default function Relatorio() {
                 <details>
                     <summary>Filtro de situação</summary>
                     <div className='filter'>
-                        <select onChange={(e) => setIntervalo(e.target.value)} required>
+                        <select onChange={(e) => setIntervalo(e.target.value)} onClick={() => listagemClientes()}>
                             <option value="Todas">Todas as situações</option>
                             <option value="Vencimento">Vencimento</option>
                             <option value="Pagamento">Pagamento</option>
