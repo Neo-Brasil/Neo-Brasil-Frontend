@@ -103,7 +103,7 @@ input[type=checkbox] {
     padding: 0 1em;
     height: 100vh;
     width: 100%;
-    z-index: 1;
+    z-index: 2;
 }
 
 .sidebar_open .headerLogo #logoHeader{
@@ -131,8 +131,9 @@ input[type=checkbox] {
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
         display: flex;
-    justify-content: space-between;
+        justify-content: space-between;
         flex-direction: row;
+        z-index: 2;
     }
 
     .sidebar:after {

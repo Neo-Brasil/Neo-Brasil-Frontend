@@ -25,7 +25,7 @@
     padding: 0 20px 0 20px;
     font-size: 1.15em;
     height: 2.5vh;
-    width: 25vw;
+    width: 20vw;
 }
 
 .button-orange{
@@ -46,6 +46,11 @@
 details summary{
     /* list-style: none; */
     cursor: pointer;
+}
+
+.filters{
+    display: flex;
+    flex-direction: row;
 }
 
 .filters details{
@@ -191,7 +196,7 @@ details summary{
 
 #nostyleinput{
     text-align: end;
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 .nostyleinput input:focus{
@@ -209,26 +214,18 @@ details summary{
     }
 
     .search input {
-        width: 55vw;
-    }
-
-    .button-orange {
-        width: 14vw;
-    }
-
-    .filters {
-        flex-direction: column;
+        width: 65vw;
     }
 
     .filter input {
-        width: 80vw;
-        font-size: 1.1em;
+        width: 32vw;
+        font-size: 1em;
         margin-bottom: 10px;
     }
 
     .filter select {
-        width: 86vw;
-        font-size: 1.1em;
+        width: 32vw;
+        font-size: 1em;
         margin: 0 0 15px 0;
     }
 
@@ -236,15 +233,80 @@ details summary{
         font-size: .8em;
     }
 
-    .container-table {
+    .container-table{
         padding: 1px 30px;
         gap: 30px;
         display: flex;
         flex-direction: column;
     }
+
+    #relatorio-table{
+        margin-top: 5%;
+        padding: 1px 50px 1px 50px;
+        font-size: 0.7em;
+    }
+
+    .values{
+        gap: 2em;
+    }
+
+    .nostyleinput {
+        width: 20vw;
+    }
 }
 
 @media screen and (max-width: 600px) {
+    .container-table {
+        padding: 1px 30px;
+    }
+
+    #relatorio-table {
+        font-size: 1em;
+        padding: 1px 1px 1px 200px;
+    }
+
+    .alignTD{ 
+        padding-right: 40px;
+    }
+
+    #alignTD{ 
+        padding-right: 55px;
+    }
+
+    .largura-dobrada {
+        width: auto;
+        padding-right: 40px;
+    }
+
+    #line td {
+        padding: 5px 0px;
+    }
+    
+    .filters{
+        flex-direction: column;
+    }
+
+    .filters details + details{
+        margin-left: 200px;
+    }
+    
+    .filter select{
+        width: 46vw;
+    }
+
+    .financialArea {
+        gap: 2em;
+    }
+
+    .values{
+        flex-direction: column;
+        gap: none;
+    }
+
+    .nostyleinput{
+        width: 25vw;
+    }
+
     table thead{
         border: none;
         clip: rect(0 0 0 0);
@@ -279,9 +341,5 @@ details summary{
         font-size: 0.85em;
         font-weight: bold;
         text-transform: uppercase;
-    }
-
-    #line td {
-        padding: 5px 0px;
     }
 }

@@ -293,10 +293,10 @@ export default function Relatorio() {
                             <tbody>
                                 {currentItems.map((item) => (
                                     <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td className='largura-dobrada'>{item.nome}</td>
-                                        <td>{item.titulo}</td>
-                                        <td><input type='date' className='noInput' id='noInput'
+                                        <td data-label="Prestação" className='alignTD'>{item.id}</td>
+                                        <td data-label="Cliente" className='largura-dobrada'>{item.nome}</td>
+                                        <td data-label="Título" className='alignTD'>{item.titulo}</td>
+                                        <td data-label="Vencimento"><input type='date' className='noInput' id='noInput'
                                             value={item.vencimento}></input></td>
 
                                         {item.pagamento !== "0000-00-00" ? (
@@ -306,8 +306,8 @@ export default function Relatorio() {
                                         ) : (
                                             <td data-label="Pagamento">-</td>
                                         )}
-                                        <td>{item.status}</td>
-                                        <td id='nostyleinput'>{item.preco}</td>
+                                        <td data-label="Status"className='alignTD'>{item.status}</td>
+                                        <td data-label="Preço" className='alignTD' id='nostyleinput'>{item.preco}</td>
                                     </tr>
                                 ))}
                             </tbody>
