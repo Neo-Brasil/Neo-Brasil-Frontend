@@ -108,6 +108,7 @@ function addTitulo() {
   setPrazo('')
   setCheve(false)
   setTitulos((prevTitulos) => [...prevTitulos, titinho]);
+  toast.success('Título adicionado!');
 }
   
     return (
