@@ -30,3 +30,16 @@
 .scroll::-webkit-scrollbar-thumb:hover {
     background: #44a756; 
 }
+
+
+.noStylePreco{
+    border: 0 none;
+    outline: 0;
+    cursor: default;
+    background-color: transparent;
+    color: #000;
+    font-size: 1em;
+    width: 10vw;    
+    text-align: center;
+    padding-left: 15px;
+}

@@ -115,12 +115,15 @@ export default function ModalEscolher({ close }) {
                                             <tr>
                                                 <td data-label="Prestação">{value.indice}</td>
 
-                                                <td data-label="Vencimento">{value.data_vencimento}</td>
+                                                <td data-label="Vencimento">
+                                                    <input type='date' className='noInput' id='noInput'
+                                                    value={value.data_vencimento}></input></td>
 
                                                 <td data-label="Status">{value.situacao}</td>
 
                                                 <td data-label="Preço">
-                                                    <MaskedInput mask={currencyMask} className="nostyleinput"type="text" placeholder="R$" value={value.preco.toString().replace(".", ",")} disabled /></td>
+                                                    <MaskedInput mask={currencyMask} className="noStylePreco" type="text" placeholder="R$" 
+                                                    value={value.preco.toString().replace(".", ",")} disabled /></td>
 
                                                 <td data-label="Registrar">
                                                     <Link className="action" onClick={() => togglePostModal(value.id)}>
