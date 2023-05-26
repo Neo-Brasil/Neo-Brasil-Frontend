@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IMaskInput } from "react-imask";
 import { cpf } from 'cpf-cnpj-validator';
 import { toast } from 'react-toastify';
+import VerificaToken from "../../script/verificaToken";
+import Axios from "axios";
 
 export default function Pessoal({ onButtonClick }) {   
     const [nome, setNome] = useState('');
     const [cpfe, setCpf] = useState('');
     const [email, setEmail] = useState('');
+    const [clientes, setClientes] = useState();
 
     const checkCpf = (e) => {
         const cpfe = e.target.value.replace(/\D/g, '');
@@ -15,18 +18,42 @@ export default function Pessoal({ onButtonClick }) {
         }
     }    
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    useEffect(() => {
+        Axios.get(`http://127.0.0.1:9080/listagem/clientes`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        .catch(function (error) {
+          VerificaToken(error);
+        })
+        .then((resp) => {
+          setClientes(resp.data);
+        });
+      }, []);      
 
+    function handleSubmit(e) {
+        e.preventDefault();
         if (cpf.isValid(cpfe) === true) {
+          var chave = true;
+          clientes.forEach((cliente) => {
+            if (cliente.email === email) {
+              chave = false;
+            }
+          });
+          if (chave) {
             localStorage.setItem("nome", nome);
             localStorage.setItem("cpf", cpfe);
             localStorage.setItem("email", email);
-            onButtonClick("pagetwo")
+            onButtonClick("pagetwo");
+          } else {
+            toast.error("Email já usado");
+          }
         } else {
-            toast.error('Preencha os campos corretamente')
+          toast.error("Preencha os campos corretamente");
         }
     }
+      
 
     return (
         <div>

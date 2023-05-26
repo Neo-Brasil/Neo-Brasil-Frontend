@@ -26,7 +26,6 @@ export default function Relatorio() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [searchTerm, setSearchTerm] = useState('');
-  const [prestacoes_var, setPrestacoes_var] = useState([]);
 
   useEffect(() => {
     listagemPrestacoes();
