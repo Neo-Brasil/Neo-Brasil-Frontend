@@ -11,7 +11,6 @@ import Header from '../../components/Header';
 import VerificaToken from '../../script/verificaToken';
 
 export default function Relatorio() {
-  const [clientes, setClientes] = useState();
   const [valorCreditado, setValorCreditado] = useState(0);
   const [valorPago, setValorPago] = useState(0);
   const [valorEmAbarto, setValorEmAbarto] = useState(0);
