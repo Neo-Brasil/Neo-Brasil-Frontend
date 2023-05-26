@@ -32,28 +32,25 @@ export default function Pessoal({ onButtonClick }) {
         });
       }, []);      
 
-    function handleSubmit(e) {
+      function handleSubmit(e) {
         e.preventDefault();
-        if (cpf.isValid(cpfe) === true) {
-          var chave = true;
-          clientes.forEach((cliente) => {
-            if (cliente.email === email) {
-              chave = false;
-            }
-          });
-          if (chave) {
-            localStorage.setItem("nome", nome);
-            localStorage.setItem("cpf", cpfe);
-            localStorage.setItem("email", email);
-            onButtonClick("pagetwo");
-          } else {
-            toast.error("Email já usado");
-          }
-        } else {
+        if (!cpf.isValid(cpfe)) {
           toast.error("Preencha os campos corretamente");
+          return;
         }
-    }
-      
+        if (clientes.some((cliente) => cliente.email === email)) {
+          toast.error("Email já usado");
+          return;
+        }
+        if (clientes.some((cliente) => cliente.cpf === cpfe)) {
+          toast.error("CPF já usado");
+          return;
+        }
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("cpf", cpfe);
+        localStorage.setItem("email", email);
+        onButtonClick("pagetwo");
+      }      
 
     return (
         <div>
