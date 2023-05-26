@@ -11,6 +11,7 @@ const [preco, setPreco] = useState('');
 const [dataVenc, setDataVenc] = useState('');
 const [prazo, setPrazo] = useState('');
 const [titulos, setTitulos] = useState([]);
+const [chave, setCheve] = useState(true);
 const id_usuario = localStorage.getItem('id_usuario');
 
 const currencyMask = createNumberMask({
@@ -28,7 +29,7 @@ const currencyMask = createNumberMask({
 });
 
 useEffect(() => {
-  if (titulos.length > 0) {
+  if (titulos.length > 0 && chave) {
     var endereco = localStorage.getItem('endereco');
     endereco = JSON.parse(endereco);
 
@@ -63,6 +64,7 @@ useEffect(() => {
 
 function handleSubmit(e) {
   e.preventDefault();
+  setCheve(true)
   if (prazo !== '') {
     let titinho = {
       titulo: nome,
@@ -83,9 +85,6 @@ function handleSubmit(e) {
     let valor = preco.replace('R$ ', '').replace('.', '');
 
     console.log(titulos);
-
-    toast.success('Cadastrado com sucesso!');
-    onButtonClick('pageone');
   } else {
     toast.error('Preencha os campos corretamente');
   }
@@ -103,7 +102,11 @@ function addTitulo() {
     tempo_credito: prazo,
     situacao: 'Em aberto'
   };
-
+  setNome('')
+  setPreco('')
+  setDataVenc('')
+  setPrazo('')
+  setCheve(false)
   setTitulos((prevTitulos) => [...prevTitulos, titinho]);
 }
   
