@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { toast } from 'react-toastify';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../script/verificaToken';
-import { useEffect } from "react";
 
 export default function Titulo({ onButtonClick }) {  const [nome, setNome] = useState('');
+const [titulos, setTitulos] = useState([]);
 const [preco, setPreco] = useState('');
 const [dataVenc, setDataVenc] = useState('');
 const [prazo, setPrazo] = useState('');
-const [titulos, setTitulos] = useState([]);
-const [chave, setCheve] = useState(true);
+const [chave, setChave] = useState(true);
 const id_usuario = localStorage.getItem('id_usuario');
 
 const currencyMask = createNumberMask({
@@ -64,7 +63,7 @@ useEffect(() => {
 
 function handleSubmit(e) {
   e.preventDefault();
-  setCheve(true)
+  setChave(true)
   if (prazo !== '') {
     let titinho = {
       titulo: nome,
@@ -106,7 +105,7 @@ function addTitulo() {
   setPreco('')
   setDataVenc('')
   setPrazo('')
-  setCheve(false)
+  setChave(false)
   setTitulos((prevTitulos) => [...prevTitulos, titinho]);
   toast.success('Título adicionado!');
 }

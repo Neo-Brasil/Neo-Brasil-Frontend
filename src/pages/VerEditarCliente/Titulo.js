@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../script/verificaToken';
 
 export default function Titulo({ onButtonClick }) {
+    const [titulos, setTitulos] = useState([]);
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
@@ -16,6 +18,8 @@ export default function Titulo({ onButtonClick }) {
     const [precoP, setPrecop] = useState('');
     const [dataVencP, setDataVencp] = useState('');
     const [prazoP, setPrazop] = useState('');
+
+    const [chave, setChave] = useState(true);
 
     const [id_titulo, setId] = useState('');
     const { id } = useParams();
@@ -35,22 +39,54 @@ export default function Titulo({ onButtonClick }) {
     });
 
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
-            let cliente = resp.data;
-            let titulo = cliente.titulos[0];
-            setTitulop(titulo.titulo);
-            setPrecop(titulo.preco.toFixed(2).toString().replace(".", ","));
-            setDataVenc(titulo.data_vencimento);
-            setPrazop(titulo.tempo_credito);
-            setId(titulo.id);
-        });
-    }, [])
+        if (titulos.length > 0 && chave) {
+            var endereco = localStorage.getItem('endereco');
+            endereco = JSON.parse(endereco);
+
+            var nomeCliente = localStorage.getItem('nome');
+            var cpfCliente = localStorage.getItem('cpf');
+            var emailCliente = localStorage.getItem('email');
+
+            let valor = preco.replace('R$ ', '').replace('.', '');
+
+            Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            }).catch(function (error) {
+                VerificaToken(error)
+            }).then((resp) => {
+                let cliente = resp.data;
+                let titulo = cliente.titulos[0];
+                setTitulop(titulo.titulo);
+                setPrecop(titulo.preco.toFixed(2).toString().replace(".", ","));
+                setDataVenc(titulo.data_vencimento);
+                setPrazop(titulo.tempo_credito);
+                setId(titulo.id);
+            });
+
+            Axios.post(`http://localhost:9080/cadastro/cliente/${id_usuario}`, {
+                nome: nomeCliente,
+                cpf: cpfCliente,
+                email: emailCliente,
+                endereco: endereco,
+                titulos: titulos,
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .catch(function (error) {
+                    VerificaToken(error);
+                })
+                .then((res) => {
+                    console.log(res);
+                });
+
+            toast.success('Cadastrado com sucesso!');
+            onButtonClick('pageone');
+        }
+    }, [titulos]);
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -97,6 +133,23 @@ export default function Titulo({ onButtonClick }) {
     function handleReturn(e) {
         return onButtonClick("pagetwo")
     }
+
+    function addTitulo() {
+        let titinho = {
+        //   titulo: nome,
+          preco: parseFloat(preco.replace('R$ ', '').replaceAll('.', '').replace(',', '.')),
+          data_vencimento: dataVenc,
+          tempo_credito: prazo,
+          situacao: 'Em aberto'
+        };
+        // setNome('')
+        setPreco('')
+        setDataVenc('')
+        setPrazo('')
+        setChave(false)
+        setTitulos((prevTitulos) => [...prevTitulos, titinho]);
+        toast.success('Título adicionado!');
+      }
 
     return (
         <div>
@@ -149,6 +202,10 @@ export default function Titulo({ onButtonClick }) {
                     </div>
                 </div>
             </form>
+            <div className='button-color'>
+                <button className='button-green'
+                    onClick={() => addTitulo()}>ADICIONAR OUTRO</button>
+            </div>
         </div>
     )
 }

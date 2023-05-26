@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { MdSearch, MdSend } from 'react-icons/md';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { FaSort } from 'react-icons/fa';
+import MaskedInput from "react-text-mask";
 import { createNumberMask } from 'text-mask-addons';
 
 import './Relatorio.css';
@@ -13,9 +14,8 @@ import VerificaToken from '../../script/verificaToken';
 export default function Relatorio() {
   const [valorCreditado, setValorCreditado] = useState(0);
   const [valorPago, setValorPago] = useState(0);
-  const [valorEmAbarto, setValorEmAbarto] = useState(0);
+  const [valorEmAberto, setValorEmAberto] = useState(0);
   const [valorAtrasado, setValorAtrasado] = useState(0);
-  const [valorTotal, setValorTotal] = useState(0);
 
   const [intervalo, setIntervalo] = useState('Todas');
   const [dataInicio, setDataInicio] = useState('0000-00-00');
@@ -25,6 +25,20 @@ export default function Relatorio() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
   const [searchTerm, setSearchTerm] = useState('');
+
+  const currencyMask = createNumberMask({
+    prefix: 'R$ ',
+    suffix: '',
+    includeThousandsSeparator: true,
+    thousandsSeparatorSymbol: '.',
+    allowDecimal: false,
+    decimalSymbol: ',',
+    decimalLimit: 2,
+    integerLimit: 13,
+    requireDecimal: true,
+    allowNegative: false,
+    allowLeadingZeroes: false
+});
 
   useEffect(() => {
     listagemPrestacoes();
@@ -61,6 +75,7 @@ export default function Relatorio() {
                 let prestacaoNova = {
                   id: prestacao.id,
                   nome: cliente.nome,
+                  titulo: titulo.titulo,
                   vencimento: prestacao.data_vencimento,
                   pagamento: prestacao.data_pagamento,
                   status: prestacao.situacao,
@@ -141,27 +156,26 @@ export default function Relatorio() {
                     var dado = resp.data
                     let creditado = dado.creditado
                     let pago = dado.pago
-                    let emAbarto = dado.emAberto
+                    let emAberto = dado.emAberto
                     let atrasado = dado.atrasado
-                    let total = parseFloat(creditado) + parseFloat(pago) + parseFloat(emAbarto) + parseFloat(atrasado)
+                    let total = parseFloat(creditado) + parseFloat(pago) + parseFloat(emAberto) + parseFloat(atrasado)
 
                     creditado = parseFloat(creditado).toFixed(2);
                     pago = parseFloat(pago).toFixed(2);
-                    emAbarto = parseFloat(emAbarto).toFixed(2);
+                    emAberto = parseFloat(emAberto).toFixed(2);
                     atrasado = parseFloat(atrasado).toFixed(2);
                     total = parseFloat(total).toFixed(2);
 
                     creditado = creditado.toString().replace(".", ",");
                     pago = pago.toString().replace(".", ",");
-                    emAbarto = emAbarto.toString().replace(".", ",");
+                    emAberto = emAberto.toString().replace(".", ",");
                     atrasado = atrasado.toString().replace('.',',');
                     total = total.toString().replace('.',',');
 
                     setValorCreditado(creditado);
                     setValorPago(pago);
-                    setValorEmAbarto(emAbarto);
+                    setValorEmAberto(emAberto);
                     setValorAtrasado(atrasado);
-                    setValorTotal(total);
                 });
             }
         });
@@ -191,7 +205,8 @@ export default function Relatorio() {
 
             <div className="content">
 
-            <h1>Relatório</h1>
+            <div className='relatorioTitle'>
+                <h1>Relatório</h1></div>
 
             <form onSubmit={handleSubmit} id='formFilter'>
 
@@ -245,31 +260,59 @@ export default function Relatorio() {
             </div>
             </form>
 
-            <div className='container-table'>
+            <div className='container-table' id='relatorio-table'>
                 <table>
                     <thead>
                         <tr>
-                            <th onClick={() => handleSort('id')} scope="col"><FaSort size={12}/>PRESTAÇÃO</th>
-                            <th onClick={() => handleSort('nome')} scope="col"><FaSort size={12}/>CLIENTE</th>
-                            <th onClick={() => handleSort('vencimento')} scope="col"><FaSort size={12}/>VENCIMENTO</th>
-                            <th onClick={() => handleSort('pagamento')} scope="col"><FaSort size={12}/>PAGAMENTO</th>
-                            <th onClick={() => handleSort('id')} scope="col"><FaSort size={12}/>STATUS</th>
-                            <th onClick={() => handleSort('preco')} scope="col"><FaSort size={12}/>PREÇO</th>
+                            <th onClick={() => handleSort('id')} scope="col">PRESTAÇÃO<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('nome')} scope="col" className='largura-dobrada'>CLIENTE<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('titulo')} scope="col">TÍTULO<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('vencimento')} scope="col">VENCIMENTO<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('pagamento')} scope="col">PAGAMENTO<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('id')} scope="col">STATUS<FaSort size={12}/></th>
+                            <th onClick={() => handleSort('preco')} scope="col">PREÇO<FaSort size={12}/></th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentItems.map((item) => (
                             <tr key={item.id}>
                                 <td>{item.id}</td>
-                                <td>{item.nome}</td>
-                                <td>{item.vencimento}</td>
-                                <td>{item.pagamento}</td>
+                                <td className='largura-dobrada'>{item.nome}</td>
+                                <td>{item.titulo}</td>
+                                <td><input type='date' className='noInput' id='noInput'
+                                    value={item.vencimento}></input></td>
+
+                                {item.pagamento !== "0000-00-00" ? (
+                                <td data-label="Pagamento">
+                                    <input type='date' className='noInput' id='noInput'
+                                    value={item.pagamento}></input></td>
+                                ) : (
+                                    <td data-label="Pagamento">-</td>
+                                )}
                                 <td>{item.status}</td>
-                                <td>{item.preco}</td>
+                                <td id='nostyleinput'>{item.preco}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+
+                <div className='infoFIltro'>
+
+                {dataInicio !== "0000-00-00" && dataFim !== "0000-00-00"?(
+                    <p className='intervalo'><b>Intervalo de datas: </b>
+                    <input type='date' className='noInput' 
+                        value={dataInicio}></input> 
+                    à 
+                    <input type='date' className='noInput' 
+                        value={dataFim}></input>
+                </p>
+                ):(
+                    <p className='intervalo'><b>Intervalo de datas: </b> Todas as datas</p>
+                )}
+
+                <p className='intervalo'><b>Situação: </b>{intervalo}</p>
+                
+                </div>
 
                 <div className="pagination">
                     <button onClick={goToPreviousPage} disabled={currentPage === 1}>
@@ -293,17 +336,27 @@ export default function Relatorio() {
                 </div>
                     <div className='financialArea'>
                         <div className='values'>
-                            <i>Total em aberto: R$ { valorEmAbarto }</i>
-                            <i>Total atrasado: R$ { valorAtrasado }</i>
+                            <i>Total em aberto: <MaskedInput mask={currencyMask} 
+                                className="nostyleinput" type="text" disabled
+                                value={valorEmAberto.toString().replace(".", ",")}></MaskedInput>
+                            </i>
+
+                            <i>Total atrasado: <MaskedInput mask={currencyMask} 
+                                className="nostyleinput" type="text" disabled
+                                value={valorAtrasado.toString().replace(".", ",")}></MaskedInput>
+                            </i>
                         </div>
 
                         <div className='values'>
-                            <i>Total creditado: R$ { valorCreditado }</i>
-                            <i>Total pago: R$ { valorPago }</i>
-                        </div>
+                            <i>Total creditado: <MaskedInput mask={currencyMask} 
+                                className="nostyleinput" type="text" disabled
+                                value={valorCreditado.toString().replace(".", ",")}></MaskedInput>
+                            </i>
 
-                        <div className='values'>
-                            <i>Total: R$ { valorTotal }</i>
+                            <i>Total pago: <MaskedInput mask={currencyMask} 
+                                className="nostyleinput" type="text" disabled
+                                value={valorPago.toString().replace(".", ",")}></MaskedInput>
+                            </i>
                         </div>
                     </div>
                 </div>

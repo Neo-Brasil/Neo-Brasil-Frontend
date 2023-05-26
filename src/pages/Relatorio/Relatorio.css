@@ -1,3 +1,9 @@
+.relatorioTitle h1 {
+    color: #44A754;
+    font-size: 35px;
+    padding: 100px 0px 30px 0px;
+}
+
 #formFilter{
     width: 30vw;
     margin-bottom: 3%;
@@ -8,7 +14,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: 0.15em solid #000;
+    border: 2px solid #000;
     border-radius: 10px;
     margin-bottom: 3%;
 }
@@ -19,15 +25,15 @@
     padding: 0 20px 0 20px;
     font-size: 1.15em;
     height: 2.5vh;
-    width: 24vw;
+    width: 25vw;
 }
 
 .button-orange{
     border: 0 none;
     background-color: #F79736;
     color: #FFF;
-    width: 3vw;
-    height: 6vh;
+    width: 5vh;
+    height: 5vh;
     box-shadow: none;
     border-radius: 7px;
     cursor: pointer;
@@ -101,11 +107,49 @@ details summary{
 /* --------- */
 
 #relatorio-table{
-    height: 40vh;
+    margin-top: 1%;
+    padding: 1px 70px 1px 1px;
 }
 
+#relatorio-table th, td{
+    padding: .5em 0;
+}
+
+.largura-dobrada {
+    width: 17vw;
+}
+
+.infoFIltro{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.intervalo{
+    margin-top: 1%;
+}
+
+.noInput::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+.noInput{ 
+    border: 0;
+    font-size: 1em;
+    outline: 0;
+}
+
+.noInput + .noInput{ 
+    margin-left: 25px;
+}
+
+#noInput{ 
+    margin-left: 15px;
+}
+
+
 .pagination{
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
 }
@@ -123,18 +167,15 @@ details summary{
 
 .financialArea{
     display: flex;
-    flex-direction: row;
-    /* justify-content: space-between; */
-    gap: 10em;
+    flex-direction: column;
+    gap: 1em;
 }
 
 .values{
     display: flex;
-    flex-direction: column;
-}
-
-.values i + i{
-    margin-top: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15em;
 }
 
 .nostyleinput{
@@ -143,13 +184,14 @@ details summary{
     cursor: default;
     background-color: transparent;
     color: #000;
-    text-align: center;
     font-size: 1em;
     width: 10vw;
+    font-style: italic;
 }
 
-#nostyleinput input{
+#nostyleinput{
     text-align: end;
+    padding-right: 20px;
 }
 
 .nostyleinput input:focus{
