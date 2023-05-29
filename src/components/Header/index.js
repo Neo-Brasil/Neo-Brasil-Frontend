@@ -105,7 +105,7 @@ export default function Header() {
                         </Link>
 
                         <Link to={'/'} id='signoutEnd' style={{ background: "transparent" }}>
-                            <FiLogOut size={30} />
+                            <FiLogOut size={35} />
                         </Link>
                     </div>
 
@@ -137,8 +137,8 @@ export default function Header() {
                             <FiFileText size={35} />
                         </Link>
 
-                        <Link to={'/'} id='signoutEnd' style={{ background: "transparent" }}>
-                            <FiLogOut size={30} />
+                        <Link to={'/'} id='signoutEnd2' style={{ background: "transparent" }}>
+                            <FiLogOut size={35} />
                         </Link>
                     </div>
 

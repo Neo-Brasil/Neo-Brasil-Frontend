@@ -67,15 +67,19 @@
 }
 
 #signoutEnd{
+    margin-top: 55%;
+}
+
+#signoutEnd2{
     margin-top: 75%;
 }
 
-#signout svg, #signoutEnd svg{
+#signout svg, #signoutEnd svg, #signoutEnd2 svg{
     color: #fff;
-    margin: 40px 0 15px 55px;
+    margin: 20px 0 15px 55px;
 }
 
-#signout svg:hover, #signoutEnd svg:hover{
+#signout svg:hover, #signoutEnd svg:hover, #signoutEnd2 svg:hover{
     color: #F27F0C;
     filter: drop-shadow(1px 1px 1.5px #fbfaf9);
     background-color: transparent !important;
