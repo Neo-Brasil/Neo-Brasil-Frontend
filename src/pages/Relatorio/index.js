@@ -80,8 +80,7 @@ export default function Relatorio() {
                     pago = pago.toString().replace(".", ",");
                     emAberto = emAberto.toString().replace(".", ",");
                     atrasado = atrasado.toString().replace('.', ',');
-                    total = total.toString().replace('.', ',');
-
+                    
                     setValorCreditado(creditado);
                     setValorPago(pago);
                     setValorEmAberto(emAberto);
@@ -228,6 +227,9 @@ export default function Relatorio() {
                     <form onSubmit={handleSubmit} id='formFilter'>
 
                         <div className='search'>
+                            <button className='button-orange'
+                                onClick={() => handleSubmit()}
+                            ><MdSearch size={20} /></button>
                             <input
                                 type="text"
                                 placeholder="Pesquisar cliente"
@@ -235,9 +237,6 @@ export default function Relatorio() {
                                 onChange={(e) => { setSearchTerm(e.target.value); listagemClientes(); }}
                                 onBlur={buscarCliente}
                             />
-                            <button className='button-orange'
-                                onClick={() => handleSubmit()}
-                            ><MdSearch size={30} /></button>
                         </div>
 
                         <div className='filters'>
@@ -304,7 +303,7 @@ export default function Relatorio() {
                                                 <input type='date' className='noInput' id='noInput'
                                                     value={item.pagamento}></input></td>
                                         ) : (
-                                            <td data-label="Pagamento">-</td>
+                                            <td data-label="Pagamento" className='alignTD'>-</td>
                                         )}
                                         <td data-label="Status"className='alignTD'>{item.status}</td>
                                         <td data-label="Preço" className='alignTD' id='nostyleinput'>{item.preco}</td>
