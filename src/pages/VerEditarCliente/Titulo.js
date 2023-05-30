@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import { toast } from 'react-toastify';
 import { useParams } from "react-router-dom";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../script/verificaToken';
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 
 export default function Titulo({ onButtonClick }) {
-    const [titulos, setTitulos] = useState([]);
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
-    const id_usuario = localStorage.getItem("id_usuario");
+    const  id_usuario = localStorage.getItem("id_usuario");
 
+    const [titulosP, setTitulosp] = useState([]);
     const [tituloP, setTitulop] = useState('');
     const [precoP, setPrecop] = useState('');
     const [dataVencP, setDataVencp] = useState('');
     const [prazoP, setPrazop] = useState('');
 
-    const [chave, setChave] = useState(true);
-
     const [id_titulo, setId] = useState('');
-    const { id } = useParams();
+    const {id} = useParams();
 
-    const currencyMask = createNumberMask({
+    const currencyMask = createNumberMask({ 
         prefix: 'R$ ',
         suffix: '',
         includeThousandsSeparator: true,
@@ -39,54 +37,21 @@ export default function Titulo({ onButtonClick }) {
     });
 
     useEffect(() => {
-        if (titulos.length > 0 && chave) {
-            var endereco = localStorage.getItem('endereco');
-            endereco = JSON.parse(endereco);
-
-            var nomeCliente = localStorage.getItem('nome');
-            var cpfCliente = localStorage.getItem('cpf');
-            var emailCliente = localStorage.getItem('email');
-
-            let valor = preco.replace('R$ ', '').replace('.', '');
-
-            Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`,{
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
-            }).catch(function (error) {
-                VerificaToken(error)
-            }).then((resp) => {
-                let cliente = resp.data;
-                let titulo = cliente.titulos[0];
-                setTitulop(titulo.titulo);
-                setPrecop(titulo.preco.toFixed(2).toString().replace(".", ","));
-                setDataVenc(titulo.data_vencimento);
-                setPrazop(titulo.tempo_credito);
-                setId(titulo.id);
-            });
-
-            Axios.post(`http://localhost:9080/cadastro/cliente/${id_usuario}`, {
-                nome: nomeCliente,
-                cpf: cpfCliente,
-                email: emailCliente,
-                endereco: endereco,
-                titulos: titulos,
-            }, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-                .catch(function (error) {
-                    VerificaToken(error);
-                })
-                .then((res) => {
-                    console.log(res);
-                });
-
-            toast.success('Cadastrado com sucesso!');
-            onButtonClick('pageone');
-        }
-    }, [titulos]);
+        }).catch(function (error) {
+            VerificaToken(error)
+        }).then((resp) => {
+            let cliente = resp.data;
+            let titulos = cliente.titulos;
+            for(let k in titulos){
+                titulos[k].index = k
+            }
+            setTitulosp(cliente.titulos)
+        });
+      }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -97,25 +62,16 @@ export default function Titulo({ onButtonClick }) {
         var cpf = localStorage.getItem("cpf");
         var email = localStorage.getItem("email");
 
-        Axios.put(`http://localhost:9080/atualizar/${id_usuario}`, {
+        Axios.put(`http://localhost:9080/atualizar/${id_usuario}` , {
             id: id,
             nome: nome,
             cpf: cpf,
             email: email,
-            endereco: endereco,
-            titulos: [
-                {
-                    id: id_titulo,
-                    titulo: titulo,
-                    preco: parseFloat(preco.replace('R$ ', '').replace('.', '').replace('.', '').replace('.', '').replace('.', '').replace(',', '.')),
-                    data_vencimento: dataVenc,
-                    tempo_credito: prazo
-                }
-            ]
-        }, {
+            endereco: endereco
+        },{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
+                }
         }).catch(function (error) {
             VerificaToken(error)
         }).then((res) => {
@@ -125,31 +81,30 @@ export default function Titulo({ onButtonClick }) {
         localStorage.removeItem('cpf');
         localStorage.removeItem('email');
         localStorage.removeItem('endereco');
-
+        
         localStorage.setItem("update", "1")
         window.location.href = '/clientes_cadastrados'
     }
 
-    function handleReturn(e) {
-        return onButtonClick("pagetwo")
-    }
+    const [currentPage, setCurrentPage] = useState(1);
 
-    function addTitulo() {
-        let titinho = {
-        //   titulo: nome,
-          preco: parseFloat(preco.replace('R$ ', '').replaceAll('.', '').replace(',', '.')),
-          data_vencimento: dataVenc,
-          tempo_credito: prazo,
-          situacao: 'Em aberto'
-        };
-        // setNome('')
-        setPreco('')
-        setDataVenc('')
-        setPrazo('')
-        setChave(false)
-        setTitulos((prevTitulos) => [...prevTitulos, titinho]);
-        toast.success('Título adicionado!');
-      }
+    const itemsPerPage = 1;
+    const totalPages = Math.ceil(titulosP.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = titulosP.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const goToPreviousPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
+
+    const goToNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
 
     return (
         <div>
@@ -157,55 +112,60 @@ export default function Titulo({ onButtonClick }) {
             <h3>Dados do plano</h3>
 
             <form onSubmit={handleSubmit}>
+                {currentItems.map((item) => (
+                    <div className="inputs">
+                    <div className="pagination">
+                        <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
+                            <FiChevronLeft />
+                        </button>
 
-                <div className="inputs">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                            <button type="button"
+                                key={page}
+                                onClick={() => handlePageChange(page)}
+                                className={currentPage === page ? 'active' : ''}
+                            >
+                                {page}
+                            </button>
+                        ))}
 
+                        <button type="button" onClick={goToNextPage} disabled={currentPage === totalPages}>
+                            <FiChevronRight />
+                        </button>
+                    </div>
                     <div className='plano'>
-
                         <div class="campo">
-                            <input class="fixo" type="text" placeholder={tituloP}
-                                value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                            <input class="fixo" type="text" placeholder={item.titulo} 
+                            value={titulo} onChange={(e) => setTitulo(e.target.value)} />
                             <span>Título</span>
                         </div>
 
                         <div class="campo">
-                            <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ " + precoP}
+                            <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+item.preco}
                                 value={preco} onChange={(e) => setPreco(e.target.value)} />
                             <span>Preço</span>
                         </div>
                         <div class="campo">
-                            <input class="fixo" type="date" placeholder={dataVencP}
-                                value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+                            <input class="fixo" type="date" placeholder={item.data_vencimento} 
+                            value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
                             <span>Data de vencimento</span>
                         </div>
 
                         <div class="campo">
                             <input class="fixo" id="prazo"
-                                type="number" min={0} max={5} placeholder={prazoP}
+                                type="number" min={0} max={5} placeholder={item.tempo_credito} 
                                 value={prazo} onChange={(e) => setPrazo(e.target.value)} />
                             <span>Prazo de crédito (em dias)</span>
                         </div>
-
-                        <div className="buttonsRow">
-                            <div className='button-color'>
-                                <button className='button-green'
-                                    onClick={() => handleReturn()}>
-                                    VOLTAR</button>
-                            </div>
-
-                            <div className='button-color'>
-                                <button className='button-green'
-                                    onClick={() => handleSubmit()}>
-                                    ENVIAR</button>
-                            </div>
+                        <div className='button-color'>
+                            <button className='button-green' 
+                            onClick={() => handleSubmit()}>
+                            ENVIAR</button>
                         </div>
                     </div>
-                </div>
+                    </div>
+                ))}
             </form>
-            <div className='button-color'>
-                <button className='button-green'
-                    onClick={() => addTitulo()}>ADICIONAR OUTRO</button>
-            </div>
         </div>
     )
 }
