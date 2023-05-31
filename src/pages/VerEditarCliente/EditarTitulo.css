@@ -1,0 +1,11 @@
+#titulos-table{
+    padding: 1px 350px;
+    margin-top: 3%;
+}
+
+#titulos-table table th {
+    color: #44A756;
+    font-size: 1em;
+    letter-spacing: 0;
+    text-transform: none;
+}

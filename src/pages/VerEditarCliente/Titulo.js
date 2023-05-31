@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import './EditarTitulo.css';
 import Axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../script/verificaToken';
-import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+import { FiEdit3, FiTrash2, FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+import ModalEditarTitulo from "../../components/Modal/EditarTitulo";
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
@@ -21,6 +24,9 @@ export default function Titulo({ onButtonClick }) {
 
     const [id_titulo, setId] = useState('');
     const {id} = useParams();
+    
+    const [showPostModal, setShowPostModal] = useState(false);
+    const [detail, setDetail] = useState();
 
     const currencyMask = createNumberMask({ 
         prefix: 'R$ ',
@@ -35,6 +41,13 @@ export default function Titulo({ onButtonClick }) {
         allowNegative: false,
         allowLeadingZeroes: false
     });
+
+    function togglePostModal(id) {
+        console.log(id);
+        localStorage.setItem("id_titulo", id);
+        setShowPostModal(!showPostModal);
+        setDetail();
+    }
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`,{
@@ -109,63 +122,110 @@ export default function Titulo({ onButtonClick }) {
     return (
         <div>
 
-            <h3>Dados do plano</h3>
+            <h3>Dados dos planos</h3>
 
-            <form onSubmit={handleSubmit}>
-                {currentItems.map((item) => (
-                    <div className="inputs">
-                    <div className="pagination">
-                        <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
-                            <FiChevronLeft />
-                        </button>
+            <div className="container-table" id="titulos-table">
 
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                            <button type="button"
-                                key={page}
-                                onClick={() => handlePageChange(page)}
-                                className={currentPage === page ? 'active' : ''}
-                            >
-                                {page}
-                            </button>
-                        ))}
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Vencimento</th>
+                            <th scope="col">Prazo</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Deletar</th>
+                        </tr>
+                    </thead>
 
-                        <button type="button" onClick={goToNextPage} disabled={currentPage === totalPages}>
-                            <FiChevronRight />
-                        </button>
-                    </div>
-                    <div className='plano'>
-                        <div class="campo">
-                            <input class="fixo" type="text" placeholder={item.titulo} 
-                            value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-                            <span>Título</span>
-                        </div>
+                    {typeof titulosP !== 'undefined' && titulosP.map((titulo) => (
+                        <tbody>
+                            <tr>
+                                <td data-label="Título">{titulo.titulo}</td>
+                                <td data-label="Preço">{titulo.preco}</td>
+                                <td data-label="Vencimento"><input type='date' className='noInput' 
+                                    value={titulo.data_vencimento}></input></td>
+                                <td data-label="Prazo">{titulo.tempo_credito}</td>
+                                <td data-label="Editar">
+                                    <Link className="action" onClick={() => togglePostModal(titulo.id)}>
+                                    <FiEdit3 color="#000"/></Link>
+                                </td>
+                                <td data-label="Deletar">
+                                    <Link className="action" onClick={() => togglePostModal2(titulo.id)}>
+                                    <FiTrash2 color="#000"/></Link>
+                                </td>
+                            </tr>
+                        </tbody>
+                    ))}
+                </table>
+            </div>
+            {showPostModal && (
+                <ModalEditarTitulo conteudo={detail} close={togglePostModal} />
+            )}
 
-                        <div class="campo">
-                            <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+item.preco}
-                                value={preco} onChange={(e) => setPreco(e.target.value)} />
-                            <span>Preço</span>
-                        </div>
-                        <div class="campo">
-                            <input class="fixo" type="date" placeholder={item.data_vencimento} 
-                            value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
-                            <span>Data de vencimento</span>
-                        </div>
-
-                        <div class="campo">
-                            <input class="fixo" id="prazo"
-                                type="number" min={0} max={5} placeholder={item.tempo_credito} 
-                                value={prazo} onChange={(e) => setPrazo(e.target.value)} />
-                            <span>Prazo de crédito (em dias)</span>
-                        </div>
-                        <div className='button-color'>
-                            <button className='button-green' 
-                            onClick={() => handleSubmit()}>
-                            ENVIAR</button>
-                        </div>
-                    </div>
-                    </div>
-                ))}
-            </form>
+            {showPostModal && (
+                <ModalEditarTitulo conteudo={detail} close={togglePostModal} />
+            )}
         </div>
+        // <div>
+
+        //     <h3>Dados do plano</h3>
+
+        //     <form onSubmit={handleSubmit}>
+        //         {currentItems.map((item) => (
+        //             <div className="inputs">
+        //             <div className="pagination">
+        //                 <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
+        //                     <FiChevronLeft />
+        //                 </button>
+
+        //                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        //                     <button type="button"
+        //                         key={page}
+        //                         onClick={() => handlePageChange(page)}
+        //                         className={currentPage === page ? 'active' : ''}
+        //                     >
+        //                         {page}
+        //                     </button>
+        //                 ))}
+
+        //                 <button type="button" onClick={goToNextPage} disabled={currentPage === totalPages}>
+        //                     <FiChevronRight />
+        //                 </button>
+        //             </div>
+        //             <div className='plano'>
+        //                 <div class="campo">
+        //                     <input class="fixo" type="text" placeholder={item.titulo} 
+        //                     value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+        //                     <span>Título</span>
+        //                 </div>
+
+        //                 <div class="campo">
+        //                     <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+item.preco}
+        //                         value={preco} onChange={(e) => setPreco(e.target.value)} />
+        //                     <span>Preço</span>
+        //                 </div>
+        //                 <div class="campo">
+        //                     <input class="fixo" type="date" placeholder={item.data_vencimento} 
+        //                     value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+        //                     <span>Data de vencimento</span>
+        //                 </div>
+
+        //                 <div class="campo">
+        //                     <input class="fixo" id="prazo"
+        //                         type="number" min={0} max={5} placeholder={item.tempo_credito} 
+        //                         value={prazo} onChange={(e) => setPrazo(e.target.value)} />
+        //                     <span>Prazo de crédito (em dias)</span>
+        //                 </div>
+        //                 <div className='button-color'>
+        //                     <button className='button-green' 
+        //                     onClick={() => handleSubmit()}>
+        //                     ENVIAR</button>
+        //                 </div>
+        //             </div>
+        //             </div>
+        //         ))}
+        //     </form>
+        // </div>
     )
 }
