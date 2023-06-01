@@ -115,6 +115,10 @@ span{
     cursor: pointer;
 }
 
+#button-add button{
+    width: 10.8vw;
+}
+
 .button-green{
     background-color: #44A754;
 }

@@ -6,15 +6,17 @@ import { Link } from 'react-router-dom';
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../script/verificaToken';
-import { FiEdit3, FiTrash2, FiChevronRight, FiChevronLeft } from 'react-icons/fi';
+import { FiEdit3, FiTrash2, FiPlusCircle, FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import ModalEditarTitulo from "../../components/Modal/EditarTitulo";
+import ModalDeletarTitulo from "../../components/Modal/DeletarTitulo";
+import ModalCadastrarTitulo from "../../components/Modal/CadastrarTitulo";
 
 export default function Titulo({ onButtonClick }) {
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
-    const  id_usuario = localStorage.getItem("id_usuario");
+    const id_usuario = localStorage.getItem("id_usuario");
 
     const [titulosP, setTitulosp] = useState([]);
     const [tituloP, setTitulop] = useState('');
@@ -23,23 +25,23 @@ export default function Titulo({ onButtonClick }) {
     const [prazoP, setPrazop] = useState('');
 
     const [id_titulo, setId] = useState('');
-    const {id} = useParams();
-    
+    const { id } = useParams();
+
     const [showPostModal, setShowPostModal] = useState(false);
     const [detail, setDetail] = useState();
 
-    const currencyMask = createNumberMask({ 
-        prefix: 'R$ ',
-        suffix: '',
-        includeThousandsSeparator: true,
-        thousandsSeparatorSymbol: '.',
-        allowDecimal: false,
-        decimalSymbol: ',',
-        decimalLimit: 2,
-        integerLimit: 13,
-        requireDecimal: true,
-        allowNegative: false,
-        allowLeadingZeroes: false
+    const [showPostModal2, setShowPostModal2] = useState(false);
+    const [detail2, setDetail2] = useState();
+
+    const [showPostModal3, setShowPostModal3] = useState(false);
+    const [detail3, setDetail3] = useState();
+
+    const currencyMask = createNumberMask({
+        prefix: 'R$ ', suffix: '',
+        includeThousandsSeparator: true, thousandsSeparatorSymbol: '.',
+        allowDecimal: false, decimalSymbol: ',', decimalLimit: 2,
+        integerLimit: 13, requireDecimal: true,
+        allowNegative: false, allowLeadingZeroes: false
     });
 
     function togglePostModal(id) {
@@ -49,22 +51,40 @@ export default function Titulo({ onButtonClick }) {
         setDetail();
     }
 
+    function togglePostModal2(id) {
+        console.log(id);
+        localStorage.setItem("id_titulo", id);
+        setShowPostModal2(!showPostModal2);
+        setDetail2();
+    }
+
+    function togglePostModal3(id) {
+        console.log(id);
+        localStorage.setItem("id_titulo", id);
+        setShowPostModal3(!showPostModal3);
+        setDetail3();
+    }
+
+    function handleReturn(e) {
+        return onButtonClick("pagetwo")
+    }
+
     useEffect(() => {
-        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`,{
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+            }
         }).catch(function (error) {
             VerificaToken(error)
         }).then((resp) => {
             let cliente = resp.data;
             let titulos = cliente.titulos;
-            for(let k in titulos){
+            for (let k in titulos) {
                 titulos[k].index = k
             }
             setTitulosp(cliente.titulos)
         });
-      }, [])
+    }, [])
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -75,16 +95,16 @@ export default function Titulo({ onButtonClick }) {
         var cpf = localStorage.getItem("cpf");
         var email = localStorage.getItem("email");
 
-        Axios.put(`http://localhost:9080/atualizar/${id_usuario}` , {
+        Axios.put(`http://localhost:9080/atualizar/${id_usuario}`, {
             id: id,
             nome: nome,
             cpf: cpf,
             email: email,
             endereco: endereco
-        },{
+        }, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-                }
+            }
         }).catch(function (error) {
             VerificaToken(error)
         }).then((res) => {
@@ -94,138 +114,126 @@ export default function Titulo({ onButtonClick }) {
         localStorage.removeItem('cpf');
         localStorage.removeItem('email');
         localStorage.removeItem('endereco');
-        
+
         localStorage.setItem("update", "1")
         window.location.href = '/clientes_cadastrados'
     }
 
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const itemsPerPage = 1;
-    const totalPages = Math.ceil(titulosP.length / itemsPerPage);
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = titulosP.slice(indexOfFirstItem, indexOfLastItem);
-
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const goToPreviousPage = () => {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-    };
-
-    const goToNextPage = () => {
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
-    };
-
     return (
-        <div>
-
-            <h3>Dados dos planos</h3>
-
-            <div className="container-table" id="titulos-table">
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Título</th>
-                            <th scope="col">Preço</th>
-                            <th scope="col">Vencimento</th>
-                            <th scope="col">Prazo</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Deletar</th>
-                        </tr>
-                    </thead>
-
-                    {typeof titulosP !== 'undefined' && titulosP.map((titulo) => (
-                        <tbody>
-                            <tr>
-                                <td data-label="Título">{titulo.titulo}</td>
-                                <td data-label="Preço">{titulo.preco}</td>
-                                <td data-label="Vencimento"><input type='date' className='noInput' 
-                                    value={titulo.data_vencimento}></input></td>
-                                <td data-label="Prazo">{titulo.tempo_credito}</td>
-                                <td data-label="Editar">
-                                    <Link className="action" onClick={() => togglePostModal(titulo.id)}>
-                                    <FiEdit3 color="#000"/></Link>
-                                </td>
-                                <td data-label="Deletar">
-                                    <Link className="action" onClick={() => togglePostModal2(titulo.id)}>
-                                    <FiTrash2 color="#000"/></Link>
-                                </td>
-                            </tr>
-                        </tbody>
-                    ))}
-                </table>
-            </div>
-            {showPostModal && (
-                <ModalEditarTitulo conteudo={detail} close={togglePostModal} />
-            )}
-
-            {showPostModal && (
-                <ModalEditarTitulo conteudo={detail} close={togglePostModal} />
-            )}
-        </div>
         // <div>
 
-        //     <h3>Dados do plano</h3>
+        //     <h3>Dados dos planos</h3>
 
-        //     <form onSubmit={handleSubmit}>
-        //         {currentItems.map((item) => (
-        //             <div className="inputs">
-        //             <div className="pagination">
-        //                 <button type="button" onClick={goToPreviousPage} disabled={currentPage === 1}>
-        //                     <FiChevronLeft />
-        //                 </button>
+        //     <div className="container-table" id="titulos-table">
 
-        //                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-        //                     <button type="button"
-        //                         key={page}
-        //                         onClick={() => handlePageChange(page)}
-        //                         className={currentPage === page ? 'active' : ''}
-        //                     >
-        //                         {page}
-        //                     </button>
-        //                 ))}
+        //         <table>
+        //             <thead>
+        //                 <tr>
+        //                     <th scope="col">Título</th>
+        //                     <th scope="col">Preço</th>
+        //                     <th scope="col">Vencimento</th>
+        //                     <th scope="col">Prazo</th>
+        //                     <th scope="col">Editar</th>
+        //                     <th scope="col">Deletar</th>
+        //                 </tr>
+        //             </thead>
 
-        //                 <button type="button" onClick={goToNextPage} disabled={currentPage === totalPages}>
-        //                     <FiChevronRight />
-        //                 </button>
+        //             {typeof titulosP !== 'undefined' && titulosP.map((titulo) => (
+        //                 <tbody>
+        //                     <tr>
+        //                         <td data-label="Título">{titulo.titulo}</td>
+        //                         <td data-label="Preço">{titulo.preco}</td>
+        //                         <td data-label="Vencimento"><input type='date' className='noInput' 
+        //                             value={titulo.data_vencimento}></input></td>
+        //                         <td data-label="Prazo">{titulo.tempo_credito}</td>
+        //                         <td data-label="Editar">
+        //                             <Link onClick={() => togglePostModal(titulo.id)}>
+        //                             <FiEdit3 color="#000"/></Link>
+        //                         </td>
+        //                         <td data-label="Deletar">
+        //                             <Link onClick={() => togglePostModal2(titulo.id)}>
+        //                             <FiTrash2 color="#000"/></Link>
+        //                         </td>
+        //                     </tr>
+        //                 </tbody>
+        //             ))}
+        //         </table>
+        //     </div>
+
+        //     <div className="buttonsRow" style={{marginTop: "50px"}}>
+        //             <div className='button-color'>
+        //                 <button className='button-green'
+        //                     onClick={() => handleReturn()}>
+        //                     VOLTAR</button>
         //             </div>
-        //             <div className='plano'>
-        //                 <div class="campo">
-        //                     <input class="fixo" type="text" placeholder={item.titulo} 
-        //                     value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-        //                     <span>Título</span>
-        //                 </div>
 
-        //                 <div class="campo">
-        //                     <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+item.preco}
-        //                         value={preco} onChange={(e) => setPreco(e.target.value)} />
-        //                     <span>Preço</span>
-        //                 </div>
-        //                 <div class="campo">
-        //                     <input class="fixo" type="date" placeholder={item.data_vencimento} 
-        //                     value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
-        //                     <span>Data de vencimento</span>
-        //                 </div>
+        //             <Link className="addTitulo" onClick={() => togglePostModal3(titulo.id)}>
+        //                 <FiPlusCircle color="#44A754" size={35}/></Link>
 
-        //                 <div class="campo">
-        //                     <input class="fixo" id="prazo"
-        //                         type="number" min={0} max={5} placeholder={item.tempo_credito} 
-        //                         value={prazo} onChange={(e) => setPrazo(e.target.value)} />
-        //                     <span>Prazo de crédito (em dias)</span>
-        //                 </div>
-        //                 <div className='button-color'>
-        //                     <button className='button-green' 
+        //             <div className='button-color'>
+        //                 <button className='button-green'
         //                     onClick={() => handleSubmit()}>
-        //                     ENVIAR</button>
-        //                 </div>
+        //                     SALVAR</button>
         //             </div>
-        //             </div>
-        //         ))}
-        //     </form>
+        //     </div>
+
+        //     {showPostModal && (
+        //         <ModalEditarTitulo conteudo={detail} close={togglePostModal} />
+        //     )}
+
+        //     {showPostModal2 && (
+        //         <ModalDeletarTitulo conteudo={detail2} close={togglePostModal2} />
+        //     )}
+
+        //     {showPostModal3 && (
+        //         <ModalCadastrarTitulo conteudo={detail3} close={togglePostModal3} />
+        //     )}
         // </div>
+        <div>
+
+            <h3>Dados do plano</h3>
+
+            <form onSubmit={handleSubmit} id="camposTitulo">
+
+                <div className='plano'>
+                    <div class="campo">
+                        <input class="fixo" type="text" placeholder={titulo}
+                            value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                        <span>Título</span>
+                    </div>
+
+                    <div class="campo">
+                        <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ " + preco}
+                            value={preco} onChange={(e) => setPreco(e.target.value)} />
+                        <span>Preço</span>
+                    </div>
+                    <div class="campo">
+                        <input class="fixo" type="date" placeholder={dataVenc}
+                            value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
+                        <span>Data de vencimento</span>
+                    </div>
+
+                    <div class="campo">
+                        <input class="fixo" id="prazo"
+                            type="number" min={0} max={5} placeholder={prazo}
+                            value={prazo} onChange={(e) => setPrazo(e.target.value)} />
+                        <span>Prazo de crédito (em dias)</span>
+                    </div>
+                    <div className="buttonsRow">
+                        <div className='button-color'>
+                            <button className='button-green'
+                                onClick={() => handleReturn()}>
+                                VOLTAR</button>
+                        </div>
+
+                        <div className='button-color'>
+                            <button className='button-green'
+                                onClick={() => handleSubmit()}>
+                                PRÓXIMO</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     )
 }

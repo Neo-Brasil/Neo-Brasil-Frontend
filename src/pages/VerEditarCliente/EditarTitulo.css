@@ -1,6 +1,6 @@
 #titulos-table{
     padding: 1px 350px;
-    margin-top: 3%;
+    margin-top: 5%;
 }
 
 #titulos-table table th {
@@ -8,4 +8,12 @@
     font-size: 1em;
     letter-spacing: 0;
     text-transform: none;
+}
+
+.addTitulo{
+    margin: 5px 10px 0px 10px;
+}
+
+#camposTitulo{
+    margin-top: 30px;
 }

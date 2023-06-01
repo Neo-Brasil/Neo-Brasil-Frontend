@@ -5,7 +5,7 @@ import { createNumberMask } from "text-mask-addons";
 import { FiArrowLeft } from 'react-icons/fi';
 import VerificaToken from '../../../script/verificaToken';
 
-export default function ModalEditarTitulo({ close }) {
+export default function ModalCadastrarTitulo({ close }) {
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
@@ -35,31 +35,32 @@ export default function ModalEditarTitulo({ close }) {
                         <FiArrowLeft color="#000" size={25} />
                     </button>
 
-                    <p id="nome-ver-editar">Editar título</p>
+                    <p id="nome-ver-editar">Adicionar título</p>
 
                     <div className='detalhes-ver-editar'>
                         <div className='inputs' style={{marginTop:"20px"}}>
                             
                             <div className='plano'>
                                 <div class="campo">
-                                    <input class="fixo" type="text" placeholder={titulo.titulo}
+                                    <input class="fixo" type="text"
                                         value={titulo} onChange={(e) => setTitulo(e.target.value)} />
                                     <span>Título</span>
                                 </div>
 
                                 <div class="campo">
-                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ " + titulo.preco} value={preco} onChange={(e) => setPreco(e.target.value)} />
+                                    <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "} 
+                                    value={preco} onChange={(e) => setPreco(e.target.value)} />
                                     <span>Preço</span>
                                 </div>
                                 <div class="campo">
-                                    <input class="fixo" type="date" placeholder={titulo.data_vencimento}
+                                    <input class="fixo" type="date" 
                                         value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
                                     <span>Data de vencimento</span>
                                 </div>
 
                                 <div class="campo">
                                     <input class="fixo" id="prazo"
-                                        type="number" min={0} max={5} placeholder={titulo.tempo_credito}
+                                        type="number" min={0} max={5} 
                                         value={prazo} onChange={(e) => setPrazo(e.target.value)} />
                                     <span>Prazo de crédito (em dias)</span>
                                 </div>
@@ -69,7 +70,7 @@ export default function ModalEditarTitulo({ close }) {
                     </div>
 
                     <div className='button-color' style={{marginBottom:"0"}} onClick={() => handleSubmit()}>
-                        <button className='button-green'>SALVAR</button>
+                        <button className='button-green'>ENVIAR</button>
                     </div>
 
                 </div>
