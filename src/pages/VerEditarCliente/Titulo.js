@@ -119,6 +119,7 @@ export default function Titulo({ onButtonClick }) {
         window.location.href = '/clientes_cadastrados'
     }
 
+
     return (
         // <div>
 
@@ -220,13 +221,16 @@ export default function Titulo({ onButtonClick }) {
                         <span>Prazo de crédito (em dias)</span>
                     </div>
                     <div className="buttonsRow">
-                        <div className='button-color'>
+                        <div className='button-color' id="button-add">
                             <button className='button-green'
                                 onClick={() => handleReturn()}>
                                 VOLTAR</button>
                         </div>
 
-                        <div className='button-color'>
+                        <Link className="addTitulo" onClick={() => togglePostModal3(titulo.id)}>
+                            <FiPlusCircle color="#44A754" size={35} /></Link>
+
+                        <div className='button-color' id="button-add">
                             <button className='button-green'
                                 onClick={() => handleSubmit()}>
                                 PRÓXIMO</button>
@@ -234,6 +238,9 @@ export default function Titulo({ onButtonClick }) {
                     </div>
                 </div>
             </form>
+            {showPostModal3 && (
+                <ModalCadastrarTitulo conteudo={detail3} close={togglePostModal3} />
+            )}
         </div>
     )
 }
