@@ -16,6 +16,7 @@ export default function Relatorio() {
     const [valorPago, setValorPago] = useState(0);
     const [valorEmAberto, setValorEmAberto] = useState(0);
     const [valorAtrasado, setValorAtrasado] = useState(0);
+    const [id, setId] = useState(1);
 
     const [intervalo, setIntervalo] = useState('Todas');
     const [dataInicio, setDataInicio] = useState('0000-00-00');
@@ -56,7 +57,7 @@ export default function Relatorio() {
             if (parseInt(dataFim.replace("-", "").replace("-", "")) < parseInt(dataInicio.replace("-", "").replace("-", ""))) {
                 toast.warning('Data final não pode ser menor que a data inicial!')
             } else {
-                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/periodo/${dataInicio}/${dataFim}`, {
+                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/${id}/periodo/${dataInicio}/${dataFim}/${intervalo}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
@@ -125,7 +126,8 @@ export default function Relatorio() {
                                     vencimento: prestacao.data_vencimento,
                                     pagamento: prestacao.data_pagamento,
                                     status: prestacao.situacao,
-                                    preco: "R$ " + parseFloat(prestacao.preco).toFixed(2).toString().replace(".", ",")
+                                    preco: "R$ " + parseFloat(prestacao.preco).toFixed(2).toString().replace(".", ","),
+                                    id_cliente: cliente.id
                                 };
                                 prestacoes_var.push(prestacaoNova);
                             }
@@ -134,12 +136,28 @@ export default function Relatorio() {
                 }));
             });
 
+            var toastDisplayed = false;
+
             Promise.all(promises).then(() => {
                 const filteredData = prestacoes_var.filter((prestacao) =>
                     prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
                 );
+                if (filteredData.length > 0) {
+                    setId(filteredData[0].id_cliente);
+                    listagemPrestacoes();
+                } else {
+                    setValorCreditado('0');
+                    setValorPago('0');
+                    setValorEmAberto('0');
+                    setValorAtrasado('0');
+                    if (!toastDisplayed) { // Verifica se o toast já foi exibido
+                        toast.warning("Não encontrado!");
+                        toastDisplayed = true; // Define a variável para indicar que o toast foi exibido
+                    }
+                }
                 setData(filteredData);
             });
+          
         });
     }
 
