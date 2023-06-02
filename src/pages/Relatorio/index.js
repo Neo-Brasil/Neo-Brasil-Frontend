@@ -16,7 +16,7 @@ export default function Relatorio() {
     const [valorPago, setValorPago] = useState(0);
     const [valorEmAberto, setValorEmAberto] = useState(0);
     const [valorAtrasado, setValorAtrasado] = useState(0);
-    const [id, setId] = useState(1);
+    const [id, setId] = useState(0);
 
     const [intervalo, setIntervalo] = useState('Todas');
     const [dataInicio, setDataInicio] = useState('0000-00-00');
@@ -48,48 +48,57 @@ export default function Relatorio() {
 
     function listagemPrestacoes() {
         Axios.get(`http://localhost:9080/listagem/titulos/atualizar_situacao`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        .then((resp) => {
+          if (parseInt(dataFim.replace("-", "").replace("-", "")) < parseInt(dataInicio.replace("-", "").replace("-", ""))) {
+            toast.warning('Data final não pode ser menor que a data inicial!');
+            return;
+          }
+      
+          Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/${id}/periodo/${dataInicio}/${dataFim}/${intervalo}`, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
+              'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
-            if (parseInt(dataFim.replace("-", "").replace("-", "")) < parseInt(dataInicio.replace("-", "").replace("-", ""))) {
-                toast.warning('Data final não pode ser menor que a data inicial!')
-            } else {
-                Axios.get(`http://127.0.0.1:9080/listagem/prestacoes_valores/${id}/periodo/${dataInicio}/${dataFim}/${intervalo}`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-                }).catch(function (error) {
-                    VerificaToken(error)
-                }).then((resp) => {
-                    var dado = resp.data
-                    let creditado = dado.creditado
-                    let pago = dado.pago
-                    let emAberto = dado.emAberto
-                    let atrasado = dado.atrasado
-                    let total = parseFloat(creditado) + parseFloat(pago) + parseFloat(emAberto) + parseFloat(atrasado)
-
-                    creditado = parseFloat(creditado).toFixed(2);
-                    pago = parseFloat(pago).toFixed(2);
-                    emAberto = parseFloat(emAberto).toFixed(2);
-                    atrasado = parseFloat(atrasado).toFixed(2);
-                    total = parseFloat(total).toFixed(2);
-
-                    creditado = creditado.toString().replace(".", ",");
-                    pago = pago.toString().replace(".", ",");
-                    emAberto = emAberto.toString().replace(".", ",");
-                    atrasado = atrasado.toString().replace('.', ',');
-                    
-                    setValorCreditado(creditado);
-                    setValorPago(pago);
-                    setValorEmAberto(emAberto);
-                    setValorAtrasado(atrasado);
-                });
+          })
+          .then((resp) => {
+            var dados = resp.data;
+            let creditado = 0;
+            let pago = 0;
+            let emAberto = 0;
+            let atrasado = 0;
+            let total = 0;
+      
+            for (let dado of dados) {
+              creditado += dado.creditado;
+              pago += dado.pago;
+              emAberto += dado.emAberto;
+              atrasado += dado.atrasado;
+              total += parseFloat(dado.creditado) + parseFloat(dado.pago) + parseFloat(dado.emAberto) + parseFloat(dado.atrasado);
             }
+      
+            let creditadoFormatted = creditado.toFixed(2).toString().replace(".", ",");
+            let pagoFormatted = pago.toFixed(2).toString().replace(".", ",");
+            let emAbertoFormatted = emAberto.toFixed(2).toString().replace(".", ",");
+            let atrasadoFormatted = atrasado.toFixed(2).toString().replace('.', ',');
+            let totalFormatted = total.toFixed(2).toString().replace('.', ',');
+      
+            setValorCreditado(creditadoFormatted);
+            setValorPago(pagoFormatted);
+            setValorEmAberto(emAbertoFormatted);
+            setValorAtrasado(atrasadoFormatted);
+          })
+          .catch(function (error) {
+            VerificaToken(error);
+          });
+        })
+        .catch(function (error) {
+          VerificaToken(error);
         });
-    }
+      }
+      
 
     function listagemClientes() {
     
@@ -127,7 +136,8 @@ export default function Relatorio() {
                                     pagamento: prestacao.data_pagamento,
                                     status: prestacao.situacao,
                                     preco: "R$ " + parseFloat(prestacao.preco).toFixed(2).toString().replace(".", ","),
-                                    id_cliente: cliente.id
+                                    id_cliente: cliente.id,
+                                    indice: prestacao.indice
                                 };
                                 prestacoes_var.push(prestacaoNova);
                             }
@@ -136,27 +146,37 @@ export default function Relatorio() {
                 }));
             });
 
-            var toastDisplayed = false;
+            console.log(prestacoes_var);
 
-            Promise.all(promises).then(() => {
-                const filteredData = prestacoes_var.filter((prestacao) =>
-                    prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                if (filteredData.length > 0) {
-                    setId(filteredData[0].id_cliente);
-                    listagemPrestacoes();
-                } else {
-                    setValorCreditado('0');
-                    setValorPago('0');
-                    setValorEmAberto('0');
-                    setValorAtrasado('0');
-                    if (!toastDisplayed) { // Verifica se o toast já foi exibido
-                        toast.warning("Não encontrado!");
-                        toastDisplayed = true; // Define a variável para indicar que o toast foi exibido
-                    }
+            Promise.all(promises)
+            .then(() => {
+              const filteredData = prestacoes_var.filter((prestacao) =>
+                prestacao.nome.toLowerCase().includes(searchTerm.toLowerCase())
+              );
+              
+              if (filteredData.length > 0) {
+                let ids = [];
+                for (let data of filteredData) {
+                  if (!ids.includes(data.id_cliente)) {
+                    ids.push(data.id_cliente);
+                  }
                 }
-                setData(filteredData);
+                
+                const idsFormatted = ids.join(',');
+                console.log(idsFormatted);
+                setId(idsFormatted);
+                listagemPrestacoes()
+              } else {
+                setValorCreditado('0');
+                setValorPago('0');
+                setValorEmAberto('0');
+                setValorAtrasado('0');                
+                setId(0);
+              }
+              
+              setData(filteredData);
             });
+          
           
         });
     }
@@ -310,7 +330,7 @@ export default function Relatorio() {
                             <tbody>
                                 {currentItems.map((item) => (
                                     <tr key={item.id}>
-                                        <td data-label="Prestação" className='alignTD'>{item.id}</td>
+                                        <td data-label="Prestação" className='alignTD'>{item.indice}</td>
                                         <td data-label="Cliente" className='largura-dobrada'>{item.nome}</td>
                                         <td data-label="Título" className='alignTD'>{item.titulo}</td>
                                         <td data-label="Vencimento"><input type='date' className='noInput' id='noInput'
