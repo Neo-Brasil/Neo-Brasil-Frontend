@@ -14,9 +14,10 @@ export default function ModalEscolher({ close }) {
     const [detail, setDetail] = useState();
     const [cliente, setCliente] = useState({});
     const [titulo, setTitulo] = useState({});
+    
+    const [titulos, setTitulos] = useState([]);
     const [prestacoes, setPrestacoes] = useState();
     const id_cliente = localStorage.getItem("id_cliente");
-    const id_titulo = localStorage.getItem("id_titulo");
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ', suffix: '',
@@ -44,43 +45,35 @@ export default function ModalEscolher({ close }) {
         }).then((resp) => {
             var dado = resp.data
             setCliente(dado)
-        });
-        Axios.get(`http://localhost:9080/selecionar/titulos/${id_titulo}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
-            var dado = resp.data
-            let pre_prestacoes = []
-            for (let k in dado.prestacoes) {             
-                dado.prestacoes[k].indice = parseInt(k) + 1
-                if (dado.prestacoes[k].situacao == "Em aberto" || dado.prestacoes[k].situacao == "Inadimplente") {
-                    dado.prestacoes[k].preco = dado.prestacoes[k].preco.toFixed(2);
-                    pre_prestacoes.push(dado.prestacoes[k])
-                }
-            }
-            setPrestacoes(pre_prestacoes)
-            setTitulo(dado)
+            let oldTitulos = dado.titulos
+            let titulos = []
+            oldTitulos.map((titulo) => titulos.push(titulo))
+            setTitulos(titulos);
         });
     }, [])
-
-    const [data, setData] = useState([]);
+    
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-    const itemsPerPage = 6;
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const itemsPerPage = 1;
+    const totalPages = Math.ceil(titulos.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = titulos.slice(indexOfFirstItem, indexOfLastItem)[0];
 
-    const handlePageChange = (pageNumber) => { setCurrentPage(pageNumber) }
-    const goToPreviousPage = () => { setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)) }
-    const goToNextPage = () => { setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages)) }
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
-    function togglePostModal(id_prestacao) {
+    const goToPreviousPage = () => {
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+    };
+
+    const goToNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+    };
+
+
+    function togglePostModal(id_prestacao, id_titulo) {
         localStorage.setItem("id_prestacao", id_prestacao);
         localStorage.setItem("id_titulo", id_titulo);
         setShowPostModal(!showPostModal);
@@ -89,7 +82,7 @@ export default function ModalEscolher({ close }) {
 
     return (
         <div className="modal">
-            {cliente.lenght === 0 ? (
+            {currentItems === undefined ? (
                 <div className='none'>
                     <p>Nenhum dado encontrado...</p>
                 </div>
@@ -100,6 +93,7 @@ export default function ModalEscolher({ close }) {
                     </button>
 
                     <p id="nome-registro">{cliente.nome}</p>
+                    <p id="nome-registro">{currentItems.titulo}</p>
 
                     <div className="pagination" id='escolher'>
                             <button onClick={goToPreviousPage} disabled={currentPage === 1}>
@@ -137,31 +131,32 @@ export default function ModalEscolher({ close }) {
 
                         <div className='scroll' id='line'>
                             <table>
-                                {typeof prestacoes !== 'undefined' && prestacoes.map((value) => {
-                                    return !value.envio ?
-                                        <tbody>
-                                            <tr>
-                                                <td data-label="Prestação">{value.indice}</td>
-
-                                                <td data-label="Vencimento">
-                                                    <input type='date' className='noInput' id='noInput'
-                                                    value={value.data_vencimento}></input></td>
-
-                                                <td data-label="Status">{value.situacao}</td>
-
-                                                <td data-label="Preço">
-                                                    <MaskedInput mask={currencyMask} className="noStylePreco" id='notEnd' type="text" placeholder="R$" 
-                                                    value={value.preco.toString().replace(".", ",")} disabled /></td>
-
-                                                <td data-label="Registrar">
-                                                    <Link className="action" onClick={() => togglePostModal(value.id)}>
-                                                        <FiCheckCircle color="#44A756" size={30} />
-                                                    </Link>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        : null
-                                })}
+                            {typeof currentItems.prestacoes !== 'undefined' && currentItems.prestacoes.map((value) => {
+                                if (value.situacao === 'Inadimplente' || value.situacao === 'Em aberto') {
+                                    return (
+                                    <tbody key={value.indice}>
+                                        <tr>
+                                        <td data-label="Prestação">{value.indice}</td>
+                                        <td data-label="Vencimento">
+                                            <input type='date' className='noInput' id='noInput' value={value.data_vencimento}></input>
+                                        </td>
+                                        <td data-label="Status">{value.situacao}</td>
+                                        <td data-label="Preço">
+                                            <MaskedInput mask={currencyMask} className="noStylePreco" id='notEnd' type="text" placeholder="R$" 
+                                            value={value.preco.toString().replace(".", ",")} disabled />
+                                        </td>
+                                        <td data-label="Registrar">
+                                            <Link className="action" onClick={() => togglePostModal(value.id, currentItems.id)}>
+                                            <FiCheckCircle color="#44A756" size={30} />
+                                            </Link>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                    );
+                                } else {
+                                    return null;
+                                }
+                            })}
                             </table>
                         </div>
 
