@@ -53,7 +53,6 @@ export default function ModalEscolher({ close }) {
     }, [])
     
     const [currentPage, setCurrentPage] = useState(1);
-
     const itemsPerPage = 1;
     const totalPages = Math.ceil(titulos.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -93,7 +92,6 @@ export default function ModalEscolher({ close }) {
                     </button>
 
                     <p id="nome-registro">{cliente.nome}</p>
-                    <p id="nome-registro">{currentItems.titulo}</p>
 
                     <div className="pagination" id='escolher'>
                             <button onClick={goToPreviousPage} disabled={currentPage === 1}>
@@ -101,13 +99,10 @@ export default function ModalEscolher({ close }) {
                             </button>
 
                             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                <button
-                                    key={page}
-                                    onClick={() => handlePageChange(page)}
-                                    className={currentPage === page ? 'active' : ''}
-                                >
-                                    {page}
-                                </button>
+                                <button key={page} onClick={() => handlePageChange(page)}
+                                className={`${currentPage === page ? 'active' : ''} 
+                                ${currentPage === page && 'hoverfixo'}`}>
+                                {titulos[page - 1].titulo}</button>
                             ))}
 
                             <button onClick={goToNextPage} disabled={currentPage === totalPages}>

@@ -46,3 +46,11 @@
 #escolher {
     padding-bottom: 30px;
 }
+
+#escolher button:hover{
+    background-color: #44a7567c;
+}
+
+.hoverfixo{
+    background-color: #44a7567c;
+}
