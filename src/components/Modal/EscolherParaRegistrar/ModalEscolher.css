@@ -41,5 +41,8 @@
     font-size: 1em;
     width: 10vw;    
     text-align: center;
-    padding-left: 15px;
+}
+
+#escolher {
+    padding-bottom: 30px;
 }

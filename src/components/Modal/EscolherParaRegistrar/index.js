@@ -4,7 +4,7 @@ import Axios from "axios";
 import { Link } from 'react-router-dom';
 
 import ModalRegistrar from '../Registrar';
-import { FiArrowLeft, FiCheckCircle } from "react-icons/fi";
+import { FiArrowLeft, FiCheckCircle, FiChevronRight, FiChevronLeft } from "react-icons/fi";
 import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import VerificaToken from '../../../script/verificaToken';
@@ -19,17 +19,11 @@ export default function ModalEscolher({ close }) {
     const id_titulo = localStorage.getItem("id_titulo");
 
     const currencyMask = createNumberMask({
-        prefix: 'R$ ',
-        suffix: '',
-        includeThousandsSeparator: true,
-        thousandsSeparatorSymbol: '.',
-        allowDecimal: false,
-        decimalSymbol: ',',
-        decimalLimit: 2,
-        integerLimit: 13,
-        requireDecimal: true,
-        allowNegative: false,
-        allowLeadingZeroes: false
+        prefix: 'R$ ', suffix: '',
+        includeThousandsSeparator: true, allowDecimal: false,
+        decimalSymbol: ',', decimalLimit: 2,
+        integerLimit: 13, requireDecimal: true,
+        allowNegative: false, allowLeadingZeroes: false
     });
 
     useEffect(() => {
@@ -72,6 +66,20 @@ export default function ModalEscolher({ close }) {
         });
     }, [])
 
+    const [data, setData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+
+    const itemsPerPage = 6;
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (pageNumber) => { setCurrentPage(pageNumber) }
+    const goToPreviousPage = () => { setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)) }
+    const goToNextPage = () => { setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages)) }
+
     function togglePostModal(id_prestacao) {
         localStorage.setItem("id_prestacao", id_prestacao);
         localStorage.setItem("id_titulo", id_titulo);
@@ -92,6 +100,26 @@ export default function ModalEscolher({ close }) {
                     </button>
 
                     <p id="nome-registro">{cliente.nome}</p>
+
+                    <div className="pagination" id='escolher'>
+                            <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+                                <FiChevronLeft />
+                            </button>
+
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                <button
+                                    key={page}
+                                    onClick={() => handlePageChange(page)}
+                                    className={currentPage === page ? 'active' : ''}
+                                >
+                                    {page}
+                                </button>
+                            ))}
+
+                            <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+                                <FiChevronRight />
+                            </button>
+                        </div>
 
                     <div className='container-table' id='table-parcelas'>
 
@@ -122,7 +150,7 @@ export default function ModalEscolher({ close }) {
                                                 <td data-label="Status">{value.situacao}</td>
 
                                                 <td data-label="Preço">
-                                                    <MaskedInput mask={currencyMask} className="noStylePreco" type="text" placeholder="R$" 
+                                                    <MaskedInput mask={currencyMask} className="noStylePreco" id='notEnd' type="text" placeholder="R$" 
                                                     value={value.preco.toString().replace(".", ",")} disabled /></td>
 
                                                 <td data-label="Registrar">
