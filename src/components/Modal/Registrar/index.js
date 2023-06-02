@@ -71,12 +71,12 @@ export default function ModalRegistrar({ close }) {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
                 }).catch(function (error) {
-                    // VerificaToken(error)
+                    VerificaToken(error)
                 }).then((res) => {
                     console.log(res)
                 })
-                // localStorage.setItem("update", "1")
-                // window.location.href = '/registrar_pagamento'
+                localStorage.setItem("update", "1")
+                window.location.href = '/registrar_pagamento'
             } else {
                 toast.error('Valor incorreto')
             }
