@@ -61,7 +61,9 @@ export default function ModalRegistrar({ close }) {
                     prestacoes: [
                         {
                             id: id_prestacao,
-                            data_pagamento: dataPagamento
+                            indece: prestacao.indice,
+                            data_pagamento: dataPagamento,
+                            valorPago: parseFloat(valorPago.replace(/[^\d,]/g, "").replace(",", ".")).toFixed(2)
                         }
                     ]
                 }, {
@@ -69,12 +71,12 @@ export default function ModalRegistrar({ close }) {
                         'Authorization': `Bearer ${localStorage.getItem("token")}`
                     }
                 }).catch(function (error) {
-                    VerificaToken(error)
+                    // VerificaToken(error)
                 }).then((res) => {
                     console.log(res)
                 })
-                localStorage.setItem("update", "1")
-                window.location.href = '/registrar_pagamento'
+                // localStorage.setItem("update", "1")
+                // window.location.href = '/registrar_pagamento'
             } else {
                 toast.error('Valor incorreto')
             }
