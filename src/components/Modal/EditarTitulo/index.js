@@ -28,6 +28,7 @@ export default function ModalEditarTitulo({ close }) {
         allowNegative: false, allowLeadingZeroes: false
     });
 
+    
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${id_titulo}`, {
           headers: {

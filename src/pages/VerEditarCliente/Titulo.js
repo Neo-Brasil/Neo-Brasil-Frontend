@@ -35,6 +35,42 @@ export default function Titulo({ onButtonClick }) {
 
     const [showPostModal3, setShowPostModal3] = useState(false);
     const [detail3, setDetail3] = useState();
+    
+    if(localStorage.getItem("chave") === "ok"){
+        Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).catch(function (error) {
+            VerificaToken(error)
+        }).then((resp) => {
+            let cliente = resp.data;
+            let titulos = cliente.titulos;
+            for (let k in titulos) {
+                titulos[k].index = k
+            }
+            setTitulosp(cliente.titulos)
+            if (titulos.length === 1) {
+                setId(titulos[0].id)
+                Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${titulos[0].id}`, {
+                    headers: {
+                      'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                  })
+                    .catch(function (error) {
+                      VerificaToken(error);
+                    })
+                    .then((resp) => {
+                      let titulo = resp.data;
+                      console.log(titulo);
+                      setTitulop(titulo.titulo);
+                      setPrecop(titulo.preco);
+                      setDataVenc(titulo.data_vencimento);
+                      setPrazop(titulo.tempo_credito);
+                    });
+            }
+        });
+    }
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ', suffix: '',

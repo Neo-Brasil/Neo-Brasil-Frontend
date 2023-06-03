@@ -4,12 +4,15 @@ import MaskedInput from "react-text-mask";
 import { createNumberMask } from "text-mask-addons";
 import { FiArrowLeft } from 'react-icons/fi';
 import VerificaToken from '../../../script/verificaToken';
+import { useParams } from 'react-router-dom';
 
 export default function ModalCadastrarTitulo({ close }) {
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
     const [dataVenc, setDataVenc] = useState('');
     const [prazo, setPrazo] = useState('');
+    const { id } = useParams();
+    const id_usuario = localStorage.getItem("id_usuario");
 
     const currencyMask = createNumberMask({
         prefix: 'R$ ', suffix: '',
@@ -20,7 +23,27 @@ export default function ModalCadastrarTitulo({ close }) {
     });
 
     function handleSubmit() {
-        console.log('oi')
+        Axios.post(`http://localhost:9080/cadastrar/titulos/${id_usuario}`, {
+            id: id,
+            titulos: [
+                {
+                    titulo: titulo,
+                    preco:parseFloat(preco.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
+                    tempo_credito:prazo,
+                    data_vencimento: dataVenc
+                }
+            ] 
+        }, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).catch(function (error) {
+            // VerificaToken(error)
+        }).then((res) => {
+            console.log(res)
+        })
+        localStorage.setItem("chave", "ok")
+        close()
     }
 
     return (
