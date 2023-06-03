@@ -84,11 +84,29 @@ export default function Titulo({ onButtonClick }) {
                 titulos[k].index = k
             }
             setTitulosp(cliente.titulos)
+            if (titulos.length === 1) {
+                setId(titulos[0].id)
+                Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${titulos[0].id}`, {
+                    headers: {
+                      'Authorization': `Bearer ${localStorage.getItem("token")}`
+                    }
+                  })
+                    .catch(function (error) {
+                      VerificaToken(error);
+                    })
+                    .then((resp) => {
+                      let titulo = resp.data;
+                      console.log(titulo);
+                      setTitulop(titulo.titulo);
+                      setPrecop(titulo.preco);
+                      setDataVenc(titulo.data_vencimento);
+                      setPrazop(titulo.tempo_credito);
+                    });
+            }
         });
     }, [])
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    function handleSubmit() {
         var endereco = localStorage.getItem("endereco");
         endereco = JSON.parse(endereco);
 
@@ -96,16 +114,16 @@ export default function Titulo({ onButtonClick }) {
         var cpf = localStorage.getItem("cpf");
         var email = localStorage.getItem("email");
 
-        Axios.put(`http://localhost:9080/atualizar/${id_usuario}`, {
+        Axios.put(`http://localhost:9080/atualizar/${id_usuario}` , {
             id: id,
             nome: nome,
             cpf: cpf,
             email: email,
             endereco: endereco
-        }, {
+        },{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
+                }
         }).catch(function (error) {
             VerificaToken(error)
         }).then((res) => {
@@ -115,9 +133,32 @@ export default function Titulo({ onButtonClick }) {
         localStorage.removeItem('cpf');
         localStorage.removeItem('email');
         localStorage.removeItem('endereco');
-
+        
         localStorage.setItem("update", "1")
         window.location.href = '/clientes_cadastrados'
+    }
+
+    function handleSubmit2() {
+        Axios.put(`http://localhost:9080/atualizar/${id_usuario}`, {
+            id: id,
+            titulos: [
+                {
+                    id: id_titulo,
+                    titulo: titulo,
+                    preco:parseFloat(preco.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
+                    tempo_credito:prazo
+                }
+            ] 
+        }, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).catch(function (error) {
+            VerificaToken(error)
+        }).then((res) => {
+            console.log(res)
+        })
+        handleSubmit()
     }
 
     return (
@@ -125,7 +166,7 @@ export default function Titulo({ onButtonClick }) {
             {titulosP === undefined ? (
                 <p>Nenhum dado encontrado...</p>
             ) : (
-                tituloP.length !== 1 ? (
+                titulosP.length > 1 ? (
                     <div>
 
                     <h3>Dados dos planos</h3>
@@ -203,26 +244,25 @@ export default function Titulo({ onButtonClick }) {
                     <form onSubmit={handleSubmit} id="camposTitulo">
         
                         <div className='plano'>
-                            <div class="campo">
-                                <input class="fixo" type="text" placeholder={titulo}
-                                    value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-                                <span>Título</span>
+                        <div class="campo">
+                            <input class="fixo" type="text" placeholder={tituloP} 
+                                value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                            <span>Título</span>
                             </div>
-        
+
                             <div class="campo">
-                                <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ " + preco}
-                                    value={preco} onChange={(e) => setPreco(e.target.value)} />
+                                <MaskedInput mask={currencyMask} id="preco" className="fixo" type="text" placeholder={"R$ "+precoP} value={preco} onChange={(e) => setPreco(e.target.value)} />
                                 <span>Preço</span>
                             </div>
                             <div class="campo">
-                                <input class="fixo" type="date" placeholder={dataVenc}
+                                <input class="fixo" type="date"  placeholder={dataVencP} 
                                     value={dataVenc} onChange={(e) => setDataVenc(e.target.value)} />
                                 <span>Data de vencimento</span>
                             </div>
-        
+
                             <div class="campo">
                                 <input class="fixo" id="prazo"
-                                    type="number" min={0} max={5} placeholder={prazo}
+                                    type="number" min={0} max={5} placeholder={prazoP} 
                                     value={prazo} onChange={(e) => setPrazo(e.target.value)} />
                                 <span>Prazo de crédito (em dias)</span>
                             </div>
@@ -238,8 +278,8 @@ export default function Titulo({ onButtonClick }) {
         
                                 <div className='button-color' id="button-add">
                                     <button className='button-green'
-                                        onClick={() => handleSubmit()}>
-                                        PRÓXIMO</button>
+                                        onClick={() => handleSubmit2()}>
+                                        SALVAR</button>
                                 </div>
                             </div>
                         </div>
