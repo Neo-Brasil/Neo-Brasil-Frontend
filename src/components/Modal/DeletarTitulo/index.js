@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 import Axios from "axios";
 import VerificaToken from '../../../script/verificaToken';
+import { useParams } from 'react-router-dom';
 
 export default function ModalDeletarTitulo({close}){
     const id_titulo = localStorage.getItem("id_titulo")
     const id_usuario = localStorage.getItem("id_usuario");
     const [titulo, setTitulo] = useState({})
+    const { id } = useParams();
 
 
     useEffect(() => {
@@ -25,17 +27,17 @@ export default function ModalDeletarTitulo({close}){
       }, []); 
 
     function handleSubmit() {
-        Axios.delete(`http://localhost:9080/excluir/titulo/${id_titulo}/${id_usuario}`,{
+        Axios.delete(`http://localhost:9080/excluir/titulo/${id}/${id_titulo}/${id_usuario}`,{
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
                 }
         }).catch(function (error) {
-            // VerificaToken(error)
+            VerificaToken(error)
         }).then((res) => {
             console.log(res)
         }) 
-        // localStorage.setItem("update", "1")
-        // window.location.reload(true);
+        localStorage.setItem("chave", "ok")
+        close()
     }
 
     return(
