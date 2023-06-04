@@ -51,7 +51,6 @@ export default function Titulo({ onButtonClick }) {
             }
             setTitulosp(cliente.titulos)
             if (titulos.length === 1) {
-                setId(titulos[0].id)
                 Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${titulos[0].id}`, {
                     headers: {
                       'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -70,6 +69,7 @@ export default function Titulo({ onButtonClick }) {
                     });
             }
         });
+        localStorage.removeItem("chave")
     }
 
     const currencyMask = createNumberMask({
@@ -108,39 +108,40 @@ export default function Titulo({ onButtonClick }) {
 
     useEffect(() => {
         Axios.get(`http://127.0.0.1:9080/selecionar/cliente/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        }).catch(function (error) {
-            VerificaToken(error)
-        }).then((resp) => {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+          .then((resp) => {
             let cliente = resp.data;
             let titulos = cliente.titulos;
             for (let k in titulos) {
-                titulos[k].index = k
+              titulos[k].index = k;
             }
-            setTitulosp(cliente.titulos)
+            setTitulosp(cliente.titulos);
             if (titulos.length === 1) {
-                setId(titulos[0].id)
-                Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${titulos[0].id}`, {
-                    headers: {
-                      'Authorization': `Bearer ${localStorage.getItem("token")}`
-                    }
-                  })
-                    .catch(function (error) {
-                      VerificaToken(error);
-                    })
-                    .then((resp) => {
-                      let titulo = resp.data;
-                      console.log(titulo);
-                      setTitulop(titulo.titulo);
-                      setPrecop(titulo.preco);
-                      setDataVenc(titulo.data_vencimento);
-                      setPrazop(titulo.tempo_credito);
-                    });
+              setId(titulos[0].id);
+              Axios.get(`http://127.0.0.1:9080/selecionar/titulos/${titulos[0].id}`, {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+              })
+                .then((resp) => {
+                  let titulo = resp.data;
+                  setTitulop(titulo.titulo);
+                  setPrecop(titulo.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                  setDataVenc(titulo.data_vencimento);
+                  setPrazop(titulo.tempo_credito);
+                })
+                .catch(function (error) {
+                  VerificaToken(error);
+                });
             }
-        });
-    }, [])
+          })
+          .catch(function (error) {
+            VerificaToken(error);
+          });
+      });      
 
     function handleSubmit() {
         var endereco = localStorage.getItem("endereco");

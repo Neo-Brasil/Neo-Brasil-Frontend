@@ -42,11 +42,11 @@ export default function ModalEditarTitulo({ close }) {
             let titulo = resp.data;
             console.log(titulo);
             setTitulop(titulo.titulo);
-            setPrecop(titulo.preco);
+            setPrecop(titulo.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             setDataVenc(titulo.data_vencimento);
             setPrazop(titulo.tempo_credito);
           });
-      }, []);      
+      });      
 
     function handleSubmit() {
         Axios.put(`http://localhost:9080/atualizar/${id_usuario}`, {
@@ -55,7 +55,7 @@ export default function ModalEditarTitulo({ close }) {
                 {
                     id: id_titulo,
                     titulo: titulo,
-                    preco:parseFloat(preco.replace('R$ ','').replace('.','').replace('.','').replace('.','').replace('.','').replace(',','.')),
+                    preco: parseFloat(preco.replace("R$ ", "").replace(",", ".")),
                     tempo_credito:prazo
                 }
             ] 
