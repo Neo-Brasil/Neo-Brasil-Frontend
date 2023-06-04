@@ -68,6 +68,8 @@ export default function ModalEditarTitulo({ close }) {
         }).then((res) => {
             console.log(res)
         })
+        localStorage.setItem("chave", "ok")
+        close()
     }
 
     return (
