@@ -226,7 +226,7 @@ export default function Titulo({ onButtonClick }) {
                                 <tbody>
                                     <tr>
                                         <td data-label="Título">{titulo.titulo}</td>
-                                        <td data-label="Preço">{titulo.preco}</td>
+                                        <td data-label="Preço">{titulo.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                                         <td data-label="Vencimento"><input type='date' className='noInput' 
                                             value={titulo.data_vencimento}></input></td>
                                         <td data-label="Prazo">{titulo.tempo_credito}</td>
