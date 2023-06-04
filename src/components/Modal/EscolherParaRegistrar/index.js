@@ -48,6 +48,11 @@ export default function ModalEscolher({ close }) {
             let oldTitulos = dado.titulos
             let titulos = []
             oldTitulos.map((titulo) => titulos.push(titulo))
+            for(let titulo of titulos){
+                for(let pretacao of titulo.prestacoes){
+                    pretacao.preco = pretacao.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                }
+            }
             setTitulos(titulos);
         });
     }, [])
@@ -137,8 +142,7 @@ export default function ModalEscolher({ close }) {
                                         </td>
                                         <td data-label="Status">{value.situacao}</td>
                                         <td data-label="Preço">
-                                            <MaskedInput mask={currencyMask} className="noStylePreco" id='notEnd' type="text" placeholder="R$" 
-                                            value={value.preco.toString().replace(".", ",")} disabled />
+                                            R$ {value.preco}
                                         </td>
                                         <td data-label="Registrar">
                                             <Link className="action" onClick={() => togglePostModal(value.id, currentItems.id)}>

@@ -390,6 +390,7 @@ export default function Relatorio() {
 
                     </div>
 
+                    {intervalo === "Todas" ?(
 
                     <div className='financialArea'>
                         <div className='values'>
@@ -416,6 +417,40 @@ export default function Relatorio() {
                             </i>
                         </div>
                     </div>
+
+                    ):intervalo === "Vencimento" ?(
+                    <div className='financialArea'>
+                        <div className='values'>
+                            <i>Total em aberto: <MaskedInput mask={currencyMask}
+                                className="nostyleinput" type="text" disabled
+                                value={valorEmAberto.toString().replace(".", ",")}></MaskedInput>
+                            </i>
+
+                            <i>Total atrasado: <MaskedInput mask={currencyMask}
+                                className="nostyleinput" type="text" disabled
+                                value={valorAtrasado.toString().replace(".", ",")}></MaskedInput>
+                            </i>
+                        </div>
+                    </div>
+                    ):intervalo === "Pagamento" ?(
+                    <div className='financialArea'>
+                        <div className='values'>
+                            <i>Total pago: <MaskedInput mask={currencyMask}
+                                className="nostyleinput" type="text" disabled
+                                value={valorPago.toString().replace(".", ",")}></MaskedInput>
+                            </i>
+                        </div>
+                    </div>
+                    ):intervalo === "Crédito" ?(
+                        <div className='financialArea'>
+                            <div className='values'>
+                                <i>Total creditado: <MaskedInput mask={currencyMask}
+                                    className="nostyleinput" type="text" disabled
+                                    value={valorCreditado.toString().replace(".", ",")}></MaskedInput>
+                                </i>
+                            </div>
+                        </div>  
+                    ): null}
                 </div>
             )}
         </div>
