@@ -40,7 +40,6 @@ export default function ModalEditarTitulo({ close }) {
           })
           .then((resp) => {
             let titulo = resp.data;
-            console.log(titulo);
             setTitulop(titulo.titulo);
             setPrecop(titulo.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
             setDataVenc(titulo.data_vencimento);

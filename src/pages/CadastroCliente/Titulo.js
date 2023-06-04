@@ -85,8 +85,6 @@ export default function Titulo({ onButtonClick }) {
       var emailCliente = localStorage.getItem('email');
 
       let valor = preco.replace('R$ ', '').replace('.', '');
-
-      console.log(titulos);
     } else {
       toast.error('Preencha os campos corretamente');
     }

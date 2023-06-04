@@ -61,7 +61,6 @@ export default function Titulo({ onButtonClick }) {
                     })
                     .then((resp) => {
                       let titulo = resp.data;
-                      console.log(titulo);
                       setTitulop(titulo.titulo);
                       setPrecop(titulo.preco);
                       setDataVenc(titulo.data_vencimento);
@@ -81,7 +80,6 @@ export default function Titulo({ onButtonClick }) {
     });
 
     function togglePostModal(id_titulo) {
-        console.log(id);
         localStorage.setItem("id_titulo", id_titulo);
         localStorage.setItem("id_cliente", id);
         setShowPostModal(!showPostModal);
@@ -89,14 +87,12 @@ export default function Titulo({ onButtonClick }) {
     }
 
     function togglePostModal2(id) {
-        console.log(id);
         localStorage.setItem("id_titulo", id);
         setShowPostModal2(!showPostModal2);
         setDetail2();
     }
 
     function togglePostModal3(id) {
-        console.log(id);
         localStorage.setItem("id_titulo", id);
         setShowPostModal3(!showPostModal3);
         setDetail3();

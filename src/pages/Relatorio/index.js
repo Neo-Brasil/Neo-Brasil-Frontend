@@ -146,8 +146,6 @@ export default function Relatorio() {
                 }));
             });
 
-            console.log(prestacoes_var);
-
             Promise.all(promises)
             .then(() => {
               const filteredData = prestacoes_var.filter((prestacao) =>
@@ -163,7 +161,6 @@ export default function Relatorio() {
                 }
                 
                 const idsFormatted = ids.join(',');
-                console.log(idsFormatted);
                 setId(idsFormatted);
                 listagemPrestacoes()
               } else {

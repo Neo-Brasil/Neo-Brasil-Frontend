@@ -28,8 +28,6 @@ export default function ModalDelCliente({close}){
         });
       }, [])
 
-    console.log(localStorage.getItem("token"));
-
     function handleSubmit() {
         Axios.delete(`http://localhost:9080/excluir/cliente/${id}/${id_usuario}`,{
             headers: {

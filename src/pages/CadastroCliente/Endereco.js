@@ -15,7 +15,6 @@ export default function Endereco({ onButtonClick }) {
     const checkCEP = (e) => {
         const cep = e.target.value.replace(/\D/g, '');
         fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
-            console.log(data);
             setRua(data.logradouro);
             setBairro(data.bairro);
             setCity(data.localidade);
