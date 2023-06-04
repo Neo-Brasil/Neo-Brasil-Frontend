@@ -12,10 +12,10 @@ import Header from '../../components/Header';
 import VerificaToken from '../../script/verificaToken';
 
 export default function Relatorio() {
-    const [valorCreditado, setValorCreditado] = useState(0);
-    const [valorPago, setValorPago] = useState(0);
-    const [valorEmAberto, setValorEmAberto] = useState(0);
-    const [valorAtrasado, setValorAtrasado] = useState(0);
+    const [valorCreditado, setValorCreditado] = useState(0.00);
+    const [valorPago, setValorPago] = useState(0.00);
+    const [valorEmAberto, setValorEmAberto] = useState(0.00);
+    const [valorAtrasado, setValorAtrasado] = useState(0.00);
     const [id, setId] = useState(0);
 
     const [intervalo, setIntervalo] = useState('Todas');
